@@ -30,3 +30,7 @@ out/
 
 # Misc
 *.log
+
+# Kanji generator cache (downloaded at runtime)
+scripts/kanji_cache/words/
+scripts/kanji_cache/generate.log

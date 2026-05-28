@@ -151,10 +151,16 @@ def parse_kanji_md(level: str) -> list[dict]:
         num = int(header.group(1))
         character = re.sub(r"（.+?）", "", header.group(2)).strip()
 
+        meaning_match = re.search(r"\*\*Nghĩa:\*\* (.+)", section)
+        strokes_match = re.search(r"\*\*Số nét:\*\* (\d+)", section)
         on_match = re.search(r"\*\*Cách đọc âm On:\*\* (.+)", section)
         kun_match = re.search(r"\*\*Cách đọc âm Kun:\*\* (.+)", section)
         onyomi = [p.strip() for p in re.split(r"[、,]", on_match.group(1))] if on_match else []
         kunyomi = [p.strip() for p in re.split(r"[、,]", kun_match.group(1))] if kun_match else []
+        if on_match and on_match.group(1).strip() == "—":
+            onyomi = []
+        if kun_match and kun_match.group(1).strip() == "—":
+            kunyomi = []
 
         examples = []
         for row in re.finditer(
@@ -166,13 +172,23 @@ def parse_kanji_md(level: str) -> list[dict]:
                 "meaning": row.group(3).strip(),
             })
 
+        meaning = (
+            meaning_match.group(1).strip()
+            if meaning_match
+            else KANJI_MEANINGS.get(character, character)
+        )
+        strokes = (
+            int(strokes_match.group(1))
+            if strokes_match
+            else KANJI_STROKES.get(character, 10)
+        )
         result.append({
             "slug": f"k-{level.lower()}-{num}",
             "character": character,
-            "meaning": KANJI_MEANINGS.get(character, character),
+            "meaning": meaning,
             "onyomi": onyomi,
             "kunyomi": kunyomi,
-            "strokes": KANJI_STROKES.get(character, 10),
+            "strokes": strokes,
             "level": level,
             "examples": examples,
         })

@@ -1,6 +1,6 @@
 # Kanji theo cấp độ JLPT
 
-Thư mục chứa 5 file kanji từ N5 đến N1.
+Thư mục chứa 5 file kanji từ N5 đến N1 (danh sách JLPT đầy đủ từ nguồn mở).
 
 ## Cấu trúc mỗi kanji
 
@@ -8,6 +8,8 @@ Thư mục chứa 5 file kanji từ N5 đến N1.
 ## [STT]. [Kanji]
 
 - **Từ kanji:** ...
+- **Nghĩa:** ...
+- **Số nét:** ...
 - **Cách đọc âm On:** ...
 - **Cách đọc âm Kun:** ...
 
@@ -18,17 +20,28 @@ Thư mục chứa 5 file kanji từ N5 đến N1.
 
 ## Danh sách file
 
-| File | Cấp độ | Số kanji | Mô tả |
-|------|--------|----------|-------|
-| [n5.md](./n5.md) | N5 | 10 | Kanji cơ bản: 日, 人, 水, 火, 木... |
-| [n4.md](./n4.md) | N4 | 10 | Kanji sơ cấp: 語, 試, 運, 映, 音... |
-| [n3.md](./n3.md) | N3 | 10 | Kanji trung cấp: 影, 響, 努, 環, 政... |
-| [n2.md](./n2.md) | N2 | 10 | Kanji trung cao: 議, 論, 構, 権, 責... |
-| [n1.md](./n1.md) | N1 | 10 | Kanji cao cấp: 憲, 法, 倫, 覇, 妥... |
+| File | Cấp độ | Số kanji (ước lượng) | Mô tả |
+|------|--------|----------------------|-------|
+| [n5.md](./n5.md) | N5 | 80 | Kanji cơ bản nhất |
+| [n4.md](./n4.md) | N4 | 170 | Kanji sơ cấp |
+| [n3.md](./n3.md) | N3 | 370 | Kanji trung cấp |
+| [n2.md](./n2.md) | N2 | 380 | Kanji trung cao |
+| [n1.md](./n1.md) | N1 | 1135 | Kanji cao cấp |
+
+**Tổng:** khoảng 2135 kanji (theo [jlpt-kanji-dictionary](https://github.com/AnchorI/jlpt-kanji-dictionary)).
+
+## Tạo lại dữ liệu
+
+```bash
+pip install deep-translator
+python scripts/generate_kanji_files.py
+python scripts/import_content.py --force
+```
+
+Nguồn: AnchorI/jlpt-kanji-dictionary, kanjiapi.dev (từ vựng ghép), Smallsan/jlpt_kanji_json_msgpack (cách đọc).
 
 ## Ghi chú
 
-- Mỗi kanji có **10 từ mẫu ghép** kèm cách đọc và nghĩa tiếng Việt
-- Âm **On** (音読み): cách đọc Hán–Nhật
-- Âm **Kun** (訓読み): cách đọc Thuần–Nhật
-- Có thể mở rộng thêm kanji vào từng file theo cùng cấu trúc
+- Mỗi kanji có **10 từ mẫu ghép** (ưu tiên từ thông dụng từ JMdict qua kanjiapi.dev)
+- Nghĩa tiếng Việt được dịch tự động từ tiếng Anh
+- Âm **On** (音読み) và **Kun** (訓読み) lấy từ kanjiapi.dev
