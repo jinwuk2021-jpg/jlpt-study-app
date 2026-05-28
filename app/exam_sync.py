@@ -30,7 +30,8 @@ def sync_official_exams() -> dict:
             exam.duration = data["duration"]
             exam.passing_score = data["passing_score"]
             exam.sections = json.dumps(sections_payload, ensure_ascii=False)
-            Question.query.filter_by(exam_id=exam.id).delete()
+            Question.query.filter_by(exam_id=exam.id).delete(synchronize_session=False)
+            db.session.flush()
             updated += 1
         else:
             exam = Exam(
@@ -46,10 +47,20 @@ def sync_official_exams() -> dict:
             db.session.flush()
             imported += 1
 
-        for i, q in enumerate(data["questions"]):
+        seen_ids: set[str] = set()
+        sort_order = 0
+        for q in data["questions"]:
+            raw_id = (q.get("id") or "").strip()
+            qid = raw_id.lower()
+            if qid.startswith("q"):
+                qid = qid[1:]
+            qid = qid or str(sort_order + 1)
+            if qid in seen_ids:
+                continue
+            seen_ids.add(qid)
             db.session.add(
                 Question(
-                    slug=f"{data['slug']}-{q['id']}",
+                    slug=f"{data['slug']}-q{sort_order + 1}",
                     exam_id=exam.id,
                     section=q["section"],
                     type=q["type"],
@@ -61,9 +72,10 @@ def sync_official_exams() -> dict:
                     explanation=q.get("explanation", ""),
                     passage=q.get("passage", ""),
                     points=q.get("points", 1),
-                    sort_order=i,
+                    sort_order=sort_order,
                 )
             )
+            sort_order += 1
 
-    db.session.commit()
+        db.session.commit()
     return {"imported": imported, "updated": updated, "total": imported + updated}

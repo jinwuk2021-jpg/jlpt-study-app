@@ -1,30 +1,47 @@
 {% extends "dashboard/layout.html" %}
-{% from "macros.html" import level_badge %}
+{% from "macros.html" import level_badge, level_accordion %}
 {% block title %}Listening{% endblock %}
 {% block dashboard_content %}
 <div class="space-y-6">
-  <div><h1 class="text-2xl font-bold">Listening Practice</h1><p class="text-gray-500">JLPT-style listening comprehension</p></div>
-  <div class="grid gap-6 lg:grid-cols-3">
-    <div class="lg:col-span-2 rounded-2xl border bg-white p-8 shadow-sm">
-      <div class="flex items-center gap-3 mb-6"><h2 class="text-xl font-semibold">{{ item.title }}</h2>{{ level_badge(item.level) }}</div>
-      <div class="rounded-2xl bg-gradient-to-r from-brand-50 to-indigo-50 p-8 flex items-center gap-6">
-        <button class="h-16 w-16 rounded-full bg-brand-600 text-white text-2xl flex items-center justify-center">▶</button>
-        <div class="flex-1"><div class="h-2 rounded-full bg-gray-200"><div class="h-full w-1/3 rounded-full bg-brand-500"></div></div>
-        <div class="flex justify-between text-xs text-gray-400 mt-1"><span>0:00</span><span>{{ item.duration // 60 }}:{{ '%02d'|format(item.duration % 60) }}</span></div></div>
+  <div>
+    <h1 class="text-2xl font-bold">Listening Practice</h1>
+    <p class="text-gray-500">Bài nghe JLPT — nhóm theo cấp độ N</p>
+  </div>
+
+  <div class="space-y-4">
+    {% for group in groups %}
+    {% set is_active = group.level == active_level %}
+    {% call level_accordion(group.level, 'Khóa ' ~ group.level, group.total ~ ' bài nghe', open=is_active) %}
+      {% if group.total == 0 %}
+      <p class="text-sm text-gray-500 text-center py-6">Chưa có bài nghe cho cấp này.</p>
+      {% elif is_active and item %}
+      <div class="grid gap-6 lg:grid-cols-3">
+        <div class="lg:col-span-2 rounded-2xl border bg-gray-50 p-8">
+          <div class="flex items-center gap-3 mb-6"><h2 class="text-xl font-semibold">{{ item.title }}</h2>{{ level_badge(item.level) }}</div>
+          <div class="rounded-2xl bg-gradient-to-r from-brand-50 to-indigo-50 p-8 flex items-center gap-6">
+            <button type="button" class="h-16 w-16 rounded-full bg-brand-600 text-white text-2xl flex items-center justify-center">▶</button>
+            <div class="flex-1"><div class="h-2 rounded-full bg-gray-200"><div class="h-full w-1/3 rounded-full bg-brand-500"></div></div>
+            <div class="flex justify-between text-xs text-gray-400 mt-1"><span>0:00</span><span>{{ item.duration // 60 }}:{{ '%02d'|format(item.duration % 60) }}</span></div></div>
+          </div>
+          <div x-data="{ show: false }" class="mt-6">
+            <button type="button" @click="show = !show" class="rounded-xl border px-4 py-2 text-sm bg-white">📝 <span x-text="show ? 'Ẩn' : 'Hiện'"></span> transcript</button>
+            <div x-show="show" x-cloak class="mt-4 rounded-xl border bg-white p-4"><p class="font-jp text-lg">{{ item.transcript }}</p><p class="text-sm text-gray-500 mt-2">{{ item.transcript_en }}</p></div>
+          </div>
+        </div>
+        <div class="space-y-3">
+          <h3 class="font-semibold text-sm">Thư viện {{ group.level }}</h3>
+          {% for l in group.entries %}
+          <a href="?level={{ group.level }}&i={{ loop.index0 }}" class="block rounded-2xl border bg-white p-4 {% if loop.index0 == selected %}ring-2 ring-brand-500{% endif %} hover:shadow-sm">
+            <div class="flex justify-between"><div><p class="font-medium text-sm">{{ l.title }}</p><p class="text-xs text-gray-400">{{ l.duration }}s</p></div></div>
+          </a>
+          {% endfor %}
+        </div>
       </div>
-      <div x-data="{ show: false }" class="mt-6">
-        <button @click="show = !show" class="rounded-xl border px-4 py-2 text-sm">📝 <span x-text="show ? 'Hide' : 'Show'"></span> Transcript</button>
-        <div x-show="show" class="mt-4 rounded-xl border p-4"><p class="font-jp text-lg">{{ item.transcript }}</p><p class="text-sm text-gray-500 mt-2">{{ item.transcript_en }}</p></div>
-      </div>
-    </div>
-    <div class="space-y-3">
-      <h3 class="font-semibold">Listening Library</h3>
-      {% for l in listening_list %}
-      <a href="?i={{ loop.index0 }}" class="block rounded-2xl border bg-white p-4 {% if loop.index0 == selected %}ring-2 ring-brand-500{% endif %} hover:shadow-sm">
-        <div class="flex justify-between"><div><p class="font-medium text-sm">{{ l.title }}</p><p class="text-xs text-gray-400">{{ l.duration }}s</p></div>{{ level_badge(l.level) }}</div>
-      </a>
-      {% endfor %}
-    </div>
+      {% else %}
+      <p class="text-sm text-gray-500 text-center py-4"><a href="?level={{ group.level }}" class="text-brand-600 font-medium">Mở {{ group.total }} bài nghe {{ group.level }}</a></p>
+      {% endif %}
+    {% endcall %}
+    {% endfor %}
   </div>
 </div>
 {% endblock %}

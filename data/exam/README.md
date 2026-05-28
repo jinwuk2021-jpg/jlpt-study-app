@@ -20,6 +20,17 @@ data/exam/
 
 - `**/_pdf_*/` — ảnh render từ PDF khi OCR (tạo bằng `scripts/extract_jlpt_pdf.py`, xóa sau khi xong)
 
+## Nhập hàng loạt (2014+)
+
+Danh sách đề cần nhập từ `~/Downloads/N1` … `N5`: `scripts/exam_import_manifest.yaml` (bỏ qua đề trước 2014).
+
+```bash
+python scripts/extract_docx_text.py /path/to/exam.docx /tmp/exam.txt
+python scripts/build_n1_exam_from_docx.py /path/to/exam.docx --year 2015 --month 12
+python scripts/extract_jlpt_pdf.py /path/to/真题.pdf --out data/exam/n2/_pdf_pages
+python scripts/sync_exams.py
+```
+
 ## Thêm đề mới
 
 1. `python scripts/extract_jlpt_pdf.py /path/to/真题.pdf --out data/exam/n2/_pdf_…_pages`

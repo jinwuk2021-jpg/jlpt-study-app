@@ -1,5 +1,6 @@
 """Static content for landing page and helpers."""
 
+LEVEL_ORDER = ("N5", "N4", "N3", "N2", "N1")
 LEVEL_COLORS = {"N5": "emerald", "N4": "teal", "N3": "blue", "N2": "indigo", "N1": "purple"}
 
 JLPT_LEVELS = [

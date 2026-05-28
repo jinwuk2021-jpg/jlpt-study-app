@@ -1,22 +1,35 @@
 {% extends "dashboard/layout.html" %}
-{% from "macros.html" import level_badge %}
+{% from "macros.html" import level_badge, level_accordion %}
 {% block title %}Leaderboard{% endblock %}
 {% block dashboard_content %}
 <div class="space-y-6">
-  <div><h1 class="text-2xl font-bold">Leaderboard</h1><p class="text-gray-500">Compete with learners worldwide</p></div>
-  <div class="rounded-2xl border bg-white shadow-sm">
-    <div class="p-4 border-b font-semibold">Global Rankings</div>
-    <div class="divide-y">
-      {% for entry in leaderboard %}
-      <div class="flex items-center gap-4 p-4 {% if entry.user_id == user.id %}bg-brand-50/50{% endif %}">
-        <span class="text-lg font-bold w-8 text-center {% if entry.rank <= 3 %}text-brand-600{% else %}text-gray-400{% endif %}">#{{ entry.rank }}</span>
-        <div class="h-10 w-10 rounded-full bg-gray-100 flex items-center justify-center font-semibold text-sm">{{ entry.name[0] }}</div>
-        <div class="flex-1"><p class="font-medium text-sm">{{ entry.name }}{% if entry.user_id == user.id %} <span class="text-brand-600">(You)</span>{% endif %}</p>
-        <div class="flex gap-2 mt-0.5">{{ level_badge(entry.level) }}<span class="text-xs text-gray-500">🔥 {{ entry.streak }}</span></div></div>
-        <p class="font-bold text-sm">⚡ {{ entry.xp|int|string|replace(',', ',') }}</p>
-      </div>
-      {% endfor %}
-    </div>
+  <div>
+    <h1 class="text-2xl font-bold">Leaderboard</h1>
+    <p class="text-gray-500">Xếp hạng theo cấp độ JLPT — bấm từng khóa N để xem</p>
   </div>
+
+  {% if leaderboard_by_level %}
+  <div class="space-y-4">
+    {% for group in leaderboard_by_level %}
+    {% call level_accordion(group.level, 'Khóa ' ~ group.level, group.total ~ ' học viên', open=(group.level == open_level)) %}
+      <div class="divide-y rounded-xl border overflow-hidden">
+        {% for entry in group.entries %}
+        <div class="flex items-center gap-4 p-4 bg-white {% if entry.user_id == user.id %}bg-brand-50/50{% endif %}">
+          <span class="text-lg font-bold w-8 text-center {% if entry.rank <= 3 %}text-brand-600{% else %}text-gray-400{% endif %}">#{{ entry.rank }}</span>
+          <div class="h-10 w-10 rounded-full bg-gray-100 flex items-center justify-center font-semibold text-sm">{{ entry.name[0] }}</div>
+          <div class="flex-1">
+            <p class="font-medium text-sm">{{ entry.name }}{% if entry.user_id == user.id %} <span class="text-brand-600">(You)</span>{% endif %}</p>
+            <span class="text-xs text-gray-500">🔥 {{ entry.streak }}</span>
+          </div>
+          <p class="font-bold text-sm">⚡ {{ entry.xp|int }}</p>
+        </div>
+        {% endfor %}
+      </div>
+    {% endcall %}
+    {% endfor %}
+  </div>
+  {% else %}
+  <div class="rounded-2xl border bg-white p-8 text-center text-gray-500">Chưa có dữ liệu xếp hạng.</div>
+  {% endif %}
 </div>
 {% endblock %}

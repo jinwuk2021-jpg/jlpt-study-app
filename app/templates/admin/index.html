@@ -1,5 +1,5 @@
 {% extends "dashboard/layout.html" %}
-{% from "macros.html" import level_badge %}
+{% from "macros.html" import level_badge, level_accordion %}
 {% block title %}Admin{% endblock %}
 {% block dashboard_content %}
 <div class="space-y-6">
@@ -22,14 +22,22 @@
       {% endfor %}</tbody>
     </table>
   </div>
-  <div class="rounded-2xl border bg-white p-6 shadow-sm">
+  <div>
     <h3 class="font-semibold mb-4">Manage Exams</h3>
-    {% for exam in exams %}
-    <div class="flex items-center justify-between border-b py-3 last:border-0">
-      <div>{{ level_badge(exam.level) }} <span class="font-medium ml-2">{{ exam.title }}</span><span class="text-sm text-gray-400 ml-2">{{ exam.questions.count() }} questions</span></div>
-      <div class="flex gap-2"><button class="text-sm text-gray-500 hover:text-brand-600">Edit</button><button class="text-sm text-red-500">Delete</button></div>
+    <div class="space-y-3">
+      {% for group in exams_by_level %}
+      {% if group.total > 0 %}
+      {% call level_accordion(group.level, 'Khóa ' ~ group.level, group.total ~ ' đề', open=(group.level == open_level)) %}
+        {% for exam in group.entries %}
+        <div class="flex items-center justify-between border-b py-3 last:border-0">
+          <div><span class="font-medium">{{ exam.title }}</span><span class="text-sm text-gray-400 ml-2">{{ exam.questions.count() }} questions</span></div>
+          <div class="flex gap-2"><button type="button" class="text-sm text-gray-500 hover:text-brand-600">Edit</button><button type="button" class="text-sm text-red-500">Delete</button></div>
+        </div>
+        {% endfor %}
+      {% endcall %}
+      {% endif %}
+      {% endfor %}
     </div>
-    {% endfor %}
   </div>
 </div>
 {% endblock %}

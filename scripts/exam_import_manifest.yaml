@@ -1,0 +1,195 @@
+# Exams to import from ~/Downloads/N1..N5 (year >= 2014 only)
+# status: pending | done | skipped
+
+exams:
+  - level: N1
+    year: 2014
+    month: 7
+    source: "/Users/huynhha/Downloads/N1/2014年/2014年7月/2014年7月N1真题及答案.docx"
+    answer: "/Users/huynhha/Downloads/N1/2014年/2014年7月/2014年7月N1解析-1.pdf"
+    status: pending
+  - level: N1
+    year: 2014
+    month: 12
+    source: "/Users/huynhha/Downloads/N1/2014年/2014年12月/2014年12月N1能力考真题(2).docx"
+    status: pending
+  - level: N1
+    year: 2015
+    month: 7
+    source: "/Users/huynhha/Downloads/N1/2015.07/2015-7真题.pdf"
+    answer: "/Users/huynhha/Downloads/N1/2015.07/2015-7答案.pdf"
+    status: pending
+  - level: N1
+    year: 2015
+    month: 12
+    source: "/Users/huynhha/Downloads/N1/2015.12/2015年12月日语N1真题及答案.docx"
+    status: done
+    output: data/exam/n1/JLPT_N1_2015_12.md
+
+  - level: N2
+    year: 2014
+    month: 7
+    source: "/Users/huynhha/Downloads/N2/N2-2014-07/N2-2014-07-真题.pdf"
+    answer: "/Users/huynhha/Downloads/N2/N2-2014-07/N2-2014-07-答案.pdf"
+    status: pending
+  - level: N2
+    year: 2014
+    month: 12
+    source: "/Users/huynhha/Downloads/N2/N2-2014-12/N2-2014-12-真题.pdf"
+    answer: "/Users/huynhha/Downloads/N2/N2-2014-12/N2-2014-12-答案.pdf"
+    status: pending
+  - level: N2
+    year: 2015
+    month: 7
+    source: "/Users/huynhha/Downloads/N2/N2-2015-07/N2-2015-07-真题.pdf"
+    answer: "/Users/huynhha/Downloads/N2/N2-2015-07/N2-2015-07-答案.pdf"
+    status: pending
+  - level: N2
+    year: 2015
+    month: 12
+    source: "/Users/huynhha/Downloads/N2/N2-2015-12/N2-2015-12-真题.pdf"
+    answer: "/Users/huynhha/Downloads/N2/N2-2015-12/N2-2015-12-答案.pdf"
+    status: pending
+  - level: N2
+    year: 2016
+    month: 7
+    source: "/Users/huynhha/Downloads/N2/N2-2016-07/N2-2016-07-真题.pdf"
+    answer: "/Users/huynhha/Downloads/N2/N2-2016-07/N2-2016-07-答案.pdf"
+    status: pending
+  - level: N2
+    year: 2016
+    month: 12
+    source: "/Users/huynhha/Downloads/N2/N2-2016-12/N2-2016-12-真题.pdf"
+    answer: "/Users/huynhha/Downloads/N2/N2-2016-12/N2-2016-12-答案.pdf"
+    status: pending
+  - level: N2
+    year: 2017
+    month: 7
+    source: "/Users/huynhha/Downloads/N2/N2-2017-07/N2-2017-07-真题.pdf"
+    answer: "/Users/huynhha/Downloads/N2/N2-2017-07/N2-2017-07-答案.pdf"
+    status: pending
+  - level: N2
+    year: 2017
+    month: 12
+    source: "/Users/huynhha/Downloads/N2/N2-2017-12/N2-2017-12-真题.pdf"
+    answer: "/Users/huynhha/Downloads/N2/N2-2017-12/N2-2017-12-答案.pdf"
+    status: pending
+  - level: N2
+    year: 2020
+    month: 12
+    source: "/Users/huynhha/Downloads/N2/2020/2020年12月N2真题+答案.pdf"
+    status: pending
+  - level: N2
+    year: 2021
+    month: 7
+    source: "/Users/huynhha/Downloads/N2/2021.7/2021年7月N2真题.pdf"
+    status: pending
+
+  - level: N3
+    year: 2014
+    month: 7
+    source: "/Users/huynhha/Downloads/N3/N3-2014-07/N3-2014-07-真题.pdf"
+    answer: "/Users/huynhha/Downloads/N3/N3-2014-07/N3-2014-07-答案.pdf"
+    status: pending
+  - level: N3
+    year: 2014
+    month: 12
+    source: "/Users/huynhha/Downloads/N3/N3-2014-12/N3-2014-12-真题.pdf"
+    answer: "/Users/huynhha/Downloads/N3/N3-2014-12/N3-2014-12-答案.pdf"
+    status: pending
+  - level: N3
+    year: 2015
+    month: 12
+    source: "/Users/huynhha/Downloads/N3/N3-2015-12/N3-2015-12-真题.pdf"
+    answer: "/Users/huynhha/Downloads/N3/N3-2015-12/N3-2015-12-答案.pdf"
+    status: pending
+  - level: N3
+    year: 2016
+    month: 7
+    source: "/Users/huynhha/Downloads/N3/N3-2016-07/N3-2016-07-真题.pdf"
+    answer: "/Users/huynhha/Downloads/N3/N3-2016-07/N3-2016-07-答案.pdf"
+    status: pending
+  - level: N3
+    year: 2016
+    month: 12
+    source: "/Users/huynhha/Downloads/N3/N3-2016-12/N3-2016-12-真题.pdf"
+    answer: "/Users/huynhha/Downloads/N3/N3-2016-12/N3-2016-12-答案.pdf"
+    status: pending
+  - level: N3
+    year: 2017
+    month: 7
+    source: "/Users/huynhha/Downloads/N3/N3-2017-07/N3-2017-07-真题.pdf"
+    answer: "/Users/huynhha/Downloads/N3/N3-2017-07/N3-2017-07-答案.pdf"
+    status: pending
+  - level: N3
+    year: 2017
+    month: 12
+    source: "/Users/huynhha/Downloads/N3/N3-2017-12/N3-2017-12-真题.pdf"
+    answer: "/Users/huynhha/Downloads/N3/N3-2017-12/N3-2017-12-答案.pdf"
+    status: pending
+  - level: N3
+    year: 2018
+    month: 7
+    source: "/Users/huynhha/Downloads/N3/N3-2018-07/N3-2018-07-真题.pdf"
+    answer: "/Users/huynhha/Downloads/N3/N3-2018-07/N3-2018-07-答案.pdf"
+    status: pending
+  - level: N3
+    year: 2018
+    month: 12
+    source: "/Users/huynhha/Downloads/N3/N3-2018-12/N3-2018-12-真题.pdf"
+    answer: "/Users/huynhha/Downloads/N3/N3-2018-12/N3-2018-12-答案.pdf"
+    status: pending
+  - level: N3
+    year: 2019
+    month: 7
+    source: "/Users/huynhha/Downloads/N3/N3-2019-07/N3-2019-07-真题.pdf"
+    answer: "/Users/huynhha/Downloads/N3/N3-2019-07/N3-2019-07-答案.pdf"
+    status: pending
+  - level: N3
+    year: 2019
+    month: 12
+    source: "/Users/huynhha/Downloads/N3/2019.12/2019年12月N3真题 (2).pdf"
+    answer: "/Users/huynhha/Downloads/N3/2019.12/2019.12答案.pdf"
+    status: pending
+  - level: N3
+    year: 2020
+    month: 12
+    source: "/Users/huynhha/Downloads/N3/2020/2020年12月日本語能力試験N3真题.pdf"
+    answer: "/Users/huynhha/Downloads/N3/2020/N3 2020.12 答案+解析+听力原文.pdf"
+    status: pending
+  - level: N3
+    year: 2021
+    month: 7
+    source: "/Users/huynhha/Downloads/N3/2021.7/2021年7月N3真题.pdf"
+    status: pending
+
+  - level: N4
+    year: 2014
+    month: 7
+    source: "/Users/huynhha/Downloads/N4/N4-2010-2014年-高清打印版/2014年7月.pdf"
+    status: pending
+  - level: N4
+    year: 2017
+    month: 7
+    source: "/Users/huynhha/Downloads/N4/N4-2017年7月/N4 2017.7真题"
+    answer: "/Users/huynhha/Downloads/N4/N4-2017年7月/N4答案.pdf"
+    note: "Split PDFs N4V/N4G/N4R/N4L in folder"
+    status: pending
+  - level: N4
+    year: 2018
+    month: 7
+    source: "/Users/huynhha/Downloads/N4/N4-2018年-高清打印版.pdf"
+    status: pending
+
+  - level: N5
+    year: 2017
+    month: 7
+    source: "/Users/huynhha/Downloads/N5/N5-2017.7/N5真题2017.7"
+    answer: "/Users/huynhha/Downloads/N5/N5-2017.7/N5答案.pdf"
+    note: "Split PDFs N5V/N5G/N5R/N5L"
+    status: pending
+  - level: N5
+    year: 2018
+    month: 7
+    source: "/Users/huynhha/Downloads/N5/N5-2018年-真题+解析+听力原文-高清打印版.pdf"
+    status: pending

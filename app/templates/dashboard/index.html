@@ -1,5 +1,5 @@
 {% extends "dashboard/layout.html" %}
-{% from "macros.html" import level_badge, progress_bar, btn_primary %}
+{% from "macros.html" import level_badge, progress_bar, btn_primary, level_accordion %}
 {% block title %}Dashboard{% endblock %}
 {% block dashboard_content %}
 <div class="space-y-8">
@@ -40,6 +40,23 @@
         </div>
         {{ progress_bar(m.progress, m.target) }}
       </div>
+      {% endfor %}
+    </div>
+  </div>
+
+  <div>
+    <h3 class="font-semibold mb-4">Học tập theo cấp độ JLPT</h3>
+    <div class="space-y-3">
+      {% for block in study_by_level %}
+      {% call level_accordion(block.level, 'Khóa ' ~ block.level, 'Từ vựng · Kanji · Ngữ pháp · Nghe · Thi thử', open=(block.level == open_level)) %}
+        <div class="grid gap-2 sm:grid-cols-2 lg:grid-cols-3">
+          {% for link in block.links %}
+          <a href="{{ link.url }}" class="flex items-center gap-3 rounded-xl border bg-gray-50 px-4 py-3 text-sm font-medium text-gray-700 hover:border-brand-300 hover:bg-brand-50/50 transition-colors">
+            <span class="text-lg">{{ link.icon }}</span> {{ link.label }}
+          </a>
+          {% endfor %}
+        </div>
+      {% endcall %}
       {% endfor %}
     </div>
   </div>

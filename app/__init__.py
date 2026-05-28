@@ -33,7 +33,8 @@ def create_app():
         db.create_all()
         from app.seed import seed_database
         seed_database()
-        from app.exam_sync import sync_official_exams
-        sync_official_exams()
+        if not os.environ.get("JLPT_SKIP_EXAM_SYNC"):
+            from app.exam_sync import sync_official_exams
+            sync_official_exams()
 
     return app

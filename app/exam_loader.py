@@ -79,6 +79,32 @@ def _question_range_to_ids(q_range: str) -> list[str]:
     return [f"{prefix}{i}" for i in range(s_num, e_num + 1)]
 
 
+def _enrich_sections_with_instructions(text: str, sections: list) -> list:
+    """Attach blockquote instructions from ### 問題N headers to YAML sections (in order)."""
+    if not sections:
+        return sections
+    blocks = list(
+        re.finditer(
+            r"^### [^\n]*問題(\d+)[｜|][^\n]*\n(.*?)(?=\n### |\n## [^#]|\Z)",
+            text,
+            re.MULTILINE | re.DOTALL,
+        )
+    )
+    enriched = []
+    for i, sec in enumerate(sections):
+        row = dict(sec)
+        if i < len(blocks):
+            body = blocks[i].group(2)
+            lines = [
+                ln[1:].strip()
+                for ln in body.splitlines()
+                if ln.startswith(">") and not ln.startswith(">>")
+            ]
+            row["instruction"] = " ".join(lines).strip()
+        enriched.append(row)
+    return enriched
+
+
 def _build_section_map(meta: dict) -> dict[str, dict]:
     """Map Q1 / L3 -> {id, label, group}."""
     mapping: dict[str, dict] = {}
@@ -315,6 +341,8 @@ def parse_exam_file(path: Path) -> dict | None:
     if is_listening_only:
         phases = [phases[1]]
 
+    sections_meta = _enrich_sections_with_instructions(text, meta.get("sections", []))
+
     return {
         "slug": _slug_from_path(path),
         "title": f"JLPT {level} — {title_date} 真題" + ("（聴解）" if is_listening_only else ""),
@@ -326,7 +354,7 @@ def parse_exam_file(path: Path) -> dict | None:
         "date": date,
         "audio": meta.get("audio", ""),
         "source_pdf": meta.get("source_pdf", ""),
-        "sections_meta": meta.get("sections", []),
+        "sections_meta": sections_meta,
         "phases": phases,
         "questions": questions,
     }

@@ -1,43 +1,64 @@
 {% extends "dashboard/layout.html" %}
-{% from "macros.html" import level_badge %}
+{% from "macros.html" import level_badge, level_accordion %}
 {% block title %}Vocabulary{% endblock %}
 {% block dashboard_content %}
 <div class="space-y-6">
-  <div class="flex items-center justify-between gap-4">
-    <div><h1 class="text-2xl font-bold">Vocabulary</h1><p class="text-gray-500">Flashcards with spaced repetition</p></div>
-    {{ level_badge(user_level) }}
-  </div>
-  {% if vocab %}
-  <div class="mx-auto max-w-lg">
-    <div class="rounded-2xl border bg-white p-8 text-center shadow-sm min-h-[280px] flex flex-col items-center justify-center" x-data="{ flipped: false }" @click="flipped = !flipped">
-      {{ level_badge(vocab.level) }}
-      <div x-show="!flipped">
-        <p class="font-jp text-5xl font-bold mt-4">{{ vocab.word }}</p>
-        <p class="text-lg text-gray-500 mt-2 font-jp">{{ vocab.reading }}</p>
-        <p class="text-xs text-gray-400 mt-6">Click to reveal meaning</p>
-      </div>
-      <div x-show="flipped" style="display:none">
-        <p class="text-2xl font-semibold text-brand-600 mt-4">{{ vocab.meaning }}</p>
-        <p class="font-jp text-sm text-gray-600 mt-4">{{ vocab.example }}</p>
-        <p class="text-xs text-gray-400 mt-1">{{ vocab.example_meaning }}</p>
-      </div>
-    </div>
-    <div class="mt-4 flex justify-center gap-4">
-      <a href="?i={{ (current_idx - 1) % all_vocab|length }}" class="rounded-xl border px-4 py-2 text-sm">← Prev</a>
-      <span class="text-sm text-gray-400 self-center">{{ current_idx + 1 }} / {{ all_vocab|length }}</span>
-      <a href="?i={{ (current_idx + 1) % all_vocab|length }}" class="rounded-xl border px-4 py-2 text-sm">Next →</a>
-    </div>
-  </div>
   <div>
-    <h2 class="font-semibold mb-4">Review Queue (SRS)</h2>
-    <div class="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
-      {% for v in all_vocab %}
-      <div class="rounded-2xl border bg-white p-4 flex justify-between items-center"><div><p class="font-jp font-semibold">{{ v.word }}</p><p class="text-sm text-gray-500">{{ v.meaning }}</p></div>{{ level_badge(v.level) }}</div>
-      {% endfor %}
-    </div>
+    <h1 class="text-2xl font-bold">Vocabulary</h1>
+    <p class="text-gray-500">Flashcards theo cấp độ JLPT — bấm từng khóa N để học</p>
   </div>
-  {% else %}
-  <div class="rounded-2xl border bg-white p-8 text-center text-gray-500">Chưa có từ vựng cho {{ user_level }}. Chạy <code class="text-sm">python scripts/import_content.py --force</code> để nạp dữ liệu.</div>
-  {% endif %}
+
+  <div class="space-y-4">
+    {% for group in groups %}
+    {% set is_active = group.level == active_level %}
+    {% call level_accordion(group.level, 'Khóa ' ~ group.level, group.total ~ ' từ vựng', open=is_active) %}
+      {% if group.total == 0 %}
+      <p class="text-sm text-gray-500 text-center py-6">Chưa có từ vựng. Chạy <code class="text-xs">python scripts/import_content.py --force</code></p>
+      {% elif is_active and vocab %}
+      <div class="mx-auto max-w-lg">
+        <div class="rounded-2xl border bg-white p-8 text-center shadow-sm min-h-[280px] flex flex-col items-center justify-center" x-data="{ flipped: false }" @click="flipped = !flipped">
+          {{ level_badge(vocab.level) }}
+          <div x-show="!flipped">
+            <p class="font-jp text-5xl font-bold mt-4">{{ vocab.word }}</p>
+            <p class="text-lg text-gray-500 mt-2 font-jp">{{ vocab.reading }}</p>
+            <p class="text-xs text-gray-400 mt-6">Click to reveal meaning</p>
+          </div>
+          <div x-show="flipped" x-cloak>
+            <p class="text-2xl font-semibold text-brand-600 mt-4">{{ vocab.meaning }}</p>
+            <p class="font-jp text-sm text-gray-600 mt-4">{{ vocab.example }}</p>
+            <p class="text-xs text-gray-400 mt-1">{{ vocab.example_meaning }}</p>
+          </div>
+        </div>
+        <div class="mt-4 flex justify-center gap-4">
+          <a href="?level={{ group.level }}&i={{ (current_idx - 1) % group.total }}" class="rounded-xl border px-4 py-2 text-sm">← Prev</a>
+          <span class="text-sm text-gray-400 self-center">{{ current_idx + 1 }} / {{ group.total }}</span>
+          <a href="?level={{ group.level }}&i={{ (current_idx + 1) % group.total }}" class="rounded-xl border px-4 py-2 text-sm">Next →</a>
+        </div>
+      </div>
+      <div class="mt-6">
+        <h4 class="font-semibold mb-3 text-sm text-gray-700">Danh sách từ</h4>
+        <div class="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
+          {% for v in group.entries %}
+          <a href="?level={{ group.level }}&i={{ loop.index0 }}" class="rounded-2xl border bg-white p-4 flex justify-between items-center hover:border-brand-300 {% if is_active and loop.index0 == current_idx %}ring-2 ring-brand-500{% endif %}">
+            <div><p class="font-jp font-semibold">{{ v.word }}</p><p class="text-sm text-gray-500">{{ v.meaning }}</p></div>
+          </a>
+          {% endfor %}
+        </div>
+      </div>
+      {% elif is_active %}
+      <p class="text-sm text-gray-500 text-center py-6">Chọn từ trong danh sách bên dưới.</p>
+      <div class="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
+        {% for v in group.entries %}
+        <a href="?level={{ group.level }}&i={{ loop.index0 }}" class="rounded-2xl border bg-white p-4 flex justify-between items-center hover:border-brand-300">
+          <div><p class="font-jp font-semibold">{{ v.word }}</p><p class="text-sm text-gray-500">{{ v.meaning }}</p></div>
+        </a>
+        {% endfor %}
+      </div>
+      {% else %}
+      <p class="text-sm text-gray-500 text-center py-4">Mở khóa này hoặc dùng <a href="?level={{ group.level }}" class="text-brand-600 font-medium">?level={{ group.level }}</a> để học {{ group.total }} từ.</p>
+      {% endif %}
+    {% endcall %}
+    {% endfor %}
+  </div>
 </div>
 {% endblock %}

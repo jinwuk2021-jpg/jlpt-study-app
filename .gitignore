@@ -37,3 +37,6 @@ scripts/kanji_cache/generate.log
 
 # JLPT PDF render cache (OCR working files)
 data/exam/**/_pdf_*/
+data/exam/_tmp_*
+data/exam/**/_cache/
+data/exam/**/_build_cache/

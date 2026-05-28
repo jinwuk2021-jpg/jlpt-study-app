@@ -11,6 +11,29 @@
 <a href="{{ href }}" class="inline-flex items-center justify-center gap-2 rounded-xl bg-gradient-to-r from-brand-600 to-indigo-600 px-6 py-3 text-sm font-semibold text-white shadow-lg hover:-translate-y-0.5 transition-all {{ extra }}">{{ text }}</a>
 {% endmacro %}
 
+{% macro level_accordion(level, title, subtitle='', open=false) %}
+<section class="rounded-2xl border bg-white shadow-sm overflow-hidden" x-data="{ open: {{ 'true' if open else 'false' }} }">
+  <button
+    type="button"
+    @click="open = !open"
+    class="w-full flex items-center justify-between gap-3 px-5 py-4 bg-gray-50 border-b text-left hover:bg-gray-100 transition-colors"
+    :aria-expanded="open"
+  >
+    <div class="flex items-center gap-3 min-w-0">
+      {{ level_badge(level) }}
+      <div class="min-w-0">
+        <h3 class="font-semibold text-gray-900">{{ title }}</h3>
+        {% if subtitle %}<p class="text-xs text-gray-500">{{ subtitle }}</p>{% endif %}
+      </div>
+    </div>
+    <span class="shrink-0 text-sm font-medium text-gray-600" x-text="open ? 'Thu gọn ▲' : 'Xem chi tiết ▼'"></span>
+  </button>
+  <div x-show="open" x-cloak x-transition class="border-t">
+    {{ caller() }}
+  </div>
+</section>
+{% endmacro %}
+
 {% macro progress_bar(value, max=100) %}
 {% set pct = (value / max * 100) if max > 0 else 0 %}
 {% if pct > 100 %}{% set pct = 100 %}{% endif %}

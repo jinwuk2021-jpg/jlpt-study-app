@@ -1,98 +1,137 @@
 {% extends "base.html" %}
-{% from "macros.html" import level_badge %}
 {% block title %}{{ exam.title }}{% endblock %}
+{% block head %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/exam.css') }}">
+{% endblock %}
 {% block body %}
-<div class="min-h-screen flex flex-col bg-gray-950 text-gray-100" x-data="examTimer({{ timer_seconds }}, {{ 'true' if has_next_phase else 'false' }})">
-  <header class="sticky top-0 z-50 border-b border-gray-800 bg-gray-900 px-4 py-3 flex items-center justify-between gap-2 flex-wrap">
-    <div class="flex items-center gap-3 min-w-0">
-      {{ level_badge(exam.level) }}
-      <div class="min-w-0">
-        <p class="text-xs text-gray-400 truncate">{{ exam.title }}</p>
-        <p class="text-sm font-medium text-amber-300/90">{{ phase_info.label }}</p>
-      </div>
-    </div>
-    <div class="flex items-center gap-2 px-4 py-1.5 rounded-full font-mono text-lg font-bold bg-gray-800" :class="time <= 300 ? 'text-red-400 animate-pulse' : 'text-gray-100'">
-      ⏱ <span x-text="formatTime(time)"></span>
-    </div>
-    <button type="submit" form="exam-form" name="action" value="submit" class="rounded-xl bg-red-600 px-4 py-2 text-sm font-semibold text-white shrink-0" onclick="return confirm('Nộp bài và xem kết quả?')">Nộp bài</button>
-  </header>
+<div class="exam-shell" x-data="examTimer({{ timer_seconds }}, {{ 'true' if has_next_phase else 'false' }})">
+  <div class="exam-layout">
+    <main class="exam-main">
+      {% if current_group %}
+      <header class="exam-problem-header">
+        <h2>
+          {{ current_group.title }}
+          {% if current_group.label %}<span class="exam-problem-label">｜{{ current_group.label }}</span>{% endif %}
+        </h2>
+        {% if current_group.instruction %}
+        <p class="exam-instruction font-jp">{{ current_group.instruction }}</p>
+        {% endif %}
+      </header>
+      {% endif %}
 
-  {% if is_official and exam.audio and phase_key == 'listening' %}
-  <div class="bg-indigo-950/80 border-b border-indigo-800 px-4 py-2 text-center text-sm text-indigo-200">
-    🔊 Phần 聴解 — phát file: <strong>{{ exam.audio }}</strong> (tự chuẩn bị trên máy)
-  </div>
-  {% endif %}
-
-  <div class="flex flex-1 overflow-hidden">
-    <aside class="w-48 lg:w-64 border-r border-gray-800 bg-gray-900 overflow-y-auto p-4 hidden sm:block">
-      <p class="text-xs font-semibold uppercase text-gray-500 mb-3">{{ phase_info.label_vi }} ({{ answers|length }}/{{ phase_total }})</p>
-      <div class="grid grid-cols-5 gap-1.5">
-        {% for item in phase_nav %}
-        <a href="{{ url_for('exams.take', exam_id=exam.id, q=item.idx) }}"
-           class="relative h-9 rounded-lg text-xs font-medium flex items-center justify-center
-           {% if item.idx == q_idx %}ring-2 ring-brand-500{% endif %}
-           {% if item.q.id in answers %}bg-emerald-500/20 text-emerald-400{% else %}bg-gray-800 text-gray-400 hover:bg-gray-700{% endif %}">
-          {{ item.q.display_id }}
-          {% if item.q.id in marked %}<span class="absolute -top-1 -right-1 text-amber-400 text-[8px]">🚩</span>{% endif %}
-        </a>
-        {% endfor %}
-      </div>
-    </aside>
-
-    <main class="flex-1 overflow-y-auto p-4 lg:p-8">
-      <form id="exam-form" method="POST" action="{{ url_for('exams.save_answer', exam_id=exam.id) }}" class="mx-auto max-w-2xl">
-        <input type="hidden" name="question_id" value="{{ question.id }}">
-        <input type="hidden" name="q_idx" value="{{ q_idx }}">
-
-        <div class="rounded-2xl border border-gray-800 bg-gray-900 p-6 lg:p-8">
-          <div class="flex items-center justify-between mb-6 flex-wrap gap-2">
-            <div class="flex gap-2 flex-wrap">
-              <span class="rounded-full bg-blue-900/50 px-2.5 py-0.5 text-xs text-blue-300">{{ question.display_id }}</span>
-              {% if question.section_label %}<span class="rounded-full bg-gray-800 px-2.5 py-0.5 text-xs text-gray-400">{{ question.section_label }}</span>{% endif %}
-            </div>
-            <button type="submit" name="mark" value="1" class="text-xs text-gray-500 hover:text-amber-400">🚩 Đánh dấu</button>
-          </div>
-
-          {% if question.audio_only %}
-          <p class="text-sm text-amber-200/80 mb-4 rounded-lg bg-amber-900/20 border border-amber-800/50 px-3 py-2">問題用紙に選択肢は印刷されていません。音声を聞いて、1〜{% if question.options|length == 3 %}3{% else %}4{% endif %}を選んでください。</p>
-          {% endif %}
+      <form id="exam-form" class="exam-main-form" method="POST" action="{{ url_for('exams.save_answer', exam_id=exam.id) }}">
+      <div class="exam-body">
+        {% if is_official and exam.audio and phase_key == 'listening' %}
+        <p class="exam-audio-hint">🔊 聴解 — {{ exam.audio }}</p>
+        {% endif %}
+          <input type="hidden" name="question_id" value="{{ question.id }}">
+          <input type="hidden" name="q_idx" value="{{ q_idx }}">
 
           {% if question.passage %}
-          <div class="rounded-xl bg-gray-800/50 p-4 mb-6 text-sm font-jp leading-relaxed max-h-64 overflow-y-auto whitespace-pre-wrap">{{ question.passage }}</div>
+          <div class="exam-passage font-jp">{{ question.passage }}</div>
           {% endif %}
-          {% if question.question_ja and question.question_ja != question.question %}
-          <p class="font-jp text-lg mb-2 leading-relaxed">{{ question.question_ja }}</p>
-          {% endif %}
-          <p class="text-base font-medium mb-6 {% if question.question_ja %}text-gray-300{% else %}font-jp text-lg{% endif %}">{{ question.question }}</p>
 
-          <div class="space-y-3">
-            {% for opt in question.options %}
-            <label class="flex items-center w-full rounded-xl border p-4 text-sm cursor-pointer transition-all
-              {% if answers.get(question.id)|string == loop.index0|string %}border-brand-500 bg-brand-500/10 ring-1 ring-brand-500{% else %}border-gray-700 hover:border-gray-600 hover:bg-gray-800/50{% endif %}">
-              <input type="radio" name="answer" value="{{ loop.index0 }}" {% if answers.get(question.id)|string == loop.index0|string %}checked{% endif %} class="sr-only">
-              <span class="inline-flex h-6 w-6 shrink-0 items-center justify-center rounded-full text-xs font-bold mr-3 {% if answers.get(question.id)|string == loop.index0|string %}bg-brand-600 text-white{% else %}bg-gray-700{% endif %}">{{ loop.index }}</span>
-              <span class="font-jp">{{ opt }}</span>
-            </label>
-            {% endfor %}
+          {% if question.audio_only %}
+          <p class="exam-audio-hint font-jp">問題用紙に選択肢は印刷されていません。音声を聞いて選択してください。</p>
+          {% endif %}
+
+          <div class="exam-question-box">
+            <span class="exam-q-num">{{ question_number(question.display_id) }}</span>
+            <div class="exam-q-text font-jp">
+              {% set qtext = question.question_ja if question.question_ja else question.question %}
+              {{ highlight_blanks(qtext, question.section_label, current_group.instruction if current_group else '')|safe }}
+            </div>
           </div>
-        </div>
 
-        <div class="mt-8 flex items-center justify-between gap-4">
-          <button type="submit" name="action" value="prev" {% if local_idx == 0 %}disabled{% endif %} class="rounded-xl border border-gray-700 px-4 py-2 text-sm disabled:opacity-30">← Trước</button>
-          <span class="text-sm text-gray-500 text-center">{{ question.display_id }} · {{ local_idx + 1 }}/{{ phase_total }}</span>
-          {% if has_next_phase and local_idx >= phase_total - 1 %}
-          <button type="submit" name="action" value="next_phase" class="rounded-xl bg-amber-600 px-4 py-2 text-sm font-semibold text-white">聴解へ →</button>
-          {% elif local_idx < phase_total - 1 %}
-          <button type="submit" name="action" value="next" class="rounded-xl bg-brand-600 px-4 py-2 text-sm font-semibold text-white">Sau →</button>
-          {% else %}
-          <button type="submit" name="action" value="submit" class="rounded-xl bg-emerald-600 px-4 py-2 text-sm font-semibold text-white">Hoàn thành ✓</button>
-          {% endif %}
-        </div>
+          <div class="exam-answer-block">
+            <div class="exam-options-grid" data-option-count="{{ question.options|length }}">
+              {% for opt in question.options %}
+              {% set picked = answers.get(question.id) == loop.index0 %}
+              <label class="exam-option-card {% if picked %}is-selected{% endif %}">
+                <input type="radio" name="answer" value="{{ loop.index0 }}" class="sr-only" {% if picked %}checked{% endif %}>
+                <span class="exam-option-num">{{ loop.index }}</span>
+                <span class="exam-option-text font-jp">{{ opt }}</span>
+              </label>
+              {% endfor %}
+            </div>
+          </div>
+      </div>
+
+      <div class="exam-nav-dock" aria-label="Điều hướng câu hỏi">
+        <button type="submit" name="action" value="prev" class="exam-nav-btn" {% if local_idx == 0 %}disabled{% endif %} aria-label="Câu trước">←</button>
+        {% if has_next_phase and local_idx >= phase_total - 1 %}
+        <button type="submit" name="action" value="next_phase" class="exam-nav-btn is-primary">聴解へ →</button>
+        {% elif local_idx < phase_total - 1 %}
+        <button type="submit" name="action" value="next" class="exam-nav-btn" aria-label="Câu sau">→</button>
+        {% else %}
+        <button type="submit" name="action" value="submit" class="exam-nav-btn is-primary" onclick="return confirm('Nộp bài?')">Nộp bài ✓</button>
+        {% endif %}
+      </div>
       </form>
     </main>
+
+    <aside class="exam-sidebar" style="position:relative">
+      <button type="submit" form="exam-form" name="action" value="submit" class="exam-exit-btn" title="Thoát / nộp bài" onclick="return confirm('Thoát và nộp bài?')">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>
+      </button>
+
+      <div class="exam-sidebar-head">
+        <p class="exam-sidebar-title font-jp">{{ phase_info.label }}</p>
+        <div class="exam-sidebar-meta">
+          <div class="exam-timer" :class="time <= 300 ? 'is-low' : ''">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+            <span x-text="formatTime(time)"></span>
+          </div>
+          <button type="submit" form="exam-form" name="mark" value="1" class="text-xs text-zinc-500 hover:text-amber-400" title="Đánh dấu">🚩</button>
+        </div>
+      </div>
+
+      <div class="exam-sidebar-scroll" id="exam-answer-sheet">
+        {% for group in problem_groups %}
+        <div class="exam-sheet-group">
+          <p class="exam-sheet-group-title">{{ group.title }}</p>
+          {% for item in group.questions %}
+          {% set q = item.q %}
+          {% set ans = answers.get(q.id) %}
+          {% set is_current = item.idx == q_idx %}
+          {% set is_marked = q.id in marked %}
+          <div class="exam-sheet-row" data-q-idx="{{ item.idx }}">
+            <a href="{{ url_for('exams.take', exam_id=exam.id, q=item.idx) }}"
+               class="exam-sheet-qnum {% if is_current %}is-current{% elif is_marked %}is-marked{% elif ans is not none %}is-answered{% endif %}">
+              {{ question_number(q.display_id) }}
+            </a>
+            <div class="exam-sheet-opts">
+              {% for opt in q.options %}
+              <button type="button"
+                class="exam-sheet-opt {% if ans == loop.index0 %}is-picked{% endif %} {% if is_current %}is-current-row{% endif %}"
+                data-pick-answer
+                data-qid="{{ q.id }}"
+                data-q-idx="{{ item.idx }}"
+                data-answer="{{ loop.index0 }}"
+                aria-label="Câu {{ question_number(q.display_id) }} — đáp án {{ loop.index }}">
+                {{ loop.index }}
+              </button>
+              {% endfor %}
+            </div>
+          </div>
+          {% endfor %}
+        </div>
+        {% endfor %}
+      </div>
+
+      <div class="exam-sidebar-actions">
+        <button type="submit" form="exam-form" name="action" value="submit" class="exam-submit-btn" onclick="return confirm('Nộp bài và xem kết quả?')">Nộp bài</button>
+      </div>
+    </aside>
   </div>
 </div>
 {% endblock %}
 {% block scripts %}
 <script src="{{ url_for('static', filename='js/exam.js') }}"></script>
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const cur = document.querySelector('.exam-sheet-qnum.is-current');
+    if (cur) cur.scrollIntoView({ block: 'nearest', behavior: 'smooth' });
+  });
+</script>
 {% endblock %}

@@ -1,9 +1,26 @@
 {% extends "dashboard/layout.html" %}
+{% from "macros.html" import level_accordion %}
 {% block title %}AI Tutor{% endblock %}
 {% block dashboard_content %}
 <div class="space-y-6">
-  <div><h1 class="text-2xl font-bold">AI Japanese Tutor</h1><p class="text-gray-500">Your 24/7 personal Japanese learning assistant</p></div>
-  <div class="rounded-2xl border bg-white shadow-sm flex flex-col h-[600px]">
+  <div>
+    <h1 class="text-2xl font-bold">AI Japanese Tutor</h1>
+    <p class="text-gray-500">Gợi ý theo cấp độ JLPT — bấm từng khóa N để xem câu hỏi mẫu</p>
+  </div>
+
+  <div class="space-y-3">
+    {% for block in tutor_by_level %}
+    {% call level_accordion(block.level, 'Khóa ' ~ block.level, 'Gợi ý học ' ~ block.level, open=(block.level == open_level)) %}
+      <form method="POST" class="flex flex-wrap gap-2">
+        {% for prompt in block.prompts %}
+        <button type="submit" name="message" value="{{ prompt }}" class="rounded-full bg-gray-100 px-4 py-2 text-sm text-gray-700 hover:bg-brand-50 hover:text-brand-700 border border-transparent hover:border-brand-200">{{ prompt }}</button>
+        {% endfor %}
+      </form>
+    {% endcall %}
+    {% endfor %}
+  </div>
+
+  <div class="rounded-2xl border bg-white shadow-sm flex flex-col h-[560px]">
     <div class="flex-1 overflow-y-auto p-4 space-y-4">
       {% for msg in messages %}
       <div class="flex gap-3 {% if msg.role == 'user' %}justify-end{% endif %}">
@@ -16,13 +33,8 @@
     </div>
     <form method="POST" class="border-t p-4">
       <div class="flex gap-2">
-        <textarea name="message" rows="1" placeholder="Ask about grammar, vocabulary, or JLPT tips..." class="flex-1 rounded-xl border px-4 py-3 text-sm resize-none focus:border-brand-500 focus:outline-none"></textarea>
-        <button type="submit" class="rounded-xl bg-brand-600 px-4 py-3 text-white text-sm font-semibold">Send</button>
-      </div>
-      <div class="mt-2 flex flex-wrap gap-2">
-        {% for s in ['Explain て-form', 'What are particles?', 'N3 study plan'] %}
-        <button type="submit" name="message" value="{{ s }}" class="rounded-full bg-gray-100 px-3 py-1 text-xs text-gray-600 hover:bg-gray-200">{{ s }}</button>
-        {% endfor %}
+        <textarea name="message" rows="1" placeholder="Hỏi về ngữ pháp, từ vựng, hoặc mẹo thi JLPT..." class="flex-1 rounded-xl border px-4 py-3 text-sm resize-none focus:border-brand-500 focus:outline-none"></textarea>
+        <button type="submit" class="rounded-xl bg-brand-600 px-4 py-3 text-white text-sm font-semibold">Gửi</button>
       </div>
     </form>
   </div>

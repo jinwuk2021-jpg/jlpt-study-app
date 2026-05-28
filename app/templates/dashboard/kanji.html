@@ -1,46 +1,56 @@
 {% extends "dashboard/layout.html" %}
-{% from "macros.html" import level_badge %}
+{% from "macros.html" import level_badge, level_accordion %}
 {% block title %}Kanji{% endblock %}
 {% block dashboard_content %}
 <div class="space-y-6">
-  <div class="flex items-center justify-between gap-4">
-    <div><h1 class="text-2xl font-bold">Kanji Learning</h1><p class="text-gray-500">Stroke order, readings, writing practice</p></div>
-    {{ level_badge(user_level) }}
+  <div>
+    <h1 class="text-2xl font-bold">Kanji Learning</h1>
+    <p class="text-gray-500">Hán tự theo cấp độ — bấm từng khóa N để xem chi tiết</p>
   </div>
-  {% if kanji %}
-  <div class="grid gap-6 lg:grid-cols-3">
-    <div class="lg:col-span-2 rounded-2xl border bg-white p-8 text-center shadow-sm">
-      {{ level_badge(kanji.level) }}
-      <p class="font-jp text-[100px] font-bold leading-none mt-4">{{ kanji.character }}</p>
-      <p class="text-xl text-gray-600 mt-4">{{ kanji.meaning }}</p>
-      <div class="mt-8 mx-auto max-w-xs aspect-square rounded-2xl border-2 border-dashed border-gray-200 flex items-center justify-center bg-gray-50">
-        <div><p class="font-jp text-6xl text-gray-300">{{ kanji.character }}</p><p class="text-xs text-gray-400 mt-2">{{ kanji.strokes }} strokes</p></div>
+
+  <div class="space-y-4">
+    {% for group in groups %}
+    {% set is_active = group.level == active_level %}
+    {% call level_accordion(group.level, 'Khóa ' ~ group.level, group.total ~ ' chữ Hán', open=is_active) %}
+      {% if group.total == 0 %}
+      <p class="text-sm text-gray-500 text-center py-6">Chưa có kanji. Chạy <code class="text-xs">python scripts/import_content.py --force</code></p>
+      {% elif is_active and kanji %}
+      <div class="grid gap-6 lg:grid-cols-3">
+        <div class="lg:col-span-2 rounded-2xl border bg-gray-50 p-8 text-center">
+          {{ level_badge(kanji.level) }}
+          <p class="font-jp text-[100px] font-bold leading-none mt-4">{{ kanji.character }}</p>
+          <p class="text-xl text-gray-600 mt-4">{{ kanji.meaning }}</p>
+          <div class="mt-8 mx-auto max-w-xs aspect-square rounded-2xl border-2 border-dashed border-gray-200 flex items-center justify-center bg-white">
+            <div><p class="font-jp text-6xl text-gray-300">{{ kanji.character }}</p><p class="text-xs text-gray-400 mt-2">{{ kanji.strokes }} strokes</p></div>
+          </div>
+        </div>
+        <div class="space-y-4">
+          <div class="rounded-2xl border bg-gray-50 p-6">
+            <h3 class="font-semibold mb-3">Readings</h3>
+            <p class="text-xs text-gray-500 uppercase">Onyomi</p><p class="font-jp text-lg">{{ kanji.onyomi_list|join('、') }}</p>
+            <p class="text-xs text-gray-500 uppercase mt-2">Kunyomi</p><p class="font-jp text-lg">{{ kanji.kunyomi_list|join('、') }}</p>
+          </div>
+          <div class="rounded-2xl border bg-gray-50 p-6">
+            <h3 class="font-semibold mb-3">Examples</h3>
+            {% for ex in kanji.examples_list %}
+            <div class="border-b pb-2 mb-2 last:border-0"><p class="font-jp font-medium">{{ ex.word }}</p><p class="text-xs text-gray-400 font-jp">{{ ex.reading }}</p><p class="text-sm text-gray-600">{{ ex.meaning }}</p></div>
+            {% endfor %}
+          </div>
+        </div>
       </div>
-    </div>
-    <div class="space-y-4">
-      <div class="rounded-2xl border bg-white p-6 shadow-sm">
-        <h3 class="font-semibold mb-3">Readings</h3>
-        <p class="text-xs text-gray-500 uppercase">Onyomi</p><p class="font-jp text-lg">{{ kanji.onyomi_list|join('、') }}</p>
-        <p class="text-xs text-gray-500 uppercase mt-2">Kunyomi</p><p class="font-jp text-lg">{{ kanji.kunyomi_list|join('、') }}</p>
-      </div>
-      <div class="rounded-2xl border bg-white p-6 shadow-sm">
-        <h3 class="font-semibold mb-3">Examples</h3>
-        {% for ex in kanji.examples_list %}
-        <div class="border-b pb-2 mb-2 last:border-0"><p class="font-jp font-medium">{{ ex.word }}</p><p class="text-xs text-gray-400 font-jp">{{ ex.reading }}</p><p class="text-sm text-gray-600">{{ ex.meaning }}</p></div>
-        {% endfor %}
-      </div>
-      <div class="rounded-2xl border bg-white p-6 shadow-sm">
-        <h3 class="font-semibold mb-3">Select Kanji</h3>
+      <div class="mt-6">
+        <h4 class="font-semibold mb-3 text-sm">Chọn kanji</h4>
         <div class="flex flex-wrap gap-2">
-          {% for k in kanji_list %}
-          <a href="?i={{ loop.index0 }}" class="font-jp text-2xl w-12 h-12 rounded-xl border flex items-center justify-center {% if loop.index0 == selected %}border-brand-500 bg-brand-50 text-brand-700{% else %}border-gray-200 hover:border-gray-300{% endif %}">{{ k.character }}</a>
+          {% for k in group.entries %}
+          <a href="?level={{ group.level }}&i={{ loop.index0 }}" class="font-jp text-2xl w-12 h-12 rounded-xl border flex items-center justify-center {% if loop.index0 == selected %}border-brand-500 bg-brand-50 text-brand-700{% else %}border-gray-200 hover:border-gray-300{% endif %}">{{ k.character }}</a>
           {% endfor %}
         </div>
       </div>
-    </div>
+      {% else %}
+      <p class="text-sm text-gray-500 text-center py-4"><a href="?level={{ group.level }}" class="text-brand-600 font-medium">Mở học {{ group.total }} kanji {{ group.level }}</a></p>
+      {% endif %}
+    {% endcall %}
+    {% endfor %}
   </div>
-  {% else %}
-  <div class="rounded-2xl border bg-white p-8 text-center text-gray-500">Chưa có kanji cho {{ user_level }}. Chạy <code class="text-sm">python scripts/import_content.py --force</code> để nạp dữ liệu.</div>
-  {% endif %}
 </div>
 {% endblock %}

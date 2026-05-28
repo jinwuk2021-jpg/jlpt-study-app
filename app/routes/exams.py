@@ -2,7 +2,10 @@ import time
 
 from flask import Blueprint, redirect, render_template, request, session, url_for
 
-from app.content import LEVEL_COLORS
+from app.content import LEVEL_COLORS, LEVEL_ORDER
+from app.data_loader import JLPT_LEVELS
+from app.level_groups import group_items_by_level, resolve_active_level
+from app.services import get_user_by_id
 from app.models import Exam
 from app.services import (
     calculate_results,
@@ -11,6 +14,7 @@ from app.services import (
     get_exam_history,
     save_exam_attempt,
 )
+from app.exam_ui import build_problem_groups, current_problem_group, highlight_blanks, question_number
 from app.utils import login_required
 
 exams_bp = Blueprint("exams", __name__)
@@ -58,21 +62,42 @@ def _global_question_index(exam: dict, phase_key: str, local_idx: int) -> int:
 @login_required
 def index():
     all_exams = Exam.query.order_by(Exam.level, Exam.id.desc()).all()
-    official = []
-    practice = []
+    official_by_level: list[dict] = []
+    practice_list = []
+    buckets: dict[str, list] = {lv: [] for lv in LEVEL_ORDER}
+
     for e in all_exams:
         meta = e.sections_dict
         if meta.get("kind") == "official":
-            official.append(e)
+            if e.level in buckets:
+                buckets[e.level].append(e)
         else:
-            practice.append(e)
+            practice_list.append(e)
+
+    for level in LEVEL_ORDER:
+        exams = buckets[level]
+        if not exams:
+            continue
+        exams.sort(key=lambda x: x.sections_dict.get("date", "") or x.slug, reverse=True)
+        official_by_level.append({"level": level, "exams": exams, "total": len(exams)})
+
+    practice_by_level = [
+        g for g in group_items_by_level(practice_list)
+        if g["total"] > 0
+    ]
+
     user_id = session["user_id"]
+    user = get_user_by_id(user_id)
+    default_lv = user.level if user and user.level in JLPT_LEVELS else "N5"
+    open_level = resolve_active_level(request, default_lv)
+
     return render_template(
         "exams/index.html",
-        official_exams=official,
-        practice_exams=practice,
+        official_by_level=official_by_level,
+        practice_by_level=practice_by_level,
         exam_history=get_exam_history(user_id),
         level_colors=LEVEL_COLORS,
+        open_level=open_level,
     )
 
 
@@ -165,11 +190,8 @@ def take(exam_id):
         and len(_phase_questions(exam, "listening")) > 0
     )
 
-    phase_nav = [
-        {"q": q, "idx": i}
-        for i, q in enumerate(exam["questions"])
-        if q.get("phase") == phase_key
-    ]
+    problem_groups = build_problem_groups(exam, phase_key)
+    current_group = current_problem_group(problem_groups, current["id"])
 
     return render_template(
         "exams/take.html",
@@ -178,7 +200,8 @@ def take(exam_id):
         q_idx=q_global,
         local_idx=local_idx,
         phase_total=len(phase_questions),
-        phase_nav=phase_nav,
+        problem_groups=problem_groups,
+        current_group=current_group,
         total=len(exam["questions"]),
         answers=session.get("exam_answers", {}),
         marked=session.get("exam_marked", []),
@@ -188,6 +211,8 @@ def take(exam_id):
         timer_seconds=timer_sec,
         has_next_phase=has_next_phase,
         is_official=exam.get("kind") == "official",
+        question_number=question_number,
+        highlight_blanks=highlight_blanks,
     )
 
 
