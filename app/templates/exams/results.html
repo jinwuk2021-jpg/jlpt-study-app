@@ -44,7 +44,8 @@
       {% for q in review %}
       <div class="rounded-xl border p-4 mb-3 {% if q.is_correct %}border-emerald-200 bg-emerald-50/50{% else %}border-red-200 bg-red-50/50{% endif %}">
         <div class="flex gap-2 mb-2"><span class="text-xs text-gray-400">Q{{ q.index + 1 }}</span>
-        <span class="text-xs capitalize text-blue-600">{{ q.section }}</span>
+        <span class="text-xs text-blue-600">{{ q.section_label or q.section }}</span>
+        <span class="text-xs text-gray-400">{{ q.display_id }}</span>
         <span class="text-xs {% if q.is_correct %}text-emerald-600{% else %}text-red-600{% endif %}">{% if q.is_correct %}Correct{% else %}Incorrect{% endif %}</span></div>
         <p class="text-sm font-medium">{{ q.question }}</p>
         {% if q.user_answer is not none %}

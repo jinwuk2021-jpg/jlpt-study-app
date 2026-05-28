@@ -34,3 +34,6 @@ out/
 # Kanji generator cache (downloaded at runtime)
 scripts/kanji_cache/words/
 scripts/kanji_cache/generate.log
+
+# JLPT PDF render cache (OCR working files)
+data/exam/**/_pdf_*/

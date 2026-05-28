@@ -1,4 +1,5 @@
 import json
+import re
 from datetime import datetime, timezone
 
 from app.extensions import db
@@ -43,6 +44,7 @@ def get_exam_by_slug(slug: str) -> Exam | None:
 
 def exam_to_dict(exam: Exam) -> dict:
     questions = exam.questions.order_by(Question.sort_order).all()
+    sections = exam.sections_dict
     return {
         "id": exam.slug,
         "db_id": exam.id,
@@ -50,17 +52,38 @@ def exam_to_dict(exam: Exam) -> dict:
         "level": exam.level,
         "description": exam.description,
         "duration": exam.duration,
-        "sections": exam.sections_dict,
+        "sections": sections,
         "passing_score": exam.passing_score,
-        "questions": [question_to_dict(q) for q in questions],
+        "kind": sections.get("kind", "practice"),
+        "date": sections.get("date", ""),
+        "audio": sections.get("audio", ""),
+        "phases": sections.get("phases", []),
+        "questions": [question_to_dict(q, sections) for q in questions],
     }
 
 
-def question_to_dict(q: Question) -> dict:
+def question_to_dict(q: Question, exam_sections: dict | None = None) -> dict:
+    tail = q.slug.split("-")[-1]
+    display_id = tail[0].upper() + tail[1:] if tail else q.slug
+
+    section_label = q.section
+    phase = "listening" if display_id.startswith("L") else "written"
+    if exam_sections:
+        for sec in exam_sections.get("section_list", []):
+            q_range = str(sec.get("questions", ""))
+            ids = _ids_in_range(q_range)
+            if display_id in ids:
+                section_label = sec.get("label", q.section)
+                break
+        for ph in exam_sections.get("phases", []):
+            if ph.get("key") == phase:
+                pass
+
     return {
         "id": q.slug,
         "db_id": q.id,
         "section": q.section,
+        "section_label": section_label,
         "type": q.type,
         "level": q.level,
         "question": q.question,
@@ -70,7 +93,23 @@ def question_to_dict(q: Question) -> dict:
         "explanation": q.explanation,
         "passage": q.passage or "",
         "points": q.points,
+        "display_id": display_id,
+        "phase": phase,
+        "audio_only": "audio_only" in (q.question_ja or "") or "印刷されていません" in (q.question_ja or ""),
     }
+
+
+def _ids_in_range(q_range: str) -> list[str]:
+    q_range = str(q_range).strip()
+    if not q_range or "-" not in q_range:
+        return [q_range] if q_range else []
+    start, end = q_range.split("-", 1)
+    prefix = "L" if start.strip().upper().startswith("L") else "Q"
+    s_num = int(re.sub(r"\D", "", start))
+    e_num = int(re.sub(r"\D", "", end))
+    return [f"{prefix}{i}" for i in range(s_num, e_num + 1)]
+
+
 
 
 def calculate_results(exam: Exam, answers: dict) -> dict:
