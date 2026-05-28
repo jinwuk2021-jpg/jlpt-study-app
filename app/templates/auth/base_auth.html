@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+{% block title %}{% block auth_title %}Auth{% endblock %}{% endblock %}
+{% block body %}
+<div class="min-h-screen flex">
+  <div class="hidden lg:flex lg:w-1/2 bg-gradient-to-br from-brand-600 to-indigo-700 p-12 flex-col justify-between">
+    <a href="/" class="flex items-center gap-2">
+      <div class="flex h-10 w-10 items-center justify-center rounded-xl bg-white/20 text-white font-bold">日</div>
+      <span class="text-xl font-bold text-white">NihongoMaster</span>
+    </a>
+    <div>
+      <h2 class="text-4xl font-bold text-white leading-tight">Your journey to<br>Japanese fluency<br>starts here.</h2>
+      <p class="mt-4 text-brand-100 text-lg">Mock exams, AI tutoring, and smart learning.</p>
+    </div>
+    <p class="text-brand-200 text-sm">Trusted by 10,000+ JLPT learners</p>
+  </div>
+  <div class="flex flex-1 items-center justify-center p-8 bg-white">
+    <div class="w-full max-w-md">{% block auth_content %}{% endblock %}</div>
+  </div>
+</div>
+{% endblock %}

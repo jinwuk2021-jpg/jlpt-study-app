@@ -1,0 +1,794 @@
+[
+  {
+    "num": 1,
+    "romaji": "aida",
+    "japanese": "間（あいだ）",
+    "meaning_en": "while; during; between"
+  },
+  {
+    "num": 2,
+    "romaji": "aida ni",
+    "japanese": "間に（あいだに）",
+    "meaning_en": "while; during~ something happened"
+  },
+  {
+    "num": 3,
+    "romaji": "amari~nai",
+    "japanese": "あまり～ない",
+    "meaning_en": "not very, not much"
+  },
+  {
+    "num": 4,
+    "romaji": "ato de",
+    "japanese": "後で（あとで）",
+    "meaning_en": "after~; later"
+  },
+  {
+    "num": 5,
+    "romaji": "ba",
+    "japanese": "ば",
+    "meaning_en": "conditional form; If [A] then [B]"
+  },
+  {
+    "num": 6,
+    "romaji": "baai wa",
+    "japanese": "場合は（ばあいは）",
+    "meaning_en": "in the event of; in the case that"
+  },
+  {
+    "num": 7,
+    "romaji": "bakari",
+    "japanese": "ばかり",
+    "meaning_en": "only; nothing but"
+  },
+  {
+    "num": 8,
+    "romaji": "dake de",
+    "japanese": "だけで",
+    "meaning_en": "just by; just by doing"
+  },
+  {
+    "num": 9,
+    "romaji": "dasu",
+    "japanese": "出す（だす）",
+    "meaning_en": "to begin to; to start to; to burst into; ... out (e.g. to jump out, to carry out)​"
+  },
+  {
+    "num": 10,
+    "romaji": "de gozaimasu",
+    "japanese": "でございます",
+    "meaning_en": "to be (honorific)"
+  },
+  {
+    "num": 11,
+    "romaji": "demo",
+    "japanese": "でも",
+    "meaning_en": "... or something; how about"
+  },
+  {
+    "num": 12,
+    "romaji": "dewa nai ka",
+    "japanese": "ではないか",
+    "meaning_en": "right?; isn't it?"
+  },
+  {
+    "num": 13,
+    "romaji": "ga hitsuyou",
+    "japanese": "が必要（がひつよう）",
+    "meaning_en": "need; necessary"
+  },
+  {
+    "num": 14,
+    "romaji": "ga suru",
+    "japanese": "がする",
+    "meaning_en": "to smell; hear; taste"
+  },
+  {
+    "num": 15,
+    "romaji": "gari",
+    "japanese": "がり",
+    "meaning_en": "personality (someone tends to; has a tendency to; has a sensitivity to ~)"
+  },
+  {
+    "num": 16,
+    "romaji": "garu / gatteiru",
+    "japanese": "がる / がっている",
+    "meaning_en": "to show signs of; to appear; to feel, to think"
+  },
+  {
+    "num": 17,
+    "romaji": "gozaimasu",
+    "japanese": "ございます",
+    "meaning_en": "to be, to exist (the polite form of いる/ある)"
+  },
+  {
+    "num": 18,
+    "romaji": "hajimeru",
+    "japanese": "始める（はじめる）",
+    "meaning_en": "to start; to begin to"
+  },
+  {
+    "num": 19,
+    "romaji": "hazu da",
+    "japanese": "はずだ",
+    "meaning_en": "it must be; it should be (expectation)"
+  },
+  {
+    "num": 20,
+    "romaji": "hazu ga nai",
+    "japanese": "はずがない",
+    "meaning_en": "cannot be (impossible)"
+  },
+  {
+    "num": 21,
+    "romaji": "hitsuyou ga aru",
+    "japanese": "必要がある（ひつようがある）",
+    "meaning_en": "need to; it is necessary to"
+  },
+  {
+    "num": 22,
+    "romaji": "ikou kei - volitional form",
+    "japanese": "意向形 （いこうけい）",
+    "meaning_en": "volitional form​; let's do"
+  },
+  {
+    "num": 23,
+    "romaji": "irassharu",
+    "japanese": "いらっしゃる",
+    "meaning_en": "to be; to come; to go (polite version)"
+  },
+  {
+    "num": 24,
+    "romaji": "itashimasu",
+    "japanese": "いたします",
+    "meaning_en": "to do (polite form of する)"
+  },
+  {
+    "num": 25,
+    "romaji": "janai ka",
+    "japanese": "じゃないか",
+    "meaning_en": "right? isn't it? let's~; confirmation"
+  },
+  {
+    "num": 26,
+    "romaji": "ka dou ka",
+    "japanese": "かどうか",
+    "meaning_en": "whether or not"
+  },
+  {
+    "num": 27,
+    "romaji": "ka shira",
+    "japanese": "かしら",
+    "meaning_en": "I wonder (feminine)"
+  },
+  {
+    "num": 28,
+    "romaji": "kai",
+    "japanese": "かい",
+    "meaning_en": "turns a sentence into a yes/no question"
+  },
+  {
+    "num": 29,
+    "romaji": "kamo shirenai",
+    "japanese": "かもしれない",
+    "meaning_en": "might; perhaps; indicates possibility"
+  },
+  {
+    "num": 30,
+    "romaji": "kana",
+    "japanese": "かな",
+    "meaning_en": "I wonder; should I?"
+  },
+  {
+    "num": 31,
+    "romaji": "kara tsukuru",
+    "japanese": "から作る（からつくる）",
+    "meaning_en": "made from; made with"
+  },
+  {
+    "num": 32,
+    "romaji": "kitto",
+    "japanese": "きっと",
+    "meaning_en": "surely; undoubtedly; almost certainly; most likely"
+  },
+  {
+    "num": 33,
+    "romaji": "koro / goro",
+    "japanese": "頃（ころ / ごろ）",
+    "meaning_en": "around; about; when"
+  },
+  {
+    "num": 34,
+    "romaji": "koto",
+    "japanese": "こと",
+    "meaning_en": "Verb nominalizer"
+  },
+  {
+    "num": 35,
+    "romaji": "koto ga aru",
+    "japanese": "ことがある",
+    "meaning_en": "there are times when"
+  },
+  {
+    "num": 36,
+    "romaji": "koto ga dekiru",
+    "japanese": "ことができる",
+    "meaning_en": "can; able to"
+  },
+  {
+    "num": 37,
+    "romaji": "koto ni naru",
+    "japanese": "ことになる",
+    "meaning_en": "It has been decided that..; it turns out that.."
+  },
+  {
+    "num": 38,
+    "romaji": "koto ni suru",
+    "japanese": "ことにする",
+    "meaning_en": "to decide on"
+  },
+  {
+    "num": 39,
+    "romaji": "ku suru",
+    "japanese": "くする",
+    "meaning_en": "to make something"
+  },
+  {
+    "num": 40,
+    "romaji": "kyuu ni",
+    "japanese": "急に（きゅうに）",
+    "meaning_en": "quickly; immediately; hastily; suddenly; abruptly; unexpectedly"
+  },
+  {
+    "num": 41,
+    "romaji": "made ni",
+    "japanese": "までに",
+    "meaning_en": "by; by the time; indicates time limit"
+  },
+  {
+    "num": 42,
+    "romaji": "mama",
+    "japanese": "まま",
+    "meaning_en": "as it is; current state; without changing"
+  },
+  {
+    "num": 43,
+    "romaji": "matawa",
+    "japanese": "または",
+    "meaning_en": "both; or; otherwise​; choice between [A] or [B]"
+  },
+  {
+    "num": 44,
+    "romaji": "mitai da",
+    "japanese": "みたいだ",
+    "meaning_en": "like; similar to; resembling"
+  },
+  {
+    "num": 45,
+    "romaji": "mitai na",
+    "japanese": "みたいな",
+    "meaning_en": "like, similar to"
+  },
+  {
+    "num": 46,
+    "romaji": "mitai ni",
+    "japanese": "みたいに",
+    "meaning_en": "like; similar to"
+  },
+  {
+    "num": 47,
+    "romaji": "mo",
+    "japanese": "も",
+    "meaning_en": "as many as; as much as; up to; nearly"
+  },
+  {
+    "num": 48,
+    "romaji": "na",
+    "japanese": "な",
+    "meaning_en": "don’t ~ (order somebody to not do something)"
+  },
+  {
+    "num": 49,
+    "romaji": "nado",
+    "japanese": "など",
+    "meaning_en": "such as; things like"
+  },
+  {
+    "num": 50,
+    "romaji": "nagara",
+    "japanese": "ながら",
+    "meaning_en": "while; during; as; simultaneously"
+  },
+  {
+    "num": 51,
+    "romaji": "nakanaka~nai",
+    "japanese": "なかなか～ない",
+    "meaning_en": "not easy to; struggling to; not able to"
+  },
+  {
+    "num": 52,
+    "romaji": "nakereba ikenai",
+    "japanese": "なければいけない",
+    "meaning_en": "must do something; have to do something"
+  },
+  {
+    "num": 53,
+    "romaji": "nakereba naranai",
+    "japanese": "なければならない",
+    "meaning_en": "must do something; have to do something"
+  },
+  {
+    "num": 54,
+    "romaji": "nara",
+    "japanese": "なら",
+    "meaning_en": "if; in the case that"
+  },
+  {
+    "num": 55,
+    "romaji": "nasai",
+    "japanese": "なさい",
+    "meaning_en": "do this (soft/firm command)"
+  },
+  {
+    "num": 56,
+    "romaji": "nasaru",
+    "japanese": "なさる",
+    "meaning_en": "to do (honorific)"
+  },
+  {
+    "num": 57,
+    "romaji": "ni ki ga tsuku",
+    "japanese": "に気がつく（にきがつく）",
+    "meaning_en": "to notice; to realize"
+  },
+  {
+    "num": 58,
+    "romaji": "ni mieru",
+    "japanese": "に見える（にみえる）",
+    "meaning_en": "to look; to seem; to appear"
+  },
+  {
+    "num": 59,
+    "romaji": "ni suru",
+    "japanese": "にする",
+    "meaning_en": "to make something"
+  },
+  {
+    "num": 60,
+    "romaji": "nikui",
+    "japanese": "にくい",
+    "meaning_en": "difficult to do"
+  },
+  {
+    "num": 61,
+    "romaji": "no naka de",
+    "japanese": "の中で（のなかで）",
+    "meaning_en": "in; among"
+  },
+  {
+    "num": 62,
+    "romaji": "noni",
+    "japanese": "のに",
+    "meaning_en": "although, in spite of, even though"
+  },
+  {
+    "num": 63,
+    "romaji": "noni",
+    "japanese": "のに",
+    "meaning_en": "to (do something); in order to"
+  },
+  {
+    "num": 64,
+    "romaji": "nowa~da",
+    "japanese": "のは〜だ",
+    "meaning_en": "[A] is [B]; the reason for [A] is [B]"
+  },
+  {
+    "num": 65,
+    "romaji": "o~kudasai",
+    "japanese": "お～ください",
+    "meaning_en": "please do ~ (honorific)"
+  },
+  {
+    "num": 66,
+    "romaji": "o~ni naru",
+    "japanese": "お～になる",
+    "meaning_en": "to do (honorific)"
+  },
+  {
+    "num": 67,
+    "romaji": "oki ni",
+    "japanese": "おきに",
+    "meaning_en": "repeated at intervals, every"
+  },
+  {
+    "num": 68,
+    "romaji": "owaru",
+    "japanese": "終わる（おわる）",
+    "meaning_en": "to finish; to end"
+  },
+  {
+    "num": 69,
+    "romaji": "rareru",
+    "japanese": "られる",
+    "meaning_en": "potential form; ability or inability to do something"
+  },
+  {
+    "num": 70,
+    "romaji": "rashii",
+    "japanese": "らしい",
+    "meaning_en": "it seems like; I heard; apparently"
+  },
+  {
+    "num": 71,
+    "romaji": "sa",
+    "japanese": "さ",
+    "meaning_en": "-ness​ ; nominalizer for adjective"
+  },
+  {
+    "num": 72,
+    "romaji": "sakki",
+    "japanese": "さっき",
+    "meaning_en": "some time ago; just now"
+  },
+  {
+    "num": 73,
+    "romaji": "saserareru",
+    "japanese": "させられる",
+    "meaning_en": "causative-passive; to be made to do something"
+  },
+  {
+    "num": 74,
+    "romaji": "saseru",
+    "japanese": "させる",
+    "meaning_en": "causative form; to make/let somebody do something"
+  },
+  {
+    "num": 75,
+    "romaji": "sasete kudasai",
+    "japanese": "させてください",
+    "meaning_en": "please let me do"
+  },
+  {
+    "num": 76,
+    "romaji": "sasuga",
+    "japanese": "さすが",
+    "meaning_en": "as one would expect; as is to be expected; even"
+  },
+  {
+    "num": 77,
+    "romaji": "shi",
+    "japanese": "し",
+    "meaning_en": "and; and what’s more ~ (emphasis)"
+  },
+  {
+    "num": 78,
+    "romaji": "sonna ni",
+    "japanese": "そんなに",
+    "meaning_en": "so much; so; like that"
+  },
+  {
+    "num": 79,
+    "romaji": "sore demo",
+    "japanese": "それでも",
+    "meaning_en": "but still; and yet; even so"
+  },
+  {
+    "num": 80,
+    "romaji": "sore ni",
+    "japanese": "それに",
+    "meaning_en": "besides; in addition; also; moreover"
+  },
+  {
+    "num": 81,
+    "romaji": "sou da [1]",
+    "japanese": "そうだ",
+    "meaning_en": "I heard that; it is said that"
+  },
+  {
+    "num": 82,
+    "romaji": "sou da [2]",
+    "japanese": "そうだ",
+    "meaning_en": "looks like; appears like; seeming"
+  },
+  {
+    "num": 83,
+    "romaji": "sou ni / sou na",
+    "japanese": "そうに / そうな",
+    "meaning_en": "seems like; looks like"
+  },
+  {
+    "num": 84,
+    "romaji": "ta bakari",
+    "japanese": "たばかり",
+    "meaning_en": "just finished; something just occurred"
+  },
+  {
+    "num": 85,
+    "romaji": "ta tokoro",
+    "japanese": "たところ",
+    "meaning_en": "just finished doing, was just doing"
+  },
+  {
+    "num": 86,
+    "romaji": "tadoushi & jidoushi",
+    "japanese": "他動詞 & 自動詞（たどうし & じどうし）",
+    "meaning_en": "Transitive & Intransitive Verbs"
+  },
+  {
+    "num": 87,
+    "romaji": "tagaru",
+    "japanese": "たがる",
+    "meaning_en": "wants to do ~ (third person)"
+  },
+  {
+    "num": 88,
+    "romaji": "tara",
+    "japanese": "たら",
+    "meaning_en": "if; after; when"
+  },
+  {
+    "num": 89,
+    "romaji": "tara dou",
+    "japanese": "たらどう",
+    "meaning_en": "why don't you; how about ~ (used to give advice)"
+  },
+  {
+    "num": 90,
+    "romaji": "tara ii desu ka",
+    "japanese": "たらいいですか",
+    "meaning_en": "what should I do?; speaker seeking instructions from listener"
+  },
+  {
+    "num": 91,
+    "romaji": "te / de",
+    "japanese": "て / で",
+    "meaning_en": "conjunctive particle; so; because of [A], [B]..."
+  },
+  {
+    "num": 92,
+    "romaji": "te ageru",
+    "japanese": "てあげる",
+    "meaning_en": "to do for; to do a favor"
+  },
+  {
+    "num": 93,
+    "romaji": "te hoshii",
+    "japanese": "てほしい",
+    "meaning_en": "I want you to; need you to"
+  },
+  {
+    "num": 94,
+    "romaji": "te iku",
+    "japanese": "ていく",
+    "meaning_en": "to start; to continue; to go on"
+  },
+  {
+    "num": 95,
+    "romaji": "te ita",
+    "japanese": "ていた",
+    "meaning_en": "was doing something (past continuous)"
+  },
+  {
+    "num": 96,
+    "romaji": "te itadakemasen ka",
+    "japanese": "ていただけませんか",
+    "meaning_en": "could you please"
+  },
+  {
+    "num": 97,
+    "romaji": "te kureru",
+    "japanese": "てくれる",
+    "meaning_en": "to do a favor; do something for someone"
+  },
+  {
+    "num": 98,
+    "romaji": "te kuru",
+    "japanese": "てくる",
+    "meaning_en": "to do… and come back; to become; to continue; to start"
+  },
+  {
+    "num": 99,
+    "romaji": "te miru",
+    "japanese": "てみる",
+    "meaning_en": "try doing"
+  },
+  {
+    "num": 100,
+    "romaji": "te morau",
+    "japanese": "てもらう",
+    "meaning_en": "to get somebody to do something"
+  },
+  {
+    "num": 101,
+    "romaji": "te oku",
+    "japanese": "ておく",
+    "meaning_en": "to do something in advance"
+  },
+  {
+    "num": 102,
+    "romaji": "te shimau / chau",
+    "japanese": "てしまう / ちゃう",
+    "meaning_en": "to do something by accident, to finish completely"
+  },
+  {
+    "num": 103,
+    "romaji": "te sumimasen",
+    "japanese": "てすみません",
+    "meaning_en": "I’m sorry for"
+  },
+  {
+    "num": 104,
+    "romaji": "te yaru",
+    "japanese": "てやる",
+    "meaning_en": "to do for; to do a favor (casual)"
+  },
+  {
+    "num": 105,
+    "romaji": "te yokatta",
+    "japanese": "てよかった",
+    "meaning_en": "I’m glad that"
+  },
+  {
+    "num": 106,
+    "romaji": "teiru tokoro",
+    "japanese": "ているところ",
+    "meaning_en": "in the process of doing"
+  },
+  {
+    "num": 107,
+    "romaji": "temo",
+    "japanese": "ても",
+    "meaning_en": "even; even if; even though"
+  },
+  {
+    "num": 108,
+    "romaji": "to",
+    "japanese": "と",
+    "meaning_en": "whenever [A] happens, [B] also happens"
+  },
+  {
+    "num": 109,
+    "romaji": "to ittemo ii",
+    "japanese": "と言ってもいい（といってもいい）",
+    "meaning_en": "you could say; one might say; I'd say"
+  },
+  {
+    "num": 110,
+    "romaji": "to iu",
+    "japanese": "という",
+    "meaning_en": "called; named; that"
+  },
+  {
+    "num": 111,
+    "romaji": "to iu koto",
+    "japanese": "ということ",
+    "meaning_en": "convert phrase into noun"
+  },
+  {
+    "num": 112,
+    "romaji": "to iwarete iru",
+    "japanese": "と言われている（といわれている）",
+    "meaning_en": "it is said that"
+  },
+  {
+    "num": 113,
+    "romaji": "to kiita",
+    "japanese": "と聞いた（ときいた）",
+    "meaning_en": "I heard..."
+  },
+  {
+    "num": 114,
+    "romaji": "to omou",
+    "japanese": "と思う（とおもう）",
+    "meaning_en": "to think…; I think…; you think…"
+  },
+  {
+    "num": 115,
+    "romaji": "toka~toka",
+    "japanese": "とか～とか",
+    "meaning_en": "among other things; such as; like"
+  },
+  {
+    "num": 116,
+    "romaji": "tokoro",
+    "japanese": "ところ",
+    "meaning_en": "just about to; on the verge of doing something"
+  },
+  {
+    "num": 117,
+    "romaji": "tsuzukeru",
+    "japanese": "続ける（つづける）",
+    "meaning_en": "continue to; keen on"
+  },
+  {
+    "num": 118,
+    "romaji": "tte",
+    "japanese": "って",
+    "meaning_en": "named; called"
+  },
+  {
+    "num": 119,
+    "romaji": "ukemi kei",
+    "japanese": "受身形（うけみけい）",
+    "meaning_en": "passive form; passive voice"
+  },
+  {
+    "num": 120,
+    "romaji": "wa~ga... wa",
+    "japanese": "は〜が… は",
+    "meaning_en": "[A] but [B]; however; comparison"
+  },
+  {
+    "num": 121,
+    "romaji": "yasui",
+    "japanese": "やすい",
+    "meaning_en": "easy to; likely to; prone to; have a tendency to"
+  },
+  {
+    "num": 122,
+    "romaji": "yatto",
+    "japanese": "やっと",
+    "meaning_en": "at last; finally; barely; narrowly"
+  },
+  {
+    "num": 123,
+    "romaji": "yori",
+    "japanese": "より",
+    "meaning_en": "than; rather than; more than"
+  },
+  {
+    "num": 124,
+    "romaji": "yotei da",
+    "japanese": "予定だ（よていだ）",
+    "meaning_en": "plan to, intend to"
+  },
+  {
+    "num": 125,
+    "romaji": "you da",
+    "japanese": "ようだ",
+    "meaning_en": "appears; seems; looks as if"
+  },
+  {
+    "num": 126,
+    "romaji": "you ni / you na",
+    "japanese": "ように / ような",
+    "meaning_en": "like; as; similar to"
+  },
+  {
+    "num": 127,
+    "romaji": "you ni naru",
+    "japanese": "ようになる",
+    "meaning_en": "to reach the point that; to come to be that; to turn into"
+  },
+  {
+    "num": 128,
+    "romaji": "you ni suru",
+    "japanese": "ようにする",
+    "meaning_en": "to try to; to make sure that"
+  },
+  {
+    "num": 129,
+    "romaji": "you to omou",
+    "japanese": "ようと思う（ようとおもう）",
+    "meaning_en": "thinking of doing; planning to"
+  },
+  {
+    "num": 130,
+    "romaji": "zehi",
+    "japanese": "ぜひ",
+    "meaning_en": "by all means; certainly; definitely"
+  },
+  {
+    "num": 131,
+    "romaji": "zenzen~nai",
+    "japanese": "全然～ない（ぜんぜん～ない）",
+    "meaning_en": "(not) at all"
+  },
+  {
+    "num": 132,
+    "romaji": "zurai",
+    "japanese": "づらい",
+    "meaning_en": "difficult to do"
+  }
+]

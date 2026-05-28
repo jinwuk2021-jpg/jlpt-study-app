@@ -1,0 +1,506 @@
+[
+  {
+    "num": 1,
+    "romaji": "cha ikenai / ja ikenai",
+    "japanese": "ちゃいけない・じゃいけない",
+    "meaning_en": "must not do (spoken Japanese)"
+  },
+  {
+    "num": 2,
+    "romaji": "da / desu",
+    "japanese": "だ / です",
+    "meaning_en": "to be (am, is, are, were, used to)"
+  },
+  {
+    "num": 3,
+    "romaji": "dake",
+    "japanese": "だけ",
+    "meaning_en": "only; just; as much as"
+  },
+  {
+    "num": 4,
+    "romaji": "darou",
+    "japanese": "だろう",
+    "meaning_en": "I think; it seems; probably; right?"
+  },
+  {
+    "num": 5,
+    "romaji": "de",
+    "japanese": "で",
+    "meaning_en": "in; at; on; by; with; via"
+  },
+  {
+    "num": 6,
+    "romaji": "demo",
+    "japanese": "でも",
+    "meaning_en": "but; however; though"
+  },
+  {
+    "num": 7,
+    "romaji": "deshou",
+    "japanese": "でしょう",
+    "meaning_en": "I think; it seems; probably; right?"
+  },
+  {
+    "num": 8,
+    "romaji": "donna",
+    "japanese": "どんな",
+    "meaning_en": "what kind of; what sort of"
+  },
+  {
+    "num": 9,
+    "romaji": "doushite",
+    "japanese": "どうして",
+    "meaning_en": "why; for what reason; how"
+  },
+  {
+    "num": 10,
+    "romaji": "douyatte",
+    "japanese": "どうやって",
+    "meaning_en": "how; in what way; by what means​"
+  },
+  {
+    "num": 11,
+    "romaji": "ga",
+    "japanese": "が",
+    "meaning_en": "subject marker; however; but"
+  },
+  {
+    "num": 12,
+    "romaji": "ga arimasu",
+    "japanese": "があります",
+    "meaning_en": "there is; is (non-living things)"
+  },
+  {
+    "num": 13,
+    "romaji": "ga hoshii",
+    "japanese": "がほしい",
+    "meaning_en": "to want something"
+  },
+  {
+    "num": 14,
+    "romaji": "ga imasu",
+    "japanese": "がいます",
+    "meaning_en": "there is; to be; is (living things)"
+  },
+  {
+    "num": 15,
+    "romaji": "hou ga ii",
+    "japanese": "ほうがいい",
+    "meaning_en": "had better; it'd be better to; should"
+  },
+  {
+    "num": 16,
+    "romaji": "i-adjectives",
+    "japanese": "い-adjectives",
+    "meaning_en": "i-adjectives"
+  },
+  {
+    "num": 17,
+    "romaji": "ichiban",
+    "japanese": "一番（いちばん）",
+    "meaning_en": "the most; the best"
+  },
+  {
+    "num": 18,
+    "romaji": "issho ni",
+    "japanese": "一緒に（いっしょに）",
+    "meaning_en": "together"
+  },
+  {
+    "num": 19,
+    "romaji": "itsumo",
+    "japanese": "いつも",
+    "meaning_en": "always; usually; habitually"
+  },
+  {
+    "num": 20,
+    "romaji": "janai / dewa nai",
+    "japanese": "じゃない・ではない",
+    "meaning_en": "to not be (am not; is not; are not)"
+  },
+  {
+    "num": 21,
+    "romaji": "ka",
+    "japanese": "か",
+    "meaning_en": "question particle"
+  },
+  {
+    "num": 22,
+    "romaji": "ka~ka",
+    "japanese": "か～か",
+    "meaning_en": "or"
+  },
+  {
+    "num": 23,
+    "romaji": "kara",
+    "japanese": "から",
+    "meaning_en": "because; since; from"
+  },
+  {
+    "num": 24,
+    "romaji": "kata",
+    "japanese": "方（かた）",
+    "meaning_en": "the way of doing something; how to do"
+  },
+  {
+    "num": 25,
+    "romaji": "kedo",
+    "japanese": "けど",
+    "meaning_en": "but; however; although"
+  },
+  {
+    "num": 26,
+    "romaji": "keredo mo",
+    "japanese": "けれども",
+    "meaning_en": "but; however; although"
+  },
+  {
+    "num": 27,
+    "romaji": "mada",
+    "japanese": "まだ",
+    "meaning_en": "still; not yet"
+  },
+  {
+    "num": 28,
+    "romaji": "mada ~te imasen",
+    "japanese": "まだ～ていません",
+    "meaning_en": "have not yet"
+  },
+  {
+    "num": 29,
+    "romaji": "made",
+    "japanese": "まで",
+    "meaning_en": "until; as far as; to (an extent); even"
+  },
+  {
+    "num": 30,
+    "romaji": "mae ni",
+    "japanese": "前に（まえに）",
+    "meaning_en": "before; in front of"
+  },
+  {
+    "num": 31,
+    "romaji": "masen ka",
+    "japanese": "ませんか",
+    "meaning_en": "would you; do you want to; shall we"
+  },
+  {
+    "num": 32,
+    "romaji": "mashou",
+    "japanese": "ましょう",
+    "meaning_en": "let's ~; shall we"
+  },
+  {
+    "num": 33,
+    "romaji": "mashouka",
+    "japanese": "ましょうか",
+    "meaning_en": "shall I ~; used to offer help to the listener"
+  },
+  {
+    "num": 34,
+    "romaji": "mo",
+    "japanese": "も",
+    "meaning_en": "too; also; as well"
+  },
+  {
+    "num": 35,
+    "romaji": "mou",
+    "japanese": "もう",
+    "meaning_en": "already; anymore; again; other"
+  },
+  {
+    "num": 36,
+    "romaji": "na-adjectives",
+    "japanese": "な-adjectives",
+    "meaning_en": "na-adjectives"
+  },
+  {
+    "num": 37,
+    "romaji": "naa",
+    "japanese": "なあ",
+    "meaning_en": "sentence ending particle; confirmation; admiration, etc"
+  },
+  {
+    "num": 38,
+    "romaji": "naide",
+    "japanese": "ないで",
+    "meaning_en": "without doing ~; to do [B] without doing [A]"
+  },
+  {
+    "num": 39,
+    "romaji": "naide kudasai",
+    "japanese": "ないでください",
+    "meaning_en": "please don't do"
+  },
+  {
+    "num": 40,
+    "romaji": "naito ikenai",
+    "japanese": "ないといけない",
+    "meaning_en": "must do; have an obligation to do"
+  },
+  {
+    "num": 41,
+    "romaji": "naku temo ii",
+    "japanese": "なくてもいい",
+    "meaning_en": "don't have to"
+  },
+  {
+    "num": 42,
+    "romaji": "nakucha",
+    "japanese": "なくちゃ",
+    "meaning_en": "must do; need to; gotta do"
+  },
+  {
+    "num": 43,
+    "romaji": "nakute wa ikenai",
+    "japanese": "なくてはいけない",
+    "meaning_en": "must do; need to do"
+  },
+  {
+    "num": 44,
+    "romaji": "nakute wa naranai",
+    "japanese": "なくてはならない",
+    "meaning_en": "must do; need to do"
+  },
+  {
+    "num": 45,
+    "romaji": "naru",
+    "japanese": "なる",
+    "meaning_en": "to become"
+  },
+  {
+    "num": 46,
+    "romaji": "ndesu",
+    "japanese": "んです",
+    "meaning_en": "to explain something; show emphasis"
+  },
+  {
+    "num": 47,
+    "romaji": "ne",
+    "japanese": "ね",
+    "meaning_en": "isn't it? right? eh?"
+  },
+  {
+    "num": 48,
+    "romaji": "ni",
+    "japanese": "に",
+    "meaning_en": "destination particle; in; at; on; to"
+  },
+  {
+    "num": 49,
+    "romaji": "ni iku",
+    "japanese": "に行く（にいく）",
+    "meaning_en": "go to do"
+  },
+  {
+    "num": 50,
+    "romaji": "ni suru",
+    "japanese": "にする",
+    "meaning_en": "to decide on"
+  },
+  {
+    "num": 51,
+    "romaji": "ni/e",
+    "japanese": "に/へ",
+    "meaning_en": "to (indicates direction / destination)"
+  },
+  {
+    "num": 52,
+    "romaji": "no",
+    "japanese": "の",
+    "meaning_en": "possessive particle"
+  },
+  {
+    "num": 53,
+    "romaji": "no desu",
+    "japanese": "のです",
+    "meaning_en": "to explain something; show emphasis"
+  },
+  {
+    "num": 54,
+    "romaji": "no ga heta",
+    "japanese": "のが下手（のがへた）",
+    "meaning_en": "to be bad at doing something"
+  },
+  {
+    "num": 55,
+    "romaji": "no ga jouzu",
+    "japanese": "のが上手（のがじょうず）",
+    "meaning_en": "to be good at"
+  },
+  {
+    "num": 56,
+    "romaji": "no ga suki",
+    "japanese": "のが好き（のがすき）",
+    "meaning_en": "to like doing something"
+  },
+  {
+    "num": 57,
+    "romaji": "no naka de [A] ga ichiban",
+    "japanese": "の中で[A]が一番（のなかで[A]がいちばん）",
+    "meaning_en": "out of this group, [A] is best"
+  },
+  {
+    "num": 58,
+    "romaji": "node",
+    "japanese": "ので",
+    "meaning_en": "because of; given that; since"
+  },
+  {
+    "num": 59,
+    "romaji": "o / go",
+    "japanese": "お / ご",
+    "meaning_en": "polite marker; honorific prefix particle"
+  },
+  {
+    "num": 60,
+    "romaji": "o / wo",
+    "japanese": "を",
+    "meaning_en": "object marker particle"
+  },
+  {
+    "num": 61,
+    "romaji": "o kudasai",
+    "japanese": "をください",
+    "meaning_en": "please give me"
+  },
+  {
+    "num": 62,
+    "romaji": "shikashi",
+    "japanese": "しかし",
+    "meaning_en": "but; however"
+  },
+  {
+    "num": 63,
+    "romaji": "sore kara",
+    "japanese": "それから",
+    "meaning_en": "and; and then; after that; since then"
+  },
+  {
+    "num": 64,
+    "romaji": "soshite",
+    "japanese": "そして",
+    "meaning_en": "and; and then; thus; and now"
+  },
+  {
+    "num": 65,
+    "romaji": "sugiru",
+    "japanese": "すぎる",
+    "meaning_en": "too much"
+  },
+  {
+    "num": 66,
+    "romaji": "ta koto ga aru",
+    "japanese": "たことがある",
+    "meaning_en": "to have done something before"
+  },
+  {
+    "num": 67,
+    "romaji": "tai",
+    "japanese": "たい",
+    "meaning_en": "want to do something"
+  },
+  {
+    "num": 68,
+    "romaji": "tari~tari",
+    "japanese": "たり～たり",
+    "meaning_en": "do such things as A and B"
+  },
+  {
+    "num": 69,
+    "romaji": "te aru",
+    "japanese": "てある",
+    "meaning_en": "is/has been done (resulting state)"
+  },
+  {
+    "num": 70,
+    "romaji": "te iru",
+    "japanese": "ている",
+    "meaning_en": "ongoing action or current state"
+  },
+  {
+    "num": 71,
+    "romaji": "te kara",
+    "japanese": "てから",
+    "meaning_en": "after doing"
+  },
+  {
+    "num": 72,
+    "romaji": "te kudasai",
+    "japanese": "てください",
+    "meaning_en": "please do"
+  },
+  {
+    "num": 73,
+    "romaji": "te wa ikenai",
+    "japanese": "てはいけない",
+    "meaning_en": "must not; may not; cannot"
+  },
+  {
+    "num": 74,
+    "romaji": "temo ii desu",
+    "japanese": "てもいいです",
+    "meaning_en": "is OK to ~; is alright to ~; may I ~?"
+  },
+  {
+    "num": 75,
+    "romaji": "to",
+    "japanese": "と",
+    "meaning_en": "and; with; as; connecting particle"
+  },
+  {
+    "num": 76,
+    "romaji": "toki",
+    "japanese": "とき",
+    "meaning_en": "when; at this time"
+  },
+  {
+    "num": 77,
+    "romaji": "totemo",
+    "japanese": "とても",
+    "meaning_en": "very; awfully; exceedingly​"
+  },
+  {
+    "num": 78,
+    "romaji": "tsumori",
+    "japanese": "つもり",
+    "meaning_en": "plan to ~; intend to"
+  },
+  {
+    "num": 79,
+    "romaji": "wa - topic marker",
+    "japanese": "は",
+    "meaning_en": "topic marker"
+  },
+  {
+    "num": 80,
+    "romaji": "wa ~yori... desu",
+    "japanese": "は〜より・・・です",
+    "meaning_en": "[Noun-1] is more ~ than [Noun-2]"
+  },
+  {
+    "num": 81,
+    "romaji": "wa dou desu ka",
+    "japanese": "はどうですか",
+    "meaning_en": "how about; how is"
+  },
+  {
+    "num": 82,
+    "romaji": "ya",
+    "japanese": "や",
+    "meaning_en": "and; or; connecting particle"
+  },
+  {
+    "num": 83,
+    "romaji": "yo",
+    "japanese": "よ",
+    "meaning_en": "you know; emphasis (ending particle)"
+  },
+  {
+    "num": 84,
+    "romaji": "yori ~hou ga",
+    "japanese": "より～ほうが",
+    "meaning_en": "[2] is more than [1]"
+  }
+]

@@ -1,0 +1,23 @@
+{% extends "dashboard/layout.html" %}
+{% from "macros.html" import level_badge %}
+{% block title %}Settings{% endblock %}
+{% block dashboard_content %}
+<div class="space-y-6 max-w-2xl">
+  <div><h1 class="text-2xl font-bold">Settings</h1><p class="text-gray-500">Manage your account and preferences</p></div>
+  <form method="POST" class="rounded-2xl border bg-white p-6 shadow-sm space-y-4">
+    <h3 class="font-semibold">Profile</h3>
+    <div><label class="text-sm font-medium">Name</label><input name="name" value="{{ user.name }}" class="mt-1 w-full rounded-xl border px-4 py-3 text-sm"></div>
+    <div><label class="text-sm font-medium">Email</label><input name="email" type="email" value="{{ user.email }}" class="mt-1 w-full rounded-xl border px-4 py-3 text-sm"></div>
+    <div><label class="text-sm font-medium">Target JLPT Level</label>
+      <div class="mt-2 flex gap-2">{% for l in levels %}
+        <label class="cursor-pointer"><input type="radio" name="level" value="{{ l }}" {% if user.level == l %}checked{% endif %} class="sr-only"><span class="inline-block rounded-full px-3 py-1 text-xs font-semibold {% if user.level == l %}ring-2 ring-brand-500 {% endif %}
+          {% if l == 'N5' %}bg-emerald-100 text-emerald-700{% elif l == 'N4' %}bg-teal-100 text-teal-700{% elif l == 'N3' %}bg-blue-100 text-blue-700{% elif l == 'N2' %}bg-indigo-100 text-indigo-700{% else %}bg-purple-100 text-purple-700{% endif %}">{{ l }}</span></label>
+      {% endfor %}</div>
+    </div>
+    <button type="submit" class="rounded-xl bg-brand-600 px-6 py-2 text-sm font-semibold text-white">Save Changes</button>
+  </form>
+  <div class="rounded-2xl border bg-white p-6 shadow-sm">
+    <a href="{{ url_for('auth.logout') }}" class="block w-full text-center rounded-xl bg-red-600 px-6 py-3 text-sm font-semibold text-white">Sign Out</a>
+  </div>
+</div>
+{% endblock %}

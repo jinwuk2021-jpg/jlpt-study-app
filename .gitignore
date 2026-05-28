@@ -1,0 +1,32 @@
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.venv/
+venv/
+env/
+
+# Flask instance & SQLite
+instance/
+*.db
+
+
+# Env
+.env
+.env*.local
+
+# IDE
+.idea/
+.vscode/
+*.swp
+
+# OS
+.DS_Store
+
+# Legacy Next.js (optional)
+node_modules/
+.next/
+out/
+
+# Misc
+*.log

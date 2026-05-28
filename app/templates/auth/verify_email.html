@@ -1,0 +1,11 @@
+{% extends "auth/base_auth.html" %}
+{% block auth_title %}Verify Email{% endblock %}
+{% block auth_content %}
+<div class="text-center">
+  <div class="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-full bg-brand-100 text-brand-600 text-2xl">✉</div>
+  <h1 class="text-2xl font-bold">Verify your email</h1>
+  <p class="mt-2 text-sm text-gray-500">We sent a verification link to your email.</p>
+  <div class="mt-6 rounded-xl bg-emerald-50 p-4 text-sm text-emerald-700">✓ Account created! You can start learning while waiting.</div>
+  <a href="{{ url_for('dashboard.index') }}" class="inline-block mt-6 rounded-xl bg-gradient-to-r from-brand-600 to-indigo-600 px-6 py-3 text-sm font-semibold text-white">Go to Dashboard</a>
+</div>
+{% endblock %}

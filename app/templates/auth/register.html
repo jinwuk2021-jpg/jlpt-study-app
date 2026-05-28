@@ -1,0 +1,22 @@
+{% extends "auth/base_auth.html" %}
+{% block auth_title %}Register{% endblock %}
+{% block auth_content %}
+<h1 class="text-2xl font-bold">Create your account</h1>
+<p class="mt-2 text-sm text-gray-500">Start your JLPT journey today — it's free</p>
+<form method="POST" class="mt-8 space-y-4">
+  <div>
+    <label class="text-sm font-medium text-gray-700">Full Name</label>
+    <input type="text" name="name" required placeholder="Your name" class="mt-1 w-full rounded-xl border border-gray-200 px-4 py-3 text-sm focus:border-brand-500 focus:outline-none focus:ring-2 focus:ring-brand-500/20">
+  </div>
+  <div>
+    <label class="text-sm font-medium text-gray-700">Email</label>
+    <input type="email" name="email" required placeholder="you@example.com" class="mt-1 w-full rounded-xl border border-gray-200 px-4 py-3 text-sm focus:border-brand-500 focus:outline-none focus:ring-2 focus:ring-brand-500/20">
+  </div>
+  <div>
+    <label class="text-sm font-medium text-gray-700">Password</label>
+    <input type="password" name="password" required minlength="8" placeholder="Min. 8 characters" class="mt-1 w-full rounded-xl border border-gray-200 px-4 py-3 text-sm focus:border-brand-500 focus:outline-none focus:ring-2 focus:ring-brand-500/20">
+  </div>
+  <button type="submit" class="w-full rounded-xl bg-gradient-to-r from-brand-600 to-indigo-600 px-6 py-3 text-sm font-semibold text-white">Create Account</button>
+</form>
+<p class="mt-6 text-center text-sm text-gray-500">Already have an account? <a href="{{ url_for('auth.login') }}" class="font-semibold text-brand-600">Sign in</a></p>
+{% endblock %}

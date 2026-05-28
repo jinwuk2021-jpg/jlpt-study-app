@@ -1,0 +1,66 @@
+{% extends "base.html" %}
+{% from "macros.html" import level_badge, progress_bar %}
+{% block title %}Exam Results{% endblock %}
+{% block body %}
+<div class="min-h-screen bg-gray-50 p-6 lg:p-8">
+  <div class="mx-auto max-w-4xl space-y-8">
+    <div class="text-center">
+      <div class="mx-auto mb-4 flex h-20 w-20 items-center justify-center rounded-full text-4xl {% if results.passed %}bg-emerald-100{% else %}bg-red-100{% endif %}">
+        {% if results.passed %}🏆{% else %}❌{% endif %}
+      </div>
+      <h1 class="text-3xl font-bold">{% if results.passed %}Congratulations!{% else %}Keep Practicing!{% endif %}</h1>
+      <p class="text-gray-500 mt-2">{% if results.passed %}You passed the {{ exam.level }} mock exam!{% else %}Need {{ exam.passing_score }}% to pass.{% endif %}</p>
+      <div class="mt-4 flex items-center justify-center gap-4">
+        <span class="text-5xl font-bold bg-gradient-to-r from-brand-600 to-indigo-600 bg-clip-text text-transparent">{{ results.score }}%</span>
+        {{ level_badge(exam.level) }}
+        <span class="rounded-full px-3 py-1 text-xs font-semibold {% if results.passed %}bg-emerald-100 text-emerald-700{% else %}bg-red-100 text-red-700{% endif %}">{% if results.passed %}PASSED{% else %}FAILED{% endif %}</span>
+      </div>
+      <p class="text-sm text-gray-500 mt-2">{{ results.correct }} / {{ results.total }} correct</p>
+    </div>
+
+    <div class="rounded-2xl border bg-white p-6 shadow-sm">
+      <h3 class="font-semibold mb-4">Section Breakdown</h3>
+      {% for section, data in results.section_scores.items() %}
+      <div class="mb-4">
+        <div class="flex justify-between text-sm mb-1"><span class="font-medium capitalize">{{ section }}</span><span>{{ data.correct }}/{{ data.total }} ({{ ((data.correct / data.total) * 100)|round|int }}%)</span></div>
+        {{ progress_bar(data.correct, data.total) }}
+      </div>
+      {% endfor %}
+    </div>
+
+    {% if results.weaknesses %}
+    <div class="rounded-2xl border bg-white p-6 shadow-sm">
+      <h3 class="font-semibold mb-4">⚠️ Weakness Analysis</h3>
+      {% for w in results.weaknesses[:5] %}<p class="text-sm text-gray-600 capitalize mb-1">{{ w }}</p>{% endfor %}
+      <div class="mt-4 flex gap-2">
+        <a href="{{ url_for('dashboard.vocabulary') }}" class="rounded-xl border px-4 py-2 text-sm">Review Vocabulary</a>
+        <a href="{{ url_for('dashboard.grammar') }}" class="rounded-xl border px-4 py-2 text-sm">Review Grammar</a>
+      </div>
+    </div>
+    {% endif %}
+
+    <div class="rounded-2xl border bg-white p-6 shadow-sm">
+      <h3 class="font-semibold mb-4">Answer Review</h3>
+      {% for q in review %}
+      <div class="rounded-xl border p-4 mb-3 {% if q.is_correct %}border-emerald-200 bg-emerald-50/50{% else %}border-red-200 bg-red-50/50{% endif %}">
+        <div class="flex gap-2 mb-2"><span class="text-xs text-gray-400">Q{{ q.index + 1 }}</span>
+        <span class="text-xs capitalize text-blue-600">{{ q.section }}</span>
+        <span class="text-xs {% if q.is_correct %}text-emerald-600{% else %}text-red-600{% endif %}">{% if q.is_correct %}Correct{% else %}Incorrect{% endif %}</span></div>
+        <p class="text-sm font-medium">{{ q.question }}</p>
+        {% if q.user_answer is not none %}
+        <p class="text-sm mt-1">Your answer: <span class="{% if q.is_correct %}text-emerald-600{% else %}text-red-600{% endif %}">{{ q.options[q.user_answer|int] }}</span>
+        {% if not q.is_correct %} → Correct: <span class="text-emerald-600">{{ q.options[q.correct_answer] }}</span>{% endif %}</p>
+        {% endif %}
+        <p class="text-xs text-gray-500 mt-2">{{ q.explanation }}</p>
+      </div>
+      {% endfor %}
+    </div>
+
+    <div class="flex flex-wrap gap-3 justify-center pb-8">
+      {% if results.passed %}<button class="rounded-xl border-2 border-brand-500 px-6 py-3 text-sm font-semibold text-brand-600">📥 Download Certificate</button>{% endif %}
+      <a href="{{ url_for('exams.take', exam_id=exam.id) }}" class="rounded-xl border px-6 py-3 text-sm font-semibold">🔄 Retake Exam</a>
+      <a href="{{ url_for('exams.index') }}" class="rounded-xl bg-gradient-to-r from-brand-600 to-indigo-600 px-6 py-3 text-sm font-semibold text-white">Back to Exams →</a>
+    </div>
+  </div>
+</div>
+{% endblock %}

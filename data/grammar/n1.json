@@ -1,0 +1,1520 @@
+[
+  {
+    "num": 1,
+    "romaji": "aete",
+    "japanese": "敢えて（あえて）",
+    "meaning_en": "dare to; daringly; deliberately; purposely"
+  },
+  {
+    "num": 2,
+    "romaji": "akumade mo",
+    "japanese": "あくまでも",
+    "meaning_en": "to the end; persistently; absolutely; is still very"
+  },
+  {
+    "num": 3,
+    "romaji": "an no jou",
+    "japanese": "案の定（あんのじょう）",
+    "meaning_en": "just as one thought; as usual; sure enough"
+  },
+  {
+    "num": 4,
+    "romaji": "arakajime",
+    "japanese": "あらかじめ",
+    "meaning_en": "beforehand; in advance; previously​"
+  },
+  {
+    "num": 5,
+    "romaji": "atte no",
+    "japanese": "あっての",
+    "meaning_en": "which can exist solely due to the presence of; which owes everything to"
+  },
+  {
+    "num": 6,
+    "romaji": "ba koso",
+    "japanese": "ばこそ",
+    "meaning_en": "only because"
+  },
+  {
+    "num": 7,
+    "romaji": "ba sore made da / tara sore made da",
+    "japanese": "ばそれまでだ / たらそれまでだ",
+    "meaning_en": "if… then it’s over"
+  },
+  {
+    "num": 8,
+    "romaji": "bekarazu / bekarazaru",
+    "japanese": "べからず / べからざる",
+    "meaning_en": "must not; should not; do not"
+  },
+  {
+    "num": 9,
+    "romaji": "beku",
+    "japanese": "べく",
+    "meaning_en": "in order to; for the purpose of"
+  },
+  {
+    "num": 10,
+    "romaji": "beku mo nai",
+    "japanese": "べくもない",
+    "meaning_en": "cannot possibly be"
+  },
+  {
+    "num": 11,
+    "romaji": "beku shite",
+    "japanese": "べくして",
+    "meaning_en": "as it is bound to (happen); following the natural course"
+  },
+  {
+    "num": 12,
+    "romaji": "biru / bite / bita",
+    "japanese": "びる / びて / びた",
+    "meaning_en": "to seem to be; to appear; to behave as"
+  },
+  {
+    "num": 13,
+    "romaji": "buri / ppuri",
+    "japanese": "ぶり / っぷり",
+    "meaning_en": "style; manner; way​"
+  },
+  {
+    "num": 14,
+    "romaji": "buru / butte / butta",
+    "japanese": "ぶる / ぶって / ぶった",
+    "meaning_en": "assuming the air of; behaving like; to pretend / act like"
+  },
+  {
+    "num": 15,
+    "romaji": "dani / dani shinai",
+    "japanese": "だに / だにしない",
+    "meaning_en": "even; not even"
+  },
+  {
+    "num": 16,
+    "romaji": "dano~dano",
+    "japanese": "だの～だの",
+    "meaning_en": "and; and the like; and so forth"
+  },
+  {
+    "num": 17,
+    "romaji": "darou ni",
+    "japanese": "だろうに",
+    "meaning_en": "(1) surely..., but ~; although... is likely, ~ (2) should have (regret); might / must have been"
+  },
+  {
+    "num": 18,
+    "romaji": "de are / de arou to",
+    "japanese": "であれ / であろうと",
+    "meaning_en": "whoever; whatever; however; even"
+  },
+  {
+    "num": 19,
+    "romaji": "de are~de are",
+    "japanese": "であれ～であれ",
+    "meaning_en": "whether [A] or [B]"
+  },
+  {
+    "num": 20,
+    "romaji": "demo ari~demo aru",
+    "japanese": "でもあり～でもある",
+    "meaning_en": "to also be; both… and"
+  },
+  {
+    "num": 21,
+    "romaji": "demo nan demo nai / kumo nan tomo nai",
+    "japanese": "でも何でもない / くも何ともない（でもなんでもない / くもなんともない）",
+    "meaning_en": "not in the least; nothing like that"
+  },
+  {
+    "num": 22,
+    "romaji": "denakute nan darou",
+    "japanese": "でなくてなんだろう",
+    "meaning_en": "must be; is definitely"
+  },
+  {
+    "num": 23,
+    "romaji": "dewa arumai ka",
+    "japanese": "ではあるまいか",
+    "meaning_en": "isn't it; I wonder if it’s not"
+  },
+  {
+    "num": 24,
+    "romaji": "dewa arumai shi",
+    "japanese": "ではあるまいし",
+    "meaning_en": "it’s not like; it isn’t as if"
+  },
+  {
+    "num": 25,
+    "romaji": "dewa sumanai",
+    "japanese": "では済まない（ではすまない）",
+    "meaning_en": "it doesn’t end with just ~; it will take more than"
+  },
+  {
+    "num": 26,
+    "romaji": "dou nimo~nai",
+    "japanese": "どうにも～ない",
+    "meaning_en": "not … by any means; no matter how hard one tries, cannot"
+  },
+  {
+    "num": 27,
+    "romaji": "ga hayai ka",
+    "japanese": "が早いか（がはやいか）",
+    "meaning_en": "no sooner than; as soon as"
+  },
+  {
+    "num": 28,
+    "romaji": "ga/mo~nara, ~mo~da",
+    "japanese": "が/も～なら、～も～だ",
+    "meaning_en": "negative connection/comparison (like father like son)"
+  },
+  {
+    "num": 29,
+    "romaji": "gamashii",
+    "japanese": "がましい",
+    "meaning_en": "look like; sound like; approximate; similar to; somewhat like"
+  },
+  {
+    "num": 30,
+    "romaji": "gatera",
+    "japanese": "がてら",
+    "meaning_en": "while; on the same occasion; at the same time; coincidentally"
+  },
+  {
+    "num": 31,
+    "romaji": "gotoki / gotoku / gotoshi",
+    "japanese": "ごとき / ごとく / ごとし",
+    "meaning_en": "like; as if; the same as"
+  },
+  {
+    "num": 32,
+    "romaji": "gurumi",
+    "japanese": "ぐるみ",
+    "meaning_en": "together (with); -wide"
+  },
+  {
+    "num": 33,
+    "romaji": "hame ni naru",
+    "japanese": "羽目になる（はめになる）",
+    "meaning_en": "to get stuck with; to end up with (something unpleasant)"
+  },
+  {
+    "num": 34,
+    "romaji": "hodo no koto dewa nai",
+    "japanese": "ほどのことではない",
+    "meaning_en": "it's not worth; no need to"
+  },
+  {
+    "num": 35,
+    "romaji": "hou ga mashi da",
+    "japanese": "ほうがましだ",
+    "meaning_en": "better than; would rather"
+  },
+  {
+    "num": 36,
+    "romaji": "houdai",
+    "japanese": "放題（ほうだい）",
+    "meaning_en": "doing as one pleases; to one's heart's content; leaving uncontrolled"
+  },
+  {
+    "num": 37,
+    "romaji": "ikan da / ikan dewa / ikan ni yotte wa",
+    "japanese": "いかんだ / いかんでは / いかんによっては",
+    "meaning_en": "in accordance with; depending on; whether or not"
+  },
+  {
+    "num": 38,
+    "romaji": "ikan ni kakawarazu / ikan ni yorazu / ikan o towazu",
+    "japanese": "いかんにかかわらず / いかんによらず / いかんをとわず",
+    "meaning_en": "regardless of; whether or not; doesn't matter whether"
+  },
+  {
+    "num": 39,
+    "romaji": "ikanaru",
+    "japanese": "いかなる",
+    "meaning_en": "any kind of; every; whatsoever; whatever"
+  },
+  {
+    "num": 40,
+    "romaji": "ikani",
+    "japanese": "いかに",
+    "meaning_en": "how; in what way; how much; to what extent"
+  },
+  {
+    "num": 41,
+    "romaji": "ikani mo",
+    "japanese": "いかにも",
+    "meaning_en": "indeed; really; truly; just (like); very; extremely"
+  },
+  {
+    "num": 42,
+    "romaji": "izure ni shitemo / izure ni shiro / izure ni seyo",
+    "japanese": "いずれにしても / いずれにしろ / いずれにせよ",
+    "meaning_en": "anyhow; anyway; either way; in any case"
+  },
+  {
+    "num": 43,
+    "romaji": "jimita",
+    "japanese": "じみた",
+    "meaning_en": "to become; to appear like; to look like; tainted with"
+  },
+  {
+    "num": 44,
+    "romaji": "ka ina ka",
+    "japanese": "か否か（かいなか）",
+    "meaning_en": "whether or not"
+  },
+  {
+    "num": 45,
+    "romaji": "ka to omoikiya",
+    "japanese": "かと思いきや（かとおもいきや）",
+    "meaning_en": "contrary to expectations; or so we thought, but"
+  },
+  {
+    "num": 46,
+    "romaji": "kagiri da",
+    "japanese": "限りだ（かぎりだ）",
+    "meaning_en": "to feel strongly"
+  },
+  {
+    "num": 47,
+    "romaji": "kai mo naku",
+    "japanese": "甲斐もなく（かいもなく）",
+    "meaning_en": "despite; even though"
+  },
+  {
+    "num": 48,
+    "romaji": "kanousei ga aru",
+    "japanese": "可能性がある（かのうせいがある）",
+    "meaning_en": "may/might; there’s a possibility that"
+  },
+  {
+    "num": 49,
+    "romaji": "kara aru / kara suru / kara no",
+    "japanese": "からある / からする / からの",
+    "meaning_en": "at least; as much as; as many as"
+  },
+  {
+    "num": 50,
+    "romaji": "kare~kare",
+    "japanese": "かれ～かれ",
+    "meaning_en": "sooner or later; more or less"
+  },
+  {
+    "num": 51,
+    "romaji": "katagata",
+    "japanese": "かたがた",
+    "meaning_en": "while; at the same time; incidentally; for the purpose of"
+  },
+  {
+    "num": 52,
+    "romaji": "katawara",
+    "japanese": "かたわら",
+    "meaning_en": "while; besides; at the same time; in addition"
+  },
+  {
+    "num": 53,
+    "romaji": "katsute",
+    "japanese": "かつて",
+    "meaning_en": "once; before; formerly; ever; former; ex-"
+  },
+  {
+    "num": 54,
+    "romaji": "kirai ga aru",
+    "japanese": "嫌いがある（きらいがある）",
+    "meaning_en": "bad habit; to have a tendency to"
+  },
+  {
+    "num": 55,
+    "romaji": "kiri ga nai",
+    "japanese": "切りがない（きりがない）",
+    "meaning_en": "endless; boundless; going on forever​; there’s no end to"
+  },
+  {
+    "num": 56,
+    "romaji": "kitte no",
+    "japanese": "きっての",
+    "meaning_en": "the most / greatest … of all"
+  },
+  {
+    "num": 57,
+    "romaji": "kiwamaru / kiwamarinai",
+    "japanese": "極まる / 極まりない（きわまる / きわまりない）",
+    "meaning_en": "extremely; very"
+  },
+  {
+    "num": 58,
+    "romaji": "koso are",
+    "japanese": "こそあれ",
+    "meaning_en": "although; even though"
+  },
+  {
+    "num": 59,
+    "romaji": "koso sure",
+    "japanese": "こそすれ",
+    "meaning_en": "and; although; but"
+  },
+  {
+    "num": 60,
+    "romaji": "koso~ga/keredo",
+    "japanese": "こそ「～が・けれど」",
+    "meaning_en": "but; although (emphasis)"
+  },
+  {
+    "num": 61,
+    "romaji": "koto gotoku",
+    "japanese": "ことごとく",
+    "meaning_en": "altogether; entirely; completely"
+  },
+  {
+    "num": 62,
+    "romaji": "koto kono ue nai / kono ue nai / kono ue naku",
+    "japanese": "ことこの上ない / この上ない / この上なく（ことこのうえない / このうえない / このうえなく）",
+    "meaning_en": "the most of all; the best; nothing is more ... than"
+  },
+  {
+    "num": 63,
+    "romaji": "koto mo atte",
+    "japanese": "こともあって",
+    "meaning_en": "partly because; also because of; plus the reason for"
+  },
+  {
+    "num": 64,
+    "romaji": "koto nashi ni",
+    "japanese": "ことなしに",
+    "meaning_en": "without doing something"
+  },
+  {
+    "num": 65,
+    "romaji": "koto no nai you ni",
+    "japanese": "ことのないように",
+    "meaning_en": "so as not to; to not"
+  },
+  {
+    "num": 66,
+    "romaji": "koto tote",
+    "japanese": "こととて",
+    "meaning_en": "because; since"
+  },
+  {
+    "num": 67,
+    "romaji": "kurai nara",
+    "japanese": "くらいなら",
+    "meaning_en": "rather than (do ...)​"
+  },
+  {
+    "num": 68,
+    "romaji": "kurai no mono da",
+    "japanese": "くらいのものだ",
+    "meaning_en": "only (emphasis)"
+  },
+  {
+    "num": 69,
+    "romaji": "made da / made no koto da",
+    "japanese": "までだ / までのことだ",
+    "meaning_en": "only; just; nothing else"
+  },
+  {
+    "num": 70,
+    "romaji": "made mo nai / made mo naku",
+    "japanese": "までもない / までもなく",
+    "meaning_en": "there's no need to; it’s not necessary to"
+  },
+  {
+    "num": 71,
+    "romaji": "majiki",
+    "japanese": "まじき",
+    "meaning_en": "should not; must not"
+  },
+  {
+    "num": 72,
+    "romaji": "makuru",
+    "japanese": "まくる",
+    "meaning_en": "to do over and over again; to do relentlessly"
+  },
+  {
+    "num": 73,
+    "romaji": "mamire",
+    "japanese": "まみれ",
+    "meaning_en": "covered with; stained; smeared with"
+  },
+  {
+    "num": 74,
+    "romaji": "marukkiri",
+    "japanese": "まるっきり",
+    "meaning_en": "completely; absolutely; totally; (not) at all​"
+  },
+  {
+    "num": 75,
+    "romaji": "meku",
+    "japanese": "めく",
+    "meaning_en": "seems; show signs of; to have the appearance of"
+  },
+  {
+    "num": 76,
+    "romaji": "mo douzen da",
+    "japanese": "も同然だ（もどうぜんだ）",
+    "meaning_en": "just like; same as"
+  },
+  {
+    "num": 77,
+    "romaji": "mo saru koto nagara",
+    "japanese": "もさることながら",
+    "meaning_en": "one may well say so, but~; not only... but also"
+  },
+  {
+    "num": 78,
+    "romaji": "mo shinai de",
+    "japanese": "もしないで",
+    "meaning_en": "without even doing"
+  },
+  {
+    "num": 79,
+    "romaji": "mohaya",
+    "japanese": "もはや",
+    "meaning_en": "already; now; no longer; not anymore"
+  },
+  {
+    "num": 80,
+    "romaji": "mono de",
+    "japanese": "もので",
+    "meaning_en": "because; for that reason"
+  },
+  {
+    "num": 81,
+    "romaji": "mono o",
+    "japanese": "ものを",
+    "meaning_en": "if only; I wish; I'm sorry it's not actually (regret)"
+  },
+  {
+    "num": 82,
+    "romaji": "mono to omowareru / mono to mirareru",
+    "japanese": "ものと思われる / ものと見られる（ものとおもわれる / ものとみられる）",
+    "meaning_en": "to think; to suppose; it is believed/expected that"
+  },
+  {
+    "num": 83,
+    "romaji": "mono to suru",
+    "japanese": "ものとする",
+    "meaning_en": "shall; to assume; understood as"
+  },
+  {
+    "num": 84,
+    "romaji": "mono toshite",
+    "japanese": "ものとして",
+    "meaning_en": "to assume; to suppose; on the presumption that"
+  },
+  {
+    "num": 85,
+    "romaji": "moshikuwa",
+    "japanese": "もしくは",
+    "meaning_en": "or; otherwise"
+  },
+  {
+    "num": 86,
+    "romaji": "n bakari ni",
+    "japanese": "んばかりに",
+    "meaning_en": "as if; as though"
+  },
+  {
+    "num": 87,
+    "romaji": "n ga tame ni",
+    "japanese": "んがために",
+    "meaning_en": "in order to"
+  },
+  {
+    "num": 88,
+    "romaji": "nagara ni / nagara no",
+    "japanese": "ながらに / ながらの",
+    "meaning_en": "while; during; without change; performed in this condition"
+  },
+  {
+    "num": 89,
+    "romaji": "nai made mo",
+    "japanese": "ないまでも",
+    "meaning_en": "not to say; although it does not reach the level of"
+  },
+  {
+    "num": 90,
+    "romaji": "nai mono demo nai",
+    "japanese": "ないものでもない",
+    "meaning_en": "is not entirely impossible"
+  },
+  {
+    "num": 91,
+    "romaji": "nai mono ka / nai mono darou ka",
+    "japanese": "ないものか / ないものだろうか",
+    "meaning_en": "isn't there; can’t we…?; can’t I…?"
+  },
+  {
+    "num": 92,
+    "romaji": "nai tomo kagiranai",
+    "japanese": "ないとも限らない（ないともかぎらない）",
+    "meaning_en": "not necessarily; I can't say that; maybe; might"
+  },
+  {
+    "num": 93,
+    "romaji": "nakushite wa",
+    "japanese": "なくしては",
+    "meaning_en": "cannot do without"
+  },
+  {
+    "num": 94,
+    "romaji": "nami",
+    "japanese": "並み（なみ）",
+    "meaning_en": "average; ordinary; same level as; equal to; on par with"
+  },
+  {
+    "num": 95,
+    "romaji": "nan to iu / nanto / nante",
+    "japanese": "なんという / なんと / なんて",
+    "meaning_en": "how (beautiful, etc.); what a"
+  },
+  {
+    "num": 96,
+    "romaji": "nani shiro",
+    "japanese": "何しろ（なにしろ）",
+    "meaning_en": "at any rate; after all; anyhow; anyway; in any case; because; as you know"
+  },
+  {
+    "num": 97,
+    "romaji": "nara dewa",
+    "japanese": "ならでは",
+    "meaning_en": "distinctive of; uniquely applying to; special to"
+  },
+  {
+    "num": 98,
+    "romaji": "nara iza shirazu / wa iza shirazu",
+    "japanese": "ならいざしらず / はいざしらず",
+    "meaning_en": "I don't know about ... but; it may be possible for ... but"
+  },
+  {
+    "num": 99,
+    "romaji": "nari",
+    "japanese": "なり",
+    "meaning_en": "as soon as; right after"
+  },
+  {
+    "num": 100,
+    "romaji": "nari ni / nari no",
+    "japanese": "なりに / なりの",
+    "meaning_en": "suitable; in one's own way/style"
+  },
+  {
+    "num": 101,
+    "romaji": "nari tomo",
+    "japanese": "なりとも",
+    "meaning_en": "at least; even just a little (adverbial particle)"
+  },
+  {
+    "num": 102,
+    "romaji": "nari~nari",
+    "japanese": "なり～なり",
+    "meaning_en": "[A] or [B] or something; for instance"
+  },
+  {
+    "num": 103,
+    "romaji": "nashi ni / nashi de",
+    "japanese": "なしに / なしで",
+    "meaning_en": "without; without doing"
+  },
+  {
+    "num": 104,
+    "romaji": "ni",
+    "japanese": "に",
+    "meaning_en": "and; in addition to; the combination of"
+  },
+  {
+    "num": 105,
+    "romaji": "ni atai suru",
+    "japanese": "に値する（にあたいする）",
+    "meaning_en": "to be worth; to be worthy of; to deserve; to merit​"
+  },
+  {
+    "num": 106,
+    "romaji": "ni atte",
+    "japanese": "にあって",
+    "meaning_en": "at; on; during; in the condition of​"
+  },
+  {
+    "num": 107,
+    "romaji": "ni hikikae",
+    "japanese": "に引き換え（にひきかえ）",
+    "meaning_en": "compared to; in contrast to; unlike; while; whereas"
+  },
+  {
+    "num": 108,
+    "romaji": "ni itaru / ni itatta",
+    "japanese": "に至る / に至った（にいたる / にいたった）",
+    "meaning_en": "leads to; come to a conclusion"
+  },
+  {
+    "num": 109,
+    "romaji": "ni itaru made",
+    "japanese": "に至るまで（にいたるまで）",
+    "meaning_en": "as far as; up until; everything from ... to"
+  },
+  {
+    "num": 110,
+    "romaji": "ni itattemo",
+    "japanese": "に至っても（にいたっても）",
+    "meaning_en": "even if; even though; although something reached the point"
+  },
+  {
+    "num": 111,
+    "romaji": "ni ittate wa",
+    "japanese": "に至っては（にいたっては）",
+    "meaning_en": "when it comes to; as for"
+  },
+  {
+    "num": 112,
+    "romaji": "ni iwasereba",
+    "japanese": "に言わせれば（にいわせれば）",
+    "meaning_en": "if you ask; if one may say"
+  },
+  {
+    "num": 113,
+    "romaji": "ni kagitta koto dewa nai",
+    "japanese": "に限ったことではない（にかぎったことではない）",
+    "meaning_en": "not limited to only"
+  },
+  {
+    "num": 114,
+    "romaji": "ni kakatte wa / ni kakattara / ni kakaru to / kakareba",
+    "japanese": "にかかっては / にかかったら / にかかると / かかれば",
+    "meaning_en": "when handled by (N), becomes a completely different result"
+  },
+  {
+    "num": 115,
+    "romaji": "ni kakatteiru",
+    "japanese": "にかかっている",
+    "meaning_en": "depending on; to depend on; whether or not"
+  },
+  {
+    "num": 116,
+    "romaji": "ni kako tsukete",
+    "japanese": "にかこつけて",
+    "meaning_en": "to use as a pretext; to use as an excuse"
+  },
+  {
+    "num": 117,
+    "romaji": "ni kamakete",
+    "japanese": "にかまけて",
+    "meaning_en": "to be too busy; to focus / concentrate only on"
+  },
+  {
+    "num": 118,
+    "romaji": "ni katakunai",
+    "japanese": "に難くない（にかたくない）",
+    "meaning_en": "easy to do; it’s not hard to (imagine, understand, guess)"
+  },
+  {
+    "num": 119,
+    "romaji": "ni matsuwaru",
+    "japanese": "にまつわる",
+    "meaning_en": "to be related to; to concern; associated with"
+  },
+  {
+    "num": 120,
+    "romaji": "ni nottotte",
+    "japanese": "に則って（にのっとって）",
+    "meaning_en": "based on; according to; in accordance with"
+  },
+  {
+    "num": 121,
+    "romaji": "ni sakigakete",
+    "japanese": "に先駆けて（にさきがけて）",
+    "meaning_en": "prior to; to be the first (pioneer); being ahead of"
+  },
+  {
+    "num": 122,
+    "romaji": "ni shinobinai",
+    "japanese": "に忍びない（にしのびない）",
+    "meaning_en": "cannot bring oneself (to do); unable to bear"
+  },
+  {
+    "num": 123,
+    "romaji": "ni shita tokoro de / to shita tokoro de",
+    "japanese": "にしたところで / としたところで",
+    "meaning_en": "even if; even supposing that"
+  },
+  {
+    "num": 124,
+    "romaji": "ni shite",
+    "japanese": "にして",
+    "meaning_en": "at / on / under certain conditions (time, position, age, number of times)"
+  },
+  {
+    "num": 125,
+    "romaji": "ni sokushite",
+    "japanese": "に即して（にそくして）",
+    "meaning_en": "according to; in keeping with; to be based on"
+  },
+  {
+    "num": 126,
+    "romaji": "ni taeru / ni taenai",
+    "japanese": "に耐える / に耐えない（にたえる / にたえない）",
+    "meaning_en": "worth doing; can do; cannot bear doing"
+  },
+  {
+    "num": 127,
+    "romaji": "ni taranai / ni tarinai",
+    "japanese": "に足らない / に足りない（にたらない / にたりない）",
+    "meaning_en": "cannot; not worthy; not worth doing"
+  },
+  {
+    "num": 128,
+    "romaji": "ni taru / ni tariru",
+    "japanese": "に足る / に足りる（にたる / にたりる）",
+    "meaning_en": "can do; worthy; worth doing"
+  },
+  {
+    "num": 129,
+    "romaji": "ni terashite",
+    "japanese": "に照らして（にてらして）",
+    "meaning_en": "according to; in view of; in light of"
+  },
+  {
+    "num": 130,
+    "romaji": "ni todomarazu",
+    "japanese": "にとどまらず",
+    "meaning_en": "not limited to; not only… but also"
+  },
+  {
+    "num": 131,
+    "romaji": "ni wa muri ga aru",
+    "japanese": "には無理がある（にはむりがある）",
+    "meaning_en": "difficult to do; is unreasonable / unrealistic / impossible"
+  },
+  {
+    "num": 132,
+    "romaji": "ni yorazu",
+    "japanese": "によらず",
+    "meaning_en": "regardless of"
+  },
+  {
+    "num": 133,
+    "romaji": "ni~o kasanete",
+    "japanese": "に～を重ねて（に～をかさねて）",
+    "meaning_en": "success after continuous (effort, work, adjustments, etc.)"
+  },
+  {
+    "num": 134,
+    "romaji": "nimo hodo ga aru",
+    "japanese": "にもほどがある",
+    "meaning_en": "there is a limit to what is acceptable; to go too far"
+  },
+  {
+    "num": 135,
+    "romaji": "nimo mashite",
+    "japanese": "にも増して（にもまして）",
+    "meaning_en": "more than…; above"
+  },
+  {
+    "num": 136,
+    "romaji": "niwa ataranai",
+    "japanese": "には当たらない（にはあたらない）",
+    "meaning_en": "it’s not worth; there’s no need to; does not correspond to"
+  },
+  {
+    "num": 137,
+    "romaji": "niwa oyobanai",
+    "japanese": "には及ばない（にはおよばない）",
+    "meaning_en": "there is no need to; unnecessary; no match for"
+  },
+  {
+    "num": 138,
+    "romaji": "no itari",
+    "japanese": "の至り（のいたり）",
+    "meaning_en": "utmost; extremely"
+  },
+  {
+    "num": 139,
+    "romaji": "no kiwami",
+    "japanese": "の極み（のきわみ）",
+    "meaning_en": "utmost; extremely"
+  },
+  {
+    "num": 140,
+    "romaji": "no nan notte",
+    "japanese": "のなんのって",
+    "meaning_en": "extremely ~ (cannot be expressed in words)"
+  },
+  {
+    "num": 141,
+    "romaji": "no yara / mono yara / koto yara",
+    "japanese": "のやら / ものやら / ことやら",
+    "meaning_en": "I wonder...; unsure; I don’t know"
+  },
+  {
+    "num": 142,
+    "romaji": "no yara~no yara",
+    "japanese": "のやら～のやら",
+    "meaning_en": "or ~ (I don't know)"
+  },
+  {
+    "num": 143,
+    "romaji": "o fumaete",
+    "japanese": "を踏まえて（をふまえて）",
+    "meaning_en": "to be based on; to take into account"
+  },
+  {
+    "num": 144,
+    "romaji": "o hete",
+    "japanese": "を経て（をへて）",
+    "meaning_en": "through; by way of; after; via"
+  },
+  {
+    "num": 145,
+    "romaji": "o hikaete",
+    "japanese": "を控えて（をひかえて）",
+    "meaning_en": "to be soon; the time has come to; nearby; ahead of"
+  },
+  {
+    "num": 146,
+    "romaji": "o ii koto ni",
+    "japanese": "をいいことに",
+    "meaning_en": "to take advantage of"
+  },
+  {
+    "num": 147,
+    "romaji": "o kaerimizu / mo kaerimizu",
+    "japanese": "を顧みず / も顧みず（をかえりみず / もかえりみず）",
+    "meaning_en": "despite; without considering; not worrying about; regardless of"
+  },
+  {
+    "num": 148,
+    "romaji": "o kagiri ni",
+    "japanese": "を限りに（をかぎりに）",
+    "meaning_en": "starting from; the last time (ending a continued action)"
+  },
+  {
+    "num": 149,
+    "romaji": "o kanete",
+    "japanese": "を兼ねて（をかねて）",
+    "meaning_en": "also for the purpose of"
+  },
+  {
+    "num": 150,
+    "romaji": "o kawakiri ni",
+    "japanese": "を皮切りに（をかわきりに）",
+    "meaning_en": "one after another; starting with"
+  },
+  {
+    "num": 151,
+    "romaji": "o ki ni",
+    "japanese": "を機に（をきに）",
+    "meaning_en": "as an opportunity/chance to"
+  },
+  {
+    "num": 152,
+    "romaji": "o kinji enai",
+    "japanese": "を禁じ得ない（をきんじえない）",
+    "meaning_en": "can’t help but; can’t refrain from"
+  },
+  {
+    "num": 153,
+    "romaji": "o mono tomo sezuni",
+    "japanese": "をものともせずに",
+    "meaning_en": "in defiance of; not losing to / afraid / worrying about"
+  },
+  {
+    "num": 154,
+    "romaji": "o motte / o mochimashite",
+    "japanese": "をもって / をもちまして",
+    "meaning_en": "by means of; with; on / at / as of (time)​"
+  },
+  {
+    "num": 155,
+    "romaji": "o oite~nai",
+    "japanese": "をおいて～ない",
+    "meaning_en": "only; can only be; there is no alternative, only"
+  },
+  {
+    "num": 156,
+    "romaji": "o oshite / o oshikitte",
+    "japanese": "を押して / を押し切って（をおして / をおしきって）",
+    "meaning_en": "to overcome (opposition); to push past"
+  },
+  {
+    "num": 157,
+    "romaji": "o sakai ni",
+    "japanese": "を境に（をさかいに）",
+    "meaning_en": "since ~ (indicates a large change before & after)"
+  },
+  {
+    "num": 158,
+    "romaji": "o yogi naku sareru",
+    "japanese": "を余儀なくされる（をよぎなくされる）",
+    "meaning_en": "to be forced to do something because one has no other choice"
+  },
+  {
+    "num": 159,
+    "romaji": "o yoso ni",
+    "japanese": "をよそに",
+    "meaning_en": "despite; without regards to"
+  },
+  {
+    "num": 160,
+    "romaji": "o zentei toshite",
+    "japanese": "を前提として（をぜんていとして）",
+    "meaning_en": "with the intention to; on the condition / assumption"
+  },
+  {
+    "num": 161,
+    "romaji": "omoi o suru",
+    "japanese": "思いをする（おもいをする）",
+    "meaning_en": "to think; to feel"
+  },
+  {
+    "num": 162,
+    "romaji": "ori ni",
+    "japanese": "折に（おりに）",
+    "meaning_en": "when; at the time; on the occasion"
+  },
+  {
+    "num": 163,
+    "romaji": "oyoso",
+    "japanese": "およそ",
+    "meaning_en": "about; roughly; generally; approximately; completely​"
+  },
+  {
+    "num": 164,
+    "romaji": "sa",
+    "japanese": "さ",
+    "meaning_en": "ending particle; indicates assertion"
+  },
+  {
+    "num": 165,
+    "romaji": "samo",
+    "japanese": "さも",
+    "meaning_en": "really (seem, appear, etc.); truly; as if"
+  },
+  {
+    "num": 166,
+    "romaji": "samonaito",
+    "japanese": "さもないと",
+    "meaning_en": "otherwise; or else; if not"
+  },
+  {
+    "num": 167,
+    "romaji": "sazo",
+    "japanese": "さぞ",
+    "meaning_en": "surely; certainly; no doubt; indeed​"
+  },
+  {
+    "num": 168,
+    "romaji": "shimatsu da",
+    "japanese": "始末だ（しまつだ）",
+    "meaning_en": "end up; in the end; as a result (negative)"
+  },
+  {
+    "num": 169,
+    "romaji": "soba kara",
+    "japanese": "そばから",
+    "meaning_en": "as soon as; right after​"
+  },
+  {
+    "num": 170,
+    "romaji": "sobireru",
+    "japanese": "そびれる",
+    "meaning_en": "to miss a chance; to fail to do"
+  },
+  {
+    "num": 171,
+    "romaji": "sokonau / sokoneru / sonjiru",
+    "japanese": "損なう / 損ねる / 損じる（そこなう / そこねる / そんじる）",
+    "meaning_en": "to do something wrong; by mistake; to miss a chance; to fail to"
+  },
+  {
+    "num": 172,
+    "romaji": "sube ga nai",
+    "japanese": "術がない（すべがない）",
+    "meaning_en": "there is no way / means; cannot do"
+  },
+  {
+    "num": 173,
+    "romaji": "sura / de sura",
+    "japanese": "すら / ですら",
+    "meaning_en": "even ~ (with emphasis)"
+  },
+  {
+    "num": 174,
+    "romaji": "ta hazumi ni / ta hyoushi ni",
+    "japanese": "た弾みに / た拍子に（たはずみに / たひょうしに）",
+    "meaning_en": "the moment [A], unintentionally / inadvertently caused something to happen"
+  },
+  {
+    "num": 175,
+    "romaji": "ta koto ni suru / ta koto ni naru",
+    "japanese": "たことにする / たことになる",
+    "meaning_en": "pretend to; see things as untrue; contrary to the truth"
+  },
+  {
+    "num": 176,
+    "romaji": "ta tokoro de",
+    "japanese": "たところで",
+    "meaning_en": "even if; no matter (who, what, when, where, why, how)"
+  },
+  {
+    "num": 177,
+    "romaji": "ta tsumori wa nai",
+    "japanese": "たつもりはない",
+    "meaning_en": "have no intention to / didn't mean to"
+  },
+  {
+    "num": 178,
+    "romaji": "tada~nomi da",
+    "japanese": "ただ～のみだ",
+    "meaning_en": "all we can do is; can do nothing but; only"
+  },
+  {
+    "num": 179,
+    "romaji": "tameshi ga nai",
+    "japanese": "ためしがない",
+    "meaning_en": "is never the case; has never happened; I have never seen or heard of"
+  },
+  {
+    "num": 180,
+    "romaji": "tara saigo / taga saigo",
+    "japanese": "たら最後 / たが最後（たらさいご / たがさいご）",
+    "meaning_en": "if you do... negative result"
+  },
+  {
+    "num": 181,
+    "romaji": "tara~tade",
+    "japanese": "たら～たで",
+    "meaning_en": "if / in the case... of course / should"
+  },
+  {
+    "num": 182,
+    "romaji": "tara~tokoro da",
+    "japanese": "たら～ところだ",
+    "meaning_en": "if... (counterfactual condition), then would be"
+  },
+  {
+    "num": 183,
+    "romaji": "tari tomo",
+    "japanese": "たりとも",
+    "meaning_en": "not even; not any"
+  },
+  {
+    "num": 184,
+    "romaji": "taru mono / taru",
+    "japanese": "たるもの / たる",
+    "meaning_en": "(those) who are; (that) which is; in the capacity of ... should"
+  },
+  {
+    "num": 185,
+    "romaji": "te kanawanai",
+    "japanese": "て敵わない（てかなわない）",
+    "meaning_en": "can't bear to; unable to; troublesome to; can’t stand to"
+  },
+  {
+    "num": 186,
+    "romaji": "te kara to iu mono",
+    "japanese": "てからというもの",
+    "meaning_en": "ever since"
+  },
+  {
+    "num": 187,
+    "romaji": "te miseru",
+    "japanese": "てみせる",
+    "meaning_en": "I’ll do my best; I'll definitely do; I'll show you"
+  },
+  {
+    "num": 188,
+    "romaji": "te shikaru beki da",
+    "japanese": "てしかるべきだ",
+    "meaning_en": "should; appropriate; it is natural to do"
+  },
+  {
+    "num": 189,
+    "romaji": "te sumu koto dewa nai",
+    "japanese": "て済むことではない（てすむことではない）",
+    "meaning_en": "~ is not enough to solve the problem; cannot be resolved by"
+  },
+  {
+    "num": 190,
+    "romaji": "te yamanai",
+    "japanese": "てやまない",
+    "meaning_en": "always; never stop; can’t help but"
+  },
+  {
+    "num": 191,
+    "romaji": "temae",
+    "japanese": "手前（てまえ）",
+    "meaning_en": "considering; before; in front of; one’s standpoint"
+  },
+  {
+    "num": 192,
+    "romaji": "temo dou ni mo naranai",
+    "japanese": "てもどうにもならない",
+    "meaning_en": "it's no use; can't do anything"
+  },
+  {
+    "num": 193,
+    "romaji": "temo sashitsukaenai",
+    "japanese": "ても差し支えない（てもさしつかえない）",
+    "meaning_en": "can ~; it’s okay if ~ (indicates permission or compromise)"
+  },
+  {
+    "num": 194,
+    "romaji": "temo shiranai",
+    "japanese": "ても知らない（てもしらない）",
+    "meaning_en": "if (you) continue... you'll end up / I don't care about it"
+  },
+  {
+    "num": 195,
+    "romaji": "to aimatte",
+    "japanese": "と相まって（とあいまって）",
+    "meaning_en": "together with..., more; because of the influence of..., more"
+  },
+  {
+    "num": 196,
+    "romaji": "to areba",
+    "japanese": "とあれば",
+    "meaning_en": "if it is the case that; if"
+  },
+  {
+    "num": 197,
+    "romaji": "to atte",
+    "japanese": "とあって",
+    "meaning_en": "due to the fact that; because of"
+  },
+  {
+    "num": 198,
+    "romaji": "to bakari ni",
+    "japanese": "とばかりに",
+    "meaning_en": "as if to say; as though"
+  },
+  {
+    "num": 199,
+    "romaji": "to ie domo",
+    "japanese": "といえども",
+    "meaning_en": "even if; even though; despite"
+  },
+  {
+    "num": 200,
+    "romaji": "to ienaku mo nai",
+    "japanese": "と言えなくもない（といえなくもない）",
+    "meaning_en": "one can even say that; it can also be said that"
+  },
+  {
+    "num": 201,
+    "romaji": "to ii~to ii",
+    "japanese": "といい～といい",
+    "meaning_en": "both ... and; not only ... also; whether it be ... or"
+  },
+  {
+    "num": 202,
+    "romaji": "to ittara nai",
+    "japanese": "といったらない",
+    "meaning_en": "extremely; very; nothing more ... than this; as ... as it could possibly be"
+  },
+  {
+    "num": 203,
+    "romaji": "to iu",
+    "japanese": "という",
+    "meaning_en": "all; every single ~ (no exceptions)"
+  },
+  {
+    "num": 204,
+    "romaji": "to iu ka~to iu ka",
+    "japanese": "というか～というか",
+    "meaning_en": "or rather; or perhaps I should say; I mean"
+  },
+  {
+    "num": 205,
+    "romaji": "to iu mono",
+    "japanese": "というもの",
+    "meaning_en": "during; for; since; over a period of time"
+  },
+  {
+    "num": 206,
+    "romaji": "to iu tokoro da / to itta tokoro da",
+    "japanese": "というところだ / といったところだ",
+    "meaning_en": "at the most; no more than​; at best; roughly; about"
+  },
+  {
+    "num": 207,
+    "romaji": "to iu wake da",
+    "japanese": "というわけだ",
+    "meaning_en": "that's why; no wonder; this means; it is the case that"
+  },
+  {
+    "num": 208,
+    "romaji": "to iu wake dewa nai",
+    "japanese": "というわけではない",
+    "meaning_en": "it’s not that; it doesn’t mean that"
+  },
+  {
+    "num": 209,
+    "romaji": "to iwazu~to iwazu",
+    "japanese": "といわず～といわず",
+    "meaning_en": "both; not only A or B, but (overall)"
+  },
+  {
+    "num": 210,
+    "romaji": "to kiteiru",
+    "japanese": "ときている",
+    "meaning_en": "because of"
+  },
+  {
+    "num": 211,
+    "romaji": "to miru to",
+    "japanese": "とみると",
+    "meaning_en": "as soon as one realizes ..., then"
+  },
+  {
+    "num": 212,
+    "romaji": "to miru ya",
+    "japanese": "と見るや（とみるや）",
+    "meaning_en": "at the sight of; upon seeing; after confirming"
+  },
+  {
+    "num": 213,
+    "romaji": "to naru to / to nareba",
+    "japanese": "となると / となれば",
+    "meaning_en": "when it comes to; in such a case; if that happens"
+  },
+  {
+    "num": 214,
+    "romaji": "to sareru",
+    "japanese": "とされる",
+    "meaning_en": "is considered to; it is said that"
+  },
+  {
+    "num": 215,
+    "romaji": "tokitara",
+    "japanese": "ときたら",
+    "meaning_en": "when it comes to; concerning"
+  },
+  {
+    "num": 216,
+    "romaji": "tokoro o",
+    "japanese": "ところを",
+    "meaning_en": "although (it is a certain time/condition); even though normally"
+  },
+  {
+    "num": 217,
+    "romaji": "tomo arou mono ga",
+    "japanese": "ともあろうものが",
+    "meaning_en": "of all people (expression showing surprise at a high standing person's misbehavior)"
+  },
+  {
+    "num": 218,
+    "romaji": "tomo naku / tomo nashi ni",
+    "japanese": "ともなく / ともなしに",
+    "meaning_en": "somehow; without knowing; without thinking; unconsciously​"
+  },
+  {
+    "num": 219,
+    "romaji": "tomo sureba",
+    "japanese": "ともすれば",
+    "meaning_en": "apt to (do); tend to; liable to; prone to"
+  },
+  {
+    "num": 220,
+    "romaji": "tomo~tomo",
+    "japanese": "とも～とも",
+    "meaning_en": "unable to draw a conclusion; unable to judge"
+  },
+  {
+    "num": 221,
+    "romaji": "toriwake",
+    "japanese": "とりわけ",
+    "meaning_en": "especially; above all"
+  },
+  {
+    "num": 222,
+    "romaji": "toshita koto ga",
+    "japanese": "としたことが",
+    "meaning_en": "of all people, who would have thought?"
+  },
+  {
+    "num": 223,
+    "romaji": "tossa ni",
+    "japanese": "とっさに",
+    "meaning_en": "at once; right away; promptly"
+  },
+  {
+    "num": 224,
+    "romaji": "tote",
+    "japanese": "とて",
+    "meaning_en": "even; even if/though"
+  },
+  {
+    "num": 225,
+    "romaji": "towa",
+    "japanese": "とは",
+    "meaning_en": "I didn't know; I was surprised that; the fact that"
+  },
+  {
+    "num": 226,
+    "romaji": "towa ie",
+    "japanese": "とはいえ",
+    "meaning_en": "though; although; be that as it may; nonetheless"
+  },
+  {
+    "num": 227,
+    "romaji": "towa kurabemono ni naranai",
+    "japanese": "とは比べものにならない（とはくらべものにならない）",
+    "meaning_en": "can't compare with"
+  },
+  {
+    "num": 228,
+    "romaji": "towa utte kawatte / to wa utte kawari",
+    "japanese": "とは打って変わって / とは打って変わり（とはうってかわって / とはうってかわり）",
+    "meaning_en": "unlike; totally different; very different from"
+  },
+  {
+    "num": 229,
+    "romaji": "tsu~tsu",
+    "japanese": "つ～つ",
+    "meaning_en": "and ~ (indicates two contrasting actions)"
+  },
+  {
+    "num": 230,
+    "romaji": "tsukusu",
+    "japanese": "尽くす（つくす）",
+    "meaning_en": "to use up (completely without anything remaining); to exhaust; to run out of"
+  },
+  {
+    "num": 231,
+    "romaji": "tteba / ttara",
+    "japanese": "ってば / ったら",
+    "meaning_en": "speaking of; I told you already; come on (annoyance / dissatisfaction)"
+  },
+  {
+    "num": 232,
+    "romaji": "uchi ni hairanai",
+    "japanese": "うちに入らない（うちにはいらない）",
+    "meaning_en": "not really; can't be regarded as"
+  },
+  {
+    "num": 233,
+    "romaji": "wa",
+    "japanese": "わ",
+    "meaning_en": "feminine sentence ending particle"
+  },
+  {
+    "num": 234,
+    "romaji": "wa dou de are",
+    "japanese": "はどうであれ",
+    "meaning_en": "however; whatever​"
+  },
+  {
+    "num": 235,
+    "romaji": "wa oroka",
+    "japanese": "はおろか",
+    "meaning_en": "let alone; not to mention; needless to say"
+  },
+  {
+    "num": 236,
+    "romaji": "wa sateoki",
+    "japanese": "はさておき",
+    "meaning_en": "setting aside"
+  },
+  {
+    "num": 237,
+    "romaji": "wa socchinoke de / o socchinoke de",
+    "japanese": "はそっちのけで / をそっちのけで",
+    "meaning_en": "ignoring (one thing) for (another)​​; instead of"
+  },
+  {
+    "num": 238,
+    "romaji": "wa~wade",
+    "japanese": "わ〜わで",
+    "meaning_en": "and (listing negative things happening at the same time)"
+  },
+  {
+    "num": 239,
+    "romaji": "ya ina ya",
+    "japanese": "や否や（やいなや）",
+    "meaning_en": "as soon as; the moment"
+  },
+  {
+    "num": 240,
+    "romaji": "ya shinai",
+    "japanese": "やしない",
+    "meaning_en": "should do, but don't; absolutely not; there's no way"
+  },
+  {
+    "num": 241,
+    "romaji": "yare~yare",
+    "japanese": "やれ～やれ",
+    "meaning_en": "pattern to give two representative examples (usually negative)"
+  },
+  {
+    "num": 242,
+    "romaji": "you ga / you to",
+    "japanese": "ようが / ようと",
+    "meaning_en": "even if; no matter how/what"
+  },
+  {
+    "num": 243,
+    "romaji": "you ga~you ga / you to~you to",
+    "japanese": "ようが～ようが / ようと～ようと",
+    "meaning_en": "no matter; whether; even if [A] or [B]"
+  },
+  {
+    "num": 244,
+    "romaji": "you ni yotte wa / you dewa",
+    "japanese": "ようによっては / ようでは",
+    "meaning_en": "depending on the way; depending on how; according to how"
+  },
+  {
+    "num": 245,
+    "romaji": "you nimo~nai",
+    "japanese": "ようにも～ない",
+    "meaning_en": "even if I wanted to… I couldn’t"
+  },
+  {
+    "num": 246,
+    "romaji": "you to~mai to / you ga~mai ga",
+    "japanese": "ようと～まいと / ようが～まいが",
+    "meaning_en": "whether or not; regardless"
+  },
+  {
+    "num": 247,
+    "romaji": "yue ni",
+    "japanese": "ゆえに",
+    "meaning_en": "therefore; consequently​; because of; due to"
+  },
+  {
+    "num": 248,
+    "romaji": "zo / ze",
+    "japanese": "ぞ・ぜ",
+    "meaning_en": "ending particle; adds force or indicates command"
+  },
+  {
+    "num": 249,
+    "romaji": "zu jimai",
+    "japanese": "ずじまい",
+    "meaning_en": "ended up not doing"
+  },
+  {
+    "num": 250,
+    "romaji": "zu niwa okanai / nai dewa okanai",
+    "japanese": "ずにはおかない / ないではおかない",
+    "meaning_en": "will definitely/certainly do something; cannot not"
+  },
+  {
+    "num": 251,
+    "romaji": "zu niwa sumanai / nai dewa sumanai",
+    "japanese": "ずには済まない / ないでは済まない（ずにはすまない / ないではすまない）",
+    "meaning_en": "must; will definitely; can’t help but to"
+  },
+  {
+    "num": 252,
+    "romaji": "zu tomo",
+    "japanese": "ずとも",
+    "meaning_en": "even without doing; even without being​"
+  },
+  {
+    "num": 253,
+    "romaji": "zukume",
+    "japanese": "ずくめ",
+    "meaning_en": "completely; entirely; nothing but"
+  }
+]

@@ -1,0 +1,81 @@
+{% extends "base.html" %}
+{% from "macros.html" import level_badge %}
+{% block title %}{{ exam.title }}{% endblock %}
+{% block body %}
+<div class="min-h-screen flex flex-col bg-gray-950 text-gray-100" x-data="examTimer({{ exam.duration * 60 }})">
+  <!-- Header -->
+  <header class="sticky top-0 z-50 border-b border-gray-800 bg-gray-900 px-4 py-3 flex items-center justify-between">
+    <div class="flex items-center gap-4">{{ level_badge(exam.level) }}<span class="text-sm font-medium hidden sm:inline">{{ exam.title }}</span></div>
+    <div class="flex items-center gap-2 px-4 py-1.5 rounded-full font-mono text-lg font-bold bg-gray-800" :class="time <= 300 ? 'text-red-400 animate-pulse' : ''">
+      ⏱ <span x-text="formatTime(time)"></span>
+    </div>
+    <button type="submit" form="exam-form" name="action" value="submit" class="rounded-xl bg-red-600 px-4 py-2 text-sm font-semibold text-white">Submit</button>
+  </header>
+
+  <div class="flex flex-1 overflow-hidden">
+    <!-- Sidebar -->
+    <aside class="w-48 lg:w-64 border-r border-gray-800 bg-gray-900 overflow-y-auto p-4 hidden sm:block">
+      <p class="text-xs font-semibold uppercase text-gray-500 mb-3">Questions ({{ answers|length }}/{{ total }})</p>
+      <div class="grid grid-cols-5 gap-1.5">
+        {% for q in exam.questions %}
+        <a href="{{ url_for('exams.take', exam_id=exam.id, q=loop.index0) }}"
+           class="relative h-9 rounded-lg text-xs font-medium flex items-center justify-center
+           {% if loop.index0 == q_idx %}ring-2 ring-brand-500{% endif %}
+           {% if q.id in answers %}bg-emerald-500/20 text-emerald-400{% else %}bg-gray-800 text-gray-400 hover:bg-gray-700{% endif %}">
+          {{ loop.index }}
+          {% if q.id in marked %}<span class="absolute -top-1 -right-1 text-amber-400 text-[8px]">🚩</span>{% endif %}
+        </a>
+        {% endfor %}
+      </div>
+    </aside>
+
+    <!-- Question -->
+    <main class="flex-1 overflow-y-auto p-4 lg:p-8">
+      <form id="exam-form" method="POST" action="{{ url_for('exams.save_answer', exam_id=exam.id) }}" class="mx-auto max-w-2xl">
+        <input type="hidden" name="question_id" value="{{ question.id }}">
+        <input type="hidden" name="q_idx" value="{{ q_idx }}">
+
+        <div class="rounded-2xl border border-gray-800 bg-gray-900 p-6 lg:p-8">
+          <div class="flex items-center justify-between mb-6">
+            <div class="flex gap-2">
+              <span class="rounded-full bg-blue-900/50 px-2.5 py-0.5 text-xs capitalize text-blue-300">{{ question.section }}</span>
+              <span class="rounded-full bg-gray-800 px-2.5 py-0.5 text-xs capitalize text-gray-400">{{ question.type|replace('_', ' ') }}</span>
+            </div>
+            <button type="submit" name="mark" value="1" class="text-xs text-gray-500 hover:text-amber-400">🚩 Mark for review</button>
+          </div>
+
+          {% if question.passage %}
+          <div class="rounded-xl bg-gray-800/50 p-4 mb-6 text-sm font-jp leading-relaxed">{{ question.passage }}</div>
+          {% endif %}
+          {% if question.question_ja %}<p class="font-jp text-lg mb-2">{{ question.question_ja }}</p>{% endif %}
+          <p class="text-base font-medium mb-6">{{ question.question }}</p>
+
+          <div class="space-y-3">
+            {% for opt in question.options %}
+            <label class="flex items-center w-full rounded-xl border p-4 text-sm cursor-pointer transition-all
+              {% if answers.get(question.id)|string == loop.index0|string %}border-brand-500 bg-brand-500/10 ring-1 ring-brand-500{% else %}border-gray-700 hover:border-gray-600 hover:bg-gray-800/50{% endif %}">
+              <input type="radio" name="answer" value="{{ loop.index0 }}" {% if answers.get(question.id)|string == loop.index0|string %}checked{% endif %} class="sr-only" onchange="this.form.action='{{ url_for('exams.save_answer', exam_id=exam.id) }}'; this.form.action;">
+              <span class="inline-flex h-6 w-6 items-center justify-center rounded-full text-xs font-bold mr-3 {% if answers.get(question.id)|string == loop.index0|string %}bg-brand-600 text-white{% else %}bg-gray-700{% endif %}">{{ ['A','B','C','D'][loop.index0] }}</span>
+              <span class="{% if question.type != 'kanji_recognition' %}font-jp{% endif %}">{{ opt }}</span>
+            </label>
+            {% endfor %}
+          </div>
+        </div>
+
+        <div class="mt-8 flex items-center justify-between">
+          <button type="submit" name="action" value="prev" {% if q_idx == 0 %}disabled{% endif %} class="rounded-xl border border-gray-700 px-4 py-2 text-sm disabled:opacity-30">← Previous</button>
+          <span class="text-sm text-gray-500">Question {{ q_idx + 1 }} of {{ total }}</span>
+          {% if q_idx < total - 1 %}
+          <button type="submit" name="action" value="next" class="rounded-xl bg-brand-600 px-4 py-2 text-sm font-semibold text-white">Next →</button>
+          {% else %}
+          <button type="submit" name="action" value="submit" class="rounded-xl bg-emerald-600 px-4 py-2 text-sm font-semibold text-white">Finish ✓</button>
+          {% endif %}
+        </div>
+      </form>
+    </main>
+  </div>
+</div>
+{% endblock %}
+{% block scripts %}
+<script src="{{ url_for('static', filename='js/exam.js') }}"></script>
+{% endblock %}
