@@ -9,11 +9,21 @@ def create_app():
     os.makedirs(app.instance_path, exist_ok=True)
 
     app.config["SECRET_KEY"] = os.environ.get("SECRET_KEY", "dev-secret-key-change-in-production")
-    app.config["SQLALCHEMY_DATABASE_URI"] = os.environ.get(
+    database_url = os.environ.get(
         "DATABASE_URL",
         f"sqlite:///{os.path.join(app.instance_path, 'jlpt.db')}",
     )
+    # Some providers still expose the legacy postgres:// scheme. SQLAlchemy 2
+    # expects postgresql://, so normalize it before initializing the engine.
+    if database_url.startswith("postgres://"):
+        database_url = database_url.replace("postgres://", "postgresql://", 1)
+    app.config["SQLALCHEMY_DATABASE_URI"] = database_url
     app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
+    if database_url.startswith("postgresql"):
+        app.config["SQLALCHEMY_ENGINE_OPTIONS"] = {
+            "pool_pre_ping": True,
+            "pool_recycle": 300,
+        }
 
     db.init_app(app)
 
@@ -29,12 +39,16 @@ def create_app():
     app.register_blueprint(exams_bp, url_prefix="/dashboard/exams")
     app.register_blueprint(admin_bp, url_prefix="/admin")
 
-    with app.app_context():
-        db.create_all()
-        from app.seed import seed_database
-        seed_database()
-        if not os.environ.get("JLPT_SKIP_EXAM_SYNC"):
-            from app.exam_sync import sync_official_exams
-            sync_official_exams()
+    # Vercel imports the app on every cold start. Schema creation and the large
+    # exam sync are deployment tasks, not request-startup work. Keep the current
+    # convenient behavior for local development only.
+    if not os.environ.get("VERCEL"):
+        with app.app_context():
+            db.create_all()
+            from app.seed import seed_database
+            seed_database()
+            if not os.environ.get("JLPT_SKIP_EXAM_SYNC"):
+                from app.exam_sync import sync_official_exams
+                sync_official_exams()
 
     return app
