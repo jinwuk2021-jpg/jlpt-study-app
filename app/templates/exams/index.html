@@ -1,78 +1,34 @@
 {% extends "dashboard/layout.html" %}
-{% from "macros.html" import level_badge, level_accordion %}
+{% from "macros.html" import level_accordion %}
 {% block title %}Thi thử JLPT{% endblock %}
 {% block dashboard_content %}
-<div class="space-y-8">
-  <div>
-    <h1 class="text-2xl font-bold">Thi thử JLPT</h1>
-    <p class="text-gray-500">Làm đề thật theo bộ đề có sẵn — nhóm theo cấp độ, bấm để xem danh sách đề</p>
-  </div>
+<div class="mx-auto max-w-5xl space-y-8">
+  <header class="flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
+    <div><p class="text-sm font-semibold text-brand-600">Mô phỏng kỳ thi thật</p><h1 class="mt-1 text-2xl font-bold text-gray-900">Thi thử JLPT</h1><p class="mt-1 text-sm text-gray-500">Chọn đúng cấp độ, xem cấu trúc đề rồi bắt đầu khi bạn sẵn sàng.</p></div>
+    <div class="flex items-center gap-5 rounded-xl border border-gray-200 bg-white px-5 py-3 shadow-sm" aria-label="Thống kê thi thử">
+      <div><p class="text-xl font-bold text-gray-900">{{ exam_history|length }}</p><p class="text-xs text-gray-500">Lượt thi</p></div><div class="h-8 w-px bg-gray-200"></div>
+      <div><p class="text-xl font-bold text-gray-900">{% if exam_history %}{{ exam_history|map(attribute='score')|max }}%{% else %}—{% endif %}</p><p class="text-xs text-gray-500">Cao nhất</p></div><div class="h-8 w-px bg-gray-200"></div>
+      <div><p class="text-xl font-bold text-gray-900">{{ exam_history|selectattr('passed')|list|length }}</p><p class="text-xs text-gray-500">Đã đạt</p></div>
+    </div>
+  </header>
 
-  <div class="grid gap-4 sm:grid-cols-3">
-    <div class="rounded-2xl border bg-white p-6 shadow-sm">
-      <p class="text-sm text-gray-500">Đã hoàn thành</p>
-      <p class="text-2xl font-bold">{{ exam_history|length }}</p>
+  {% macro exam_row(exam, official=false) %}
+  <article class="flex flex-col gap-4 border-b border-gray-100 px-4 py-4 last:border-0 sm:flex-row sm:items-center sm:px-5">
+    <div class="min-w-0 flex-1">
+      <div class="mb-1 flex flex-wrap items-center gap-2">{% if official %}<span class="rounded-md bg-amber-50 px-2 py-1 text-xs font-semibold text-amber-700">Đề chính thức</span>{% endif %}{% if exam.sections_dict.date %}<span class="text-xs text-gray-400">{{ exam.sections_dict.date }}</span>{% endif %}</div>
+      <h3 class="font-semibold text-gray-900">{{ exam.title }}</h3>
+      <div class="mt-1.5 flex flex-wrap gap-x-4 gap-y-1 text-sm text-gray-500"><span>{{ exam.duration }} phút</span><span>{{ exam.questions.count() }} câu</span><span>Đạt từ {{ exam.passing_score }}%</span></div>
     </div>
-    <div class="rounded-2xl border bg-white p-6 shadow-sm">
-      <p class="text-sm text-gray-500">Điểm cao nhất</p>
-      <p class="text-2xl font-bold">{% if exam_history %}{{ exam_history|map(attribute='score')|max }}{% else %}0{% endif %}%</p>
-    </div>
-    <div class="rounded-2xl border bg-white p-6 shadow-sm">
-      <p class="text-sm text-gray-500">Đạt chuẩn</p>
-      <p class="text-2xl font-bold">{{ exam_history|selectattr('passed')|list|length }}</p>
-    </div>
-  </div>
+    <a href="{{ url_for('exams.start', exam_id=exam.slug) }}" class="inline-flex min-h-11 shrink-0 items-center justify-center gap-2 rounded-lg {% if official %}bg-brand-600 text-white hover:bg-brand-700{% else %}border border-brand-200 bg-brand-50 text-brand-700 hover:bg-brand-100{% endif %} px-4 py-2.5 text-sm font-semibold transition-colors focus:outline-none focus:ring-2 focus:ring-brand-500 focus:ring-offset-2">Xem cấu trúc <span aria-hidden="true">→</span></a>
+  </article>
+  {% endmacro %}
 
-  {% if official_by_level %}
-  <div>
-    <h2 class="font-semibold mb-1">📋 Đề thi thật (bộ đề có sẵn)</h2>
-    <p class="text-sm text-gray-500 mb-4">Nguồn từ <code class="text-xs">data/exam/</code></p>
-    <div class="space-y-4">
-      {% for group in official_by_level %}
-      {% call level_accordion(group.level, 'Khóa ' ~ group.level, group.total ~ ' đề thi', open=(group.level == open_level)) %}
-        <div class="grid gap-4 md:grid-cols-2">
-          {% for exam in group.exams %}
-          <div class="rounded-xl border border-gray-100 bg-white p-5 hover:-translate-y-0.5 hover:shadow-md transition-all relative overflow-hidden">
-            <div class="absolute top-0 left-0 w-1.5 h-full bg-amber-500"></div>
-            <div class="pl-3">
-              <div class="flex items-center gap-2 flex-wrap">
-                <span class="rounded-full bg-amber-100 px-2 py-0.5 text-xs font-medium text-amber-800">真題</span>
-                {% if exam.sections_dict.date %}<span class="text-xs text-gray-400">{{ exam.sections_dict.date }}</span>{% endif %}
-              </div>
-              <h4 class="font-semibold mt-2 leading-snug">{{ exam.title }}</h4>
-              <p class="text-sm text-gray-500 mt-1 line-clamp-2">{{ exam.description }}</p>
-              <p class="text-sm text-gray-400 mt-3">⏱ {{ exam.duration }} phút · 📝 {{ exam.questions.count() }} câu</p>
-              <a href="{{ url_for('exams.start', exam_id=exam.slug) }}" class="mt-4 block text-center rounded-xl bg-gradient-to-r from-amber-500 to-orange-600 px-5 py-2.5 text-sm font-semibold text-white">Thi như thật →</a>
-            </div>
-          </div>
-          {% endfor %}
-        </div>
-      {% endcall %}
-      {% endfor %}
-    </div>
-  </div>
-  {% endif %}
+  {% if official_by_level %}<section aria-labelledby="official-heading"><div class="mb-3"><h2 id="official-heading" class="font-semibold text-gray-900">Đề thi chính thức</h2><p class="mt-0.5 text-sm text-gray-500">Đề đầy đủ, bấm giờ theo từng phần như kỳ thi thật.</p></div><div class="space-y-3">
+    {% for group in official_by_level %}{% call level_accordion(group.level, 'JLPT ' ~ group.level, group.total ~ ' đề', open=(group.level == open_level)) %}<div class="bg-white">{% for exam in group.exams %}{{ exam_row(exam, true) }}{% endfor %}</div>{% endcall %}{% endfor %}
+  </div></section>{% endif %}
 
-  {% if practice_by_level %}
-  <div>
-    <h2 class="font-semibold mb-4">🎯 Đề luyện tập (ngắn)</h2>
-    <div class="space-y-4">
-      {% for group in practice_by_level %}
-      {% call level_accordion(group.level, 'Khóa ' ~ group.level, group.total ~ ' đề luyện', open=(group.level == open_level)) %}
-        <div class="grid gap-4 md:grid-cols-2">
-          {% for exam in group.entries %}
-          <div class="rounded-2xl border bg-white p-6 shadow-sm">
-            <h3 class="font-semibold mt-2">{{ exam.title }}</h3>
-            <p class="text-sm text-gray-500 mt-1">{{ exam.description }}</p>
-            <p class="text-sm text-gray-400 mt-3">⏱ {{ exam.duration }} phút · 📝 {{ exam.questions.count() }} câu</p>
-            <a href="{{ url_for('exams.start', exam_id=exam.slug) }}" class="mt-4 block text-center rounded-xl border-2 border-brand-500 px-6 py-3 text-sm font-semibold text-brand-600">Luyện tập →</a>
-          </div>
-          {% endfor %}
-        </div>
-      {% endcall %}
-      {% endfor %}
-    </div>
-  </div>
-  {% endif %}
+  {% if practice_by_level %}<section aria-labelledby="practice-heading"><div class="mb-3"><h2 id="practice-heading" class="font-semibold text-gray-900">Luyện tập nhanh</h2><p class="mt-0.5 text-sm text-gray-500">Bài ngắn để kiểm tra kiến thức trước khi làm đề đầy đủ.</p></div><div class="space-y-3">
+    {% for group in practice_by_level %}{% call level_accordion(group.level, 'JLPT ' ~ group.level, group.total ~ ' đề', open=(group.level == open_level)) %}<div class="bg-white">{% for exam in group.entries %}{{ exam_row(exam) }}{% endfor %}</div>{% endcall %}{% endfor %}
+  </div></section>{% endif %}
 </div>
 {% endblock %}

@@ -38,11 +38,16 @@ async function saveExamAnswer(form, extra = {}) {
   if (extra.answer !== undefined) fd.set('answer', String(extra.answer));
   if (extra.q_idx !== undefined) fd.set('q_idx', String(extra.q_idx));
   if (extra.question_id) fd.set('question_id', extra.question_id);
-  const res = await fetch(form.action, { method: 'POST', body: fd, credentials: 'same-origin' });
+  const endpoint = form.getAttribute('action');
+  const res = await fetch(endpoint, { method: 'POST', body: fd, credentials: 'same-origin' });
+  if (!res.ok) throw new Error(`Không thể lưu đáp án (${res.status})`);
   return res;
 }
 
 function updateSheetRow(qid, answerIdx) {
+  document.querySelectorAll(`[data-question-id="${CSS.escape(qid)}"]`).forEach((link) => {
+    if (!link.classList.contains('is-current')) link.classList.add('is-answered');
+  });
   document.querySelectorAll('[data-pick-answer]').forEach((btn) => {
     if (btn.dataset.qid !== qid) return;
     const picked = parseInt(btn.dataset.answer, 10) === answerIdx;
@@ -58,12 +63,15 @@ document.addEventListener('DOMContentLoaded', () => {
     radio.addEventListener('change', async function () {
       const qid = form.querySelector('input[name=question_id]')?.value;
       const answer = parseInt(this.value, 10);
-      await saveExamAnswer(form, { action: 'save', answer });
-      if (qid) updateSheetRow(qid, answer);
-      form.querySelectorAll('.exam-option-card').forEach((card) => {
-        card.classList.remove('is-selected');
-      });
-      this.closest('.exam-option-card')?.classList.add('is-selected');
+      try {
+        await saveExamAnswer(form, { action: 'save', answer });
+        if (qid) updateSheetRow(qid, answer);
+        form.querySelectorAll('.exam-option-card').forEach((card) => card.classList.remove('is-selected'));
+        this.closest('.exam-option-card')?.classList.add('is-selected');
+      } catch (error) {
+        this.checked = false;
+        window.alert('Chưa lưu được đáp án. Vui lòng kiểm tra kết nối và thử lại.');
+      }
     });
   });
 

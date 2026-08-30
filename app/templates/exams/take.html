@@ -1,137 +1,42 @@
 {% extends "base.html" %}
 {% block title %}{{ exam.title }}{% endblock %}
-{% block head %}
-<link rel="stylesheet" href="{{ url_for('static', filename='css/exam.css') }}">
-{% endblock %}
+{% block head %}<link rel="stylesheet" href="{{ url_for('static', filename='css/exam.css') }}">{% endblock %}
 {% block body %}
 <div class="exam-shell" x-data="examTimer({{ timer_seconds }}, {{ 'true' if has_next_phase else 'false' }})">
+  <header class="exam-topbar">
+    <div class="exam-title"><span class="exam-level">{{ exam.level }}</span><div><strong>{{ phase_info.label }}</strong><span>{{ phase_info.label_vi }} · Câu {{ local_idx + 1 }}/{{ phase_total }}</span></div></div>
+    <div class="exam-top-actions">
+      <div class="exam-timer" :class="time <= 300 ? 'is-low' : ''" aria-label="Thời gian còn lại"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg><span x-text="formatTime(time)"></span></div>
+      <button type="submit" form="exam-form" name="mark" value="1" class="exam-mark-btn {% if question.id in marked %}is-marked{% endif %}" title="Đánh dấu câu này"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M5 21V4a1 1 0 0 1 1-1h11l-2 4 2 4H6"/></svg><span>Đánh dấu</span></button>
+      <button type="submit" form="exam-form" name="action" value="submit" class="exam-quit-btn" onclick="return confirm('Nộp bài và xem kết quả?')">Nộp bài</button>
+    </div>
+  </header>
+
+  <div class="exam-progress" role="progressbar" aria-label="Tiến độ phần thi" aria-valuemin="1" aria-valuemax="{{ phase_total }}" aria-valuenow="{{ local_idx + 1 }}"><span style="width: {{ ((local_idx + 1) / phase_total * 100)|round }}%"></span></div>
+
   <div class="exam-layout">
     <main class="exam-main">
-      {% if current_group %}
-      <header class="exam-problem-header">
-        <h2>
-          {{ current_group.title }}
-          {% if current_group.label %}<span class="exam-problem-label">｜{{ current_group.label }}</span>{% endif %}
-        </h2>
-        {% if current_group.instruction %}
-        <p class="exam-instruction font-jp">{{ current_group.instruction }}</p>
-        {% endif %}
-      </header>
-      {% endif %}
+      <details class="exam-mobile-navigator"><summary>Xem danh sách câu hỏi <span>{{ answers|length }}/{{ phase_total }} đã trả lời</span></summary><div class="exam-question-grid">{% for group in problem_groups %}{% for item in group.questions %}{% set q=item.q %}{% set ans=answers.get(q.id) %}<a href="{{ url_for('exams.take', exam_id=exam.id, q=item.idx) }}" class="exam-question-link {% if item.idx == q_idx %}is-current{% elif q.id in marked %}is-marked{% elif ans is not none %}is-answered{% endif %}">{{ question_number(q.display_id) }}</a>{% endfor %}{% endfor %}</div></details>
 
       <form id="exam-form" class="exam-main-form" method="POST" action="{{ url_for('exams.save_answer', exam_id=exam.id) }}">
-      <div class="exam-body">
-        {% if is_official and exam.audio and phase_key == 'listening' %}
-        <p class="exam-audio-hint">🔊 聴解 — {{ exam.audio }}</p>
-        {% endif %}
-          <input type="hidden" name="question_id" value="{{ question.id }}">
-          <input type="hidden" name="q_idx" value="{{ q_idx }}">
-
-          {% if question.passage %}
-          <div class="exam-passage font-jp">{{ question.passage }}</div>
-          {% endif %}
-
-          {% if question.audio_only %}
-          <p class="exam-audio-hint font-jp">問題用紙に選択肢は印刷されていません。音声を聞いて選択してください。</p>
-          {% endif %}
-
-          <div class="exam-question-box">
-            <span class="exam-q-num">{{ question_number(question.display_id) }}</span>
-            <div class="exam-q-text font-jp">
-              {% set qtext = question.question_ja if question.question_ja else question.question %}
-              {{ highlight_blanks(qtext, question.section_label, current_group.instruction if current_group else '')|safe }}
-            </div>
-          </div>
-
-          <div class="exam-answer-block">
-            <div class="exam-options-grid" data-option-count="{{ question.options|length }}">
-              {% for opt in question.options %}
-              {% set picked = answers.get(question.id) == loop.index0 %}
-              <label class="exam-option-card {% if picked %}is-selected{% endif %}">
-                <input type="radio" name="answer" value="{{ loop.index0 }}" class="sr-only" {% if picked %}checked{% endif %}>
-                <span class="exam-option-num">{{ loop.index }}</span>
-                <span class="exam-option-text font-jp">{{ opt }}</span>
-              </label>
-              {% endfor %}
-            </div>
-          </div>
-      </div>
-
-      <div class="exam-nav-dock" aria-label="Điều hướng câu hỏi">
-        <button type="submit" name="action" value="prev" class="exam-nav-btn" {% if local_idx == 0 %}disabled{% endif %} aria-label="Câu trước">←</button>
-        {% if has_next_phase and local_idx >= phase_total - 1 %}
-        <button type="submit" name="action" value="next_phase" class="exam-nav-btn is-primary">聴解へ →</button>
-        {% elif local_idx < phase_total - 1 %}
-        <button type="submit" name="action" value="next" class="exam-nav-btn" aria-label="Câu sau">→</button>
-        {% else %}
-        <button type="submit" name="action" value="submit" class="exam-nav-btn is-primary" onclick="return confirm('Nộp bài?')">Nộp bài ✓</button>
-        {% endif %}
-      </div>
+        <input type="hidden" name="question_id" value="{{ question.id }}"><input type="hidden" name="q_idx" value="{{ q_idx }}">
+        <div class="exam-content">
+          {% if current_group %}<header class="exam-problem-header"><p>{{ current_group.title }}{% if current_group.label %}<span> · {{ current_group.label }}</span>{% endif %}</p>{% if current_group.instruction %}<div class="exam-instruction font-jp">{{ current_group.instruction }}</div>{% endif %}</header>{% endif %}
+          {% if is_official and exam.audio and phase_key == 'listening' %}<p class="exam-notice">Phần nghe hiểu đang sử dụng tệp âm thanh của đề thi.</p>{% endif %}
+          {% if question.passage %}<div class="exam-passage font-jp">{{ question.passage }}</div>{% endif %}
+          {% if question.audio_only %}<p class="exam-notice font-jp">問題用紙に選択肢は印刷されていません。音声を聞いて選択してください。</p>{% endif %}
+          <div class="exam-question-box"><span class="exam-q-num">{{ question_number(question.display_id) }}</span><div class="exam-q-text font-jp">{% set qtext = question.question_ja if question.question_ja else question.question %}{{ highlight_blanks(qtext, question.section_label, current_group.instruction if current_group else '')|safe }}</div></div>
+          <fieldset class="exam-options-grid"><legend class="sr-only">Chọn một đáp án</legend>{% for opt in question.options %}{% set picked = answers.get(question.id) == loop.index0 %}<label class="exam-option-card {% if picked %}is-selected{% endif %}"><input type="radio" name="answer" value="{{ loop.index0 }}" class="sr-only" {% if picked %}checked{% endif %}><span class="exam-option-num">{{ loop.index }}</span><span class="exam-option-text font-jp">{{ opt }}</span></label>{% endfor %}</fieldset>
+        </div>
+        <nav class="exam-nav" aria-label="Điều hướng câu hỏi"><button type="submit" name="action" value="prev" class="exam-nav-btn" {% if local_idx == 0 %}disabled{% endif %}><span aria-hidden="true">←</span> Câu trước</button>{% if has_next_phase and local_idx >= phase_total - 1 %}<button type="submit" name="action" value="next_phase" class="exam-nav-btn is-primary">Sang phần nghe <span aria-hidden="true">→</span></button>{% elif local_idx < phase_total - 1 %}<button type="submit" name="action" value="next" class="exam-nav-btn is-primary">Câu tiếp <span aria-hidden="true">→</span></button>{% else %}<button type="submit" name="action" value="submit" class="exam-nav-btn is-primary" onclick="return confirm('Nộp bài và xem kết quả?')">Nộp bài</button>{% endif %}</nav>
       </form>
     </main>
 
-    <aside class="exam-sidebar" style="position:relative">
-      <button type="submit" form="exam-form" name="action" value="submit" class="exam-exit-btn" title="Thoát / nộp bài" onclick="return confirm('Thoát và nộp bài?')">
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>
-      </button>
-
-      <div class="exam-sidebar-head">
-        <p class="exam-sidebar-title font-jp">{{ phase_info.label }}</p>
-        <div class="exam-sidebar-meta">
-          <div class="exam-timer" :class="time <= 300 ? 'is-low' : ''">
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
-            <span x-text="formatTime(time)"></span>
-          </div>
-          <button type="submit" form="exam-form" name="mark" value="1" class="text-xs text-zinc-500 hover:text-amber-400" title="Đánh dấu">🚩</button>
-        </div>
-      </div>
-
-      <div class="exam-sidebar-scroll" id="exam-answer-sheet">
-        {% for group in problem_groups %}
-        <div class="exam-sheet-group">
-          <p class="exam-sheet-group-title">{{ group.title }}</p>
-          {% for item in group.questions %}
-          {% set q = item.q %}
-          {% set ans = answers.get(q.id) %}
-          {% set is_current = item.idx == q_idx %}
-          {% set is_marked = q.id in marked %}
-          <div class="exam-sheet-row" data-q-idx="{{ item.idx }}">
-            <a href="{{ url_for('exams.take', exam_id=exam.id, q=item.idx) }}"
-               class="exam-sheet-qnum {% if is_current %}is-current{% elif is_marked %}is-marked{% elif ans is not none %}is-answered{% endif %}">
-              {{ question_number(q.display_id) }}
-            </a>
-            <div class="exam-sheet-opts">
-              {% for opt in q.options %}
-              <button type="button"
-                class="exam-sheet-opt {% if ans == loop.index0 %}is-picked{% endif %} {% if is_current %}is-current-row{% endif %}"
-                data-pick-answer
-                data-qid="{{ q.id }}"
-                data-q-idx="{{ item.idx }}"
-                data-answer="{{ loop.index0 }}"
-                aria-label="Câu {{ question_number(q.display_id) }} — đáp án {{ loop.index }}">
-                {{ loop.index }}
-              </button>
-              {% endfor %}
-            </div>
-          </div>
-          {% endfor %}
-        </div>
-        {% endfor %}
-      </div>
-
-      <div class="exam-sidebar-actions">
-        <button type="submit" form="exam-form" name="action" value="submit" class="exam-submit-btn" onclick="return confirm('Nộp bài và xem kết quả?')">Nộp bài</button>
-      </div>
+    <aside class="exam-sidebar" aria-label="Danh sách câu hỏi">
+      <div class="exam-sidebar-head"><div><strong>Danh sách câu</strong><span>{{ phase_total }} câu trong phần này</span></div><div class="exam-legend"><span><i class="is-answered"></i>Đã trả lời</span><span><i class="is-marked"></i>Đánh dấu</span></div></div>
+      <div class="exam-sidebar-scroll">{% for group in problem_groups %}<section class="exam-sheet-group"><h2>{{ group.title }}</h2><div class="exam-question-grid">{% for item in group.questions %}{% set q=item.q %}{% set ans=answers.get(q.id) %}<a href="{{ url_for('exams.take', exam_id=exam.id, q=item.idx) }}" data-question-id="{{ q.id }}" class="exam-question-link {% if item.idx == q_idx %}is-current{% elif q.id in marked %}is-marked{% elif ans is not none %}is-answered{% endif %}" aria-label="Câu {{ question_number(q.display_id) }}{% if ans is not none %}, đã trả lời{% endif %}">{{ question_number(q.display_id) }}</a>{% endfor %}</div></section>{% endfor %}</div>
     </aside>
   </div>
 </div>
 {% endblock %}
-{% block scripts %}
-<script src="{{ url_for('static', filename='js/exam.js') }}"></script>
-<script>
-  document.addEventListener('DOMContentLoaded', () => {
-    const cur = document.querySelector('.exam-sheet-qnum.is-current');
-    if (cur) cur.scrollIntoView({ block: 'nearest', behavior: 'smooth' });
-  });
-</script>
-{% endblock %}
+{% block scripts %}<script src="{{ url_for('static', filename='js/exam.js') }}"></script><script>document.addEventListener('DOMContentLoaded',()=>document.querySelector('.exam-question-link.is-current')?.scrollIntoView({block:'nearest'}));</script>{% endblock %}

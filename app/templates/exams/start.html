@@ -1,48 +1,16 @@
 {% extends "dashboard/layout.html" %}
 {% from "macros.html" import level_badge %}
-{% block title %}Bắt đầu — {{ exam.title }}{% endblock %}
+{% block title %}Chuẩn bị — {{ exam.title }}{% endblock %}
 {% block dashboard_content %}
-<div class="mx-auto max-w-2xl space-y-8">
-  <div>
-    <a href="{{ url_for('exams.index') }}" class="text-sm text-gray-500 hover:text-brand-600">← Quay lại danh sách đề</a>
-    <div class="mt-4 flex items-center gap-3">{{ level_badge(exam.level) }}
-      {% if exam.kind == 'official' %}<span class="rounded-full bg-amber-100 px-2.5 py-0.5 text-xs font-semibold text-amber-800">Đề thi thật</span>{% endif %}
-    </div>
-    <h1 class="text-2xl font-bold mt-2">{{ exam.title }}</h1>
-    <p class="text-gray-500 mt-1">{{ exam.description }}</p>
-  </div>
-
-  <div class="rounded-2xl border bg-white p-6 shadow-sm space-y-4">
-    <h2 class="font-semibold">Quy tắc thi (giống JLPT)</h2>
-    <ul class="text-sm text-gray-600 space-y-2 list-disc pl-5">
-      <li>Không hiện đáp án đúng trong lúc làm bài — chỉ xem sau khi nộp bài.</li>
-      <li>Mỗi phần có thời gian riêng; hết giờ sẽ tự chuyển / nộp phần đó.</li>
-      <li>Có thể đánh dấu câu (🚩) để xem lại trước khi nộp.</li>
-      {% if exam.audio %}<li>Phần nghe: mở file âm thanh <code class="text-xs bg-gray-100 px-1 rounded">{{ exam.audio }}</code> khi làm 聴解.</li>{% endif %}
-    </ul>
-
-    <div class="grid gap-3 sm:grid-cols-2 pt-2">
-      {% for ph in phases %}
-      <div class="rounded-xl bg-gray-50 p-4 border">
-        <p class="font-medium text-sm">{{ ph.label }}</p>
-        <p class="text-xs text-gray-500">{{ ph.label_vi }}</p>
-        <p class="text-lg font-bold mt-2">⏱ {{ ph.minutes }} phút</p>
-        {% if ph.key == 'written' %}
-        <p class="text-xs text-gray-500 mt-1">{{ written_count }} câu (語彙・文法・読解)</p>
-        {% elif ph.key == 'listening' %}
-        <p class="text-xs text-gray-500 mt-1">{{ listening_count }} câu (聴解)</p>
-        {% endif %}
-      </div>
-      {% endfor %}
-    </div>
-
-    <p class="text-sm text-gray-500">Tổng: <strong>{{ exam.questions|length }}</strong> câu · Điểm đạt: <strong>{{ exam.passing_score }}%</strong></p>
-  </div>
-
-  <form method="POST" action="{{ url_for('exams.start', exam_id=exam.id) }}">
-    <button type="submit" class="w-full rounded-xl bg-gradient-to-r from-brand-600 to-indigo-600 px-6 py-4 text-base font-semibold text-white shadow-lg hover:opacity-95">
-      Bắt đầu làm bài →
-    </button>
-  </form>
+<div class="mx-auto max-w-3xl space-y-6">
+  <a href="{{ url_for('exams.index') }}" class="inline-flex min-h-11 items-center gap-2 text-sm font-medium text-gray-500 hover:text-brand-700 focus:outline-none focus:ring-2 focus:ring-brand-500 focus:ring-offset-2"><span aria-hidden="true">←</span> Danh sách đề</a>
+  <header><div class="flex flex-wrap items-center gap-2">{{ level_badge(exam.level) }}{% if exam.kind == 'official' %}<span class="rounded-full bg-amber-100 px-2.5 py-1 text-xs font-semibold text-amber-800">Đề chính thức</span>{% endif %}</div><h1 class="mt-3 text-2xl font-bold text-gray-900 sm:text-3xl">{{ exam.title }}</h1>{% if exam.description %}<p class="mt-2 text-gray-500">{{ exam.description }}</p>{% endif %}</header>
+  <section class="overflow-hidden rounded-2xl border border-gray-200 bg-white shadow-sm" aria-labelledby="structure-heading">
+    <div class="border-b border-gray-100 px-5 py-4 sm:px-6"><h2 id="structure-heading" class="font-semibold text-gray-900">Cấu trúc bài thi</h2><p class="mt-1 text-sm text-gray-500">Mỗi phần dùng bộ đếm giờ riêng.</p></div>
+    <ol class="divide-y divide-gray-100">{% for ph in phases %}<li class="flex items-center gap-4 px-5 py-4 sm:px-6"><span class="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-brand-50 text-sm font-bold text-brand-700">{{ loop.index }}</span><div class="min-w-0 flex-1"><p class="font-semibold text-gray-900">{{ ph.label }} <span class="font-normal text-gray-500">— {{ ph.label_vi }}</span></p><p class="mt-0.5 text-sm text-gray-500">{% if ph.key == 'written' %}{{ written_count }} câu · 語彙・文法・読解{% else %}{{ listening_count }} câu · 聴解{% endif %}</p></div><p class="shrink-0 text-sm font-semibold text-gray-900">{{ ph.minutes }} phút</p></li>{% endfor %}</ol>
+    <div class="grid grid-cols-2 border-t border-gray-100 bg-gray-50 px-5 py-4 text-sm sm:grid-cols-3 sm:px-6"><div><p class="text-gray-500">Tổng số câu</p><p class="mt-1 font-bold text-gray-900">{{ exam.questions|length }} câu</p></div><div><p class="text-gray-500">Điểm đạt</p><p class="mt-1 font-bold text-gray-900">{{ exam.passing_score }}%</p></div><div class="col-span-2 mt-3 sm:col-span-1 sm:mt-0"><p class="text-gray-500">Tự động lưu</p><p class="mt-1 font-bold text-emerald-700">Có</p></div></div>
+  </section>
+  <aside class="rounded-xl border border-blue-100 bg-blue-50 p-5" aria-labelledby="rules-heading"><h2 id="rules-heading" class="font-semibold text-blue-950">Trước khi bắt đầu</h2><ul class="mt-2 space-y-1.5 text-sm leading-6 text-blue-900"><li>• Đáp án chỉ hiện sau khi nộp bài.</li><li>• Hết giờ, hệ thống tự chuyển phần hoặc nộp bài.</li><li>• Bạn có thể đánh dấu câu để quay lại kiểm tra.</li>{% if exam.audio %}<li>• Chuẩn bị tai nghe cho phần nghe hiểu.</li>{% endif %}</ul></aside>
+  <form method="POST" action="{{ url_for('exams.start', exam_id=exam.id) }}" class="flex flex-col-reverse gap-3 sm:flex-row sm:items-center sm:justify-between"><p class="text-center text-xs text-gray-500 sm:text-left">Đồng hồ bắt đầu ngay sau khi bạn nhấn nút.</p><button type="submit" class="inline-flex min-h-12 items-center justify-center gap-2 rounded-xl bg-brand-600 px-7 py-3 font-semibold text-white shadow-sm transition-colors hover:bg-brand-700 focus:outline-none focus:ring-2 focus:ring-brand-500 focus:ring-offset-2">Bắt đầu làm bài <span aria-hidden="true">→</span></button></form>
 </div>
 {% endblock %}

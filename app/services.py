@@ -45,6 +45,16 @@ def get_exam_by_slug(slug: str) -> Exam | None:
 def exam_to_dict(exam: Exam) -> dict:
     questions = exam.questions.order_by(Question.sort_order).all()
     sections = exam.sections_dict
+    question_dicts = [question_to_dict(q, sections) for q in questions]
+    listening_number = 0
+    written_number = 0
+    for question in question_dicts:
+        if question["phase"] == "listening":
+            listening_number += 1
+            question["display_id"] = f"L{listening_number}"
+        else:
+            written_number += 1
+            question["display_id"] = f"Q{written_number}"
     return {
         "id": exam.slug,
         "db_id": exam.id,
@@ -58,7 +68,7 @@ def exam_to_dict(exam: Exam) -> dict:
         "date": sections.get("date", ""),
         "audio": sections.get("audio", ""),
         "phases": sections.get("phases", []),
-        "questions": [question_to_dict(q, sections) for q in questions],
+        "questions": question_dicts,
     }
 
 
@@ -67,9 +77,12 @@ def question_to_dict(q: Question, exam_sections: dict | None = None) -> dict:
     display_id = tail[0].upper() + tail[1:] if tail else q.slug
 
     section_label = q.section
-    phase = "listening" if display_id.startswith("L") else "written"
+    phase = "listening" if display_id.startswith("L") or q.section.startswith("聴解") else "written"
     if exam_sections:
         for sec in exam_sections.get("section_list", []):
+            if sec.get("id") == q.section:
+                section_label = sec.get("label", q.section)
+                break
             q_range = str(sec.get("questions", ""))
             ids = _ids_in_range(q_range)
             if display_id in ids:
