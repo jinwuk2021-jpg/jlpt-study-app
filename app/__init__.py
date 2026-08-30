@@ -6,7 +6,8 @@ from app.extensions import db
 
 def create_app():
     app = Flask(__name__, instance_relative_config=True)
-    os.makedirs(app.instance_path, exist_ok=True)
+    if not os.environ.get("VERCEL"):
+        os.makedirs(app.instance_path, exist_ok=True)
 
     app.config["SECRET_KEY"] = os.environ.get("SECRET_KEY", "dev-secret-key-change-in-production")
     database_url = os.environ.get(
