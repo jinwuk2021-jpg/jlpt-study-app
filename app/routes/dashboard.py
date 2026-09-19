@@ -51,20 +51,43 @@ def _item_at_index(items: list, idx: int):
     return items[i], i
 
 
+@dashboard_bp.route("/onboarding", methods=["GET", "POST"])
+def onboarding():
+    from app.utils import _ensure_guest_session
+    _ensure_guest_session()
+
+    if session.get("level_selected"):
+        return redirect(url_for("dashboard.index"))
+
+    if request.method == "POST":
+        level = request.form.get("level", "N5")
+        if level not in JLPT_LEVELS:
+            level = "N5"
+        user = get_user_by_id(session["user_id"])
+        if user:
+            user.level = level
+            db.session.commit()
+            session["user"] = user.to_session_dict()
+        session["level_selected"] = True
+        return redirect(url_for("dashboard.index"))
+
+    return render_template("dashboard/onboarding.html", levels=JLPT_LEVELS, level_colors=LEVEL_COLORS)
+
+
 @dashboard_bp.route("/")
 @login_required
 def index():
     user = _current_user()
     session["user"] = user.to_session_dict()
+    user_level = user.level if user.level in JLPT_LEVELS else "N5"
     study_by_level = [
         {
-            "level": lv,
+            "level": user_level,
             "links": [
-                {"url": url_for(endpoint, level=lv), "label": label, "icon": icon}
+                {"url": url_for(endpoint), "label": label, "icon": icon}
                 for endpoint, label, icon in STUDY_LINKS
             ],
         }
-        for lv in LEVEL_ORDER
     ]
     return render_template(
         "dashboard/index.html",
@@ -75,19 +98,16 @@ def index():
         weekly=WEEKLY_PROGRESS,
         level_colors=LEVEL_COLORS,
         study_by_level=study_by_level,
-        open_level=_active_level(),
+        open_level=user_level,
     )
 
 
 @dashboard_bp.route("/vocabulary")
 @login_required
 def vocabulary():
-    groups = group_items_by_level(
-        Vocabulary.query.order_by(Vocabulary.level, Vocabulary.id).all()
-    )
-    active_level = _active_level()
-    active_group = next((g for g in groups if g["level"] == active_level), None)
-    items = active_group["entries"] if active_group else []
+    active_level = _user_level()
+    items = Vocabulary.query.filter_by(level=active_level).order_by(Vocabulary.id).all()
+    groups = [{"level": active_level, "entries": items, "total": len(items)}]
     idx = int(request.args.get("i", 0))
     vocab, current_idx = _item_at_index(items, idx)
     return render_template(
@@ -103,10 +123,9 @@ def vocabulary():
 @dashboard_bp.route("/kanji")
 @login_required
 def kanji():
-    groups = group_items_by_level(Kanji.query.order_by(Kanji.level, Kanji.id).all())
-    active_level = _active_level()
-    active_group = next((g for g in groups if g["level"] == active_level), None)
-    items = active_group["entries"] if active_group else []
+    active_level = _user_level()
+    items = Kanji.query.filter_by(level=active_level).order_by(Kanji.id).all()
+    groups = [{"level": active_level, "entries": items, "total": len(items)}]
     idx = int(request.args.get("i", 0))
     item, selected = _item_at_index(items, idx)
     return render_template(
@@ -122,10 +141,9 @@ def kanji():
 @dashboard_bp.route("/grammar")
 @login_required
 def grammar():
-    groups = group_items_by_level(Grammar.query.order_by(Grammar.level, Grammar.id).all())
-    active_level = _active_level()
-    active_group = next((g for g in groups if g["level"] == active_level), None)
-    items = active_group["entries"] if active_group else []
+    active_level = _user_level()
+    items = Grammar.query.filter_by(level=active_level).order_by(Grammar.id).all()
+    groups = [{"level": active_level, "entries": items, "total": len(items)}]
     idx = int(request.args.get("i", 0))
     item, selected = _item_at_index(items, idx)
     return render_template(
@@ -142,10 +160,9 @@ def grammar():
 @dashboard_bp.route("/listening")
 @login_required
 def listening():
-    groups = group_items_by_level(Listening.query.order_by(Listening.level, Listening.id).all())
-    active_level = _active_level()
-    active_group = next((g for g in groups if g["level"] == active_level), None)
-    items = active_group["entries"] if active_group else []
+    active_level = _user_level()
+    items = Listening.query.filter_by(level=active_level).order_by(Listening.id).all()
+    groups = [{"level": active_level, "entries": items, "total": len(items)}]
     idx = int(request.args.get("i", 0))
     item, selected = _item_at_index(items, idx)
     return render_template(

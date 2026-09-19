@@ -69,4 +69,4 @@ def verify_email():
 @auth_bp.route("/logout")
 def logout():
     session.clear()
-    return redirect(url_for("main.index"))
+    return redirect(url_for("dashboard.onboarding"))

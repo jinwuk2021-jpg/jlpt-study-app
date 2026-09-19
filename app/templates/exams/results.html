@@ -1,67 +1,178 @@
 {% extends "base.html" %}
-{% from "macros.html" import level_badge, progress_bar %}
-{% block title %}Exam Results{% endblock %}
+{% block title %}Kết quả — {{ exam.title }}{% endblock %}
+{% block head %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/results.css') }}">
+{% endblock %}
 {% block body %}
-<div class="min-h-screen bg-gray-50 p-6 lg:p-8">
-  <div class="mx-auto max-w-4xl space-y-8">
-    <div class="text-center">
-      <div class="mx-auto mb-4 flex h-20 w-20 items-center justify-center rounded-full text-4xl {% if results.passed %}bg-emerald-100{% else %}bg-red-100{% endif %}">
-        {% if results.passed %}🏆{% else %}❌{% endif %}
+{% set circumference = 339.29 %}
+{% set offset = (circumference * (1 - results.score / 100))|round(2) %}
+{% set ring_class = 'is-pass' if results.passed else ('is-near' if results.score >= exam.passing_score * 0.85 else 'is-fail') %}
+<div class="results-shell">
+
+  <!-- Topbar -->
+  <div class="results-topbar">
+    <a href="{{ url_for('exams.index') }}" class="results-back-btn">
+      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg>
+      Danh sách đề
+    </a>
+    <p class="results-exam-meta">{{ exam.title }}</p>
+    <span class="results-level-badge" data-level="{{ exam.level }}">{{ exam.level }}</span>
+  </div>
+
+  <div class="results-container">
+
+    <!-- ── Score Hero ── -->
+    <div class="results-hero">
+      <div class="results-ring-wrap">
+        <svg class="results-ring-svg" viewBox="0 0 120 120" aria-hidden="true">
+          <circle class="results-ring-bg" cx="60" cy="60" r="54"/>
+          <circle class="results-ring-fg {{ ring_class }}"
+            cx="60" cy="60" r="54"
+            stroke-dasharray="{{ circumference }}"
+            stroke-dashoffset="{{ offset }}"/>
+        </svg>
+        <div class="results-ring-center">
+          <span class="results-score-big">{{ results.score }}</span>
+          <span class="results-score-unit">/ 100</span>
+        </div>
       </div>
-      <h1 class="text-3xl font-bold">{% if results.passed %}Congratulations!{% else %}Keep Practicing!{% endif %}</h1>
-      <p class="text-gray-500 mt-2">{% if results.passed %}You passed the {{ exam.level }} mock exam!{% else %}Need {{ exam.passing_score }}% to pass.{% endif %}</p>
-      <div class="mt-4 flex items-center justify-center gap-4">
-        <span class="text-5xl font-bold bg-gradient-to-r from-brand-600 to-indigo-600 bg-clip-text text-transparent">{{ results.score }}%</span>
-        {{ level_badge(exam.level) }}
-        <span class="rounded-full px-3 py-1 text-xs font-semibold {% if results.passed %}bg-emerald-100 text-emerald-700{% else %}bg-red-100 text-red-700{% endif %}">{% if results.passed %}PASSED{% else %}FAILED{% endif %}</span>
+
+      <div class="results-verdict-icon {% if results.passed %}is-pass{% else %}is-fail{% endif %}" aria-hidden="true">
+        {% if results.passed %}
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+        {% else %}
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+        {% endif %}
       </div>
-      <p class="text-sm text-gray-500 mt-2">{{ results.correct }} / {{ results.total }} correct</p>
+
+      <h1 class="results-verdict-title">
+        {% if results.passed %}Xuất sắc! Bạn đã qua!{% else %}Cố gắng thêm nhé{% endif %}
+      </h1>
+      <p class="results-verdict-sub">
+        {% if results.passed %}Vượt qua bài thi {{ exam.level }} với {{ results.score }}%{% else %}Cần {{ exam.passing_score }}% để đạt — bạn được {{ results.score }}%{% endif %}
+      </p>
+
+      <div class="results-stats-row">
+        <div class="results-stat">
+          <span class="results-stat-value" style="color:#4ade80">{{ results.correct }}</span>
+          <span class="results-stat-label">Câu đúng</span>
+        </div>
+        <div class="results-stat">
+          <span class="results-stat-value" style="color:#f87171">{{ results.total - results.correct }}</span>
+          <span class="results-stat-label">Câu sai</span>
+        </div>
+        <div class="results-stat">
+          <span class="results-stat-value">{{ results.total }}</span>
+          <span class="results-stat-label">Tổng câu</span>
+        </div>
+      </div>
     </div>
 
-    <div class="rounded-2xl border bg-white p-6 shadow-sm">
-      <h3 class="font-semibold mb-4">Section Breakdown</h3>
-      {% for section, data in results.section_scores.items() %}
-      <div class="mb-4">
-        <div class="flex justify-between text-sm mb-1"><span class="font-medium capitalize">{{ section }}</span><span>{{ data.correct }}/{{ data.total }} ({{ ((data.correct / data.total) * 100)|round|int }}%)</span></div>
-        {{ progress_bar(data.correct, data.total) }}
-      </div>
-      {% endfor %}
-    </div>
-
-    {% if results.weaknesses %}
-    <div class="rounded-2xl border bg-white p-6 shadow-sm">
-      <h3 class="font-semibold mb-4">⚠️ Weakness Analysis</h3>
-      {% for w in results.weaknesses[:5] %}<p class="text-sm text-gray-600 capitalize mb-1">{{ w }}</p>{% endfor %}
-      <div class="mt-4 flex gap-2">
-        <a href="{{ url_for('dashboard.vocabulary') }}" class="rounded-xl border px-4 py-2 text-sm">Review Vocabulary</a>
-        <a href="{{ url_for('dashboard.grammar') }}" class="rounded-xl border px-4 py-2 text-sm">Review Grammar</a>
+    <!-- ── Section Breakdown ── -->
+    {% if results.section_scores %}
+    <div class="results-card">
+      <p class="results-card-title">
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+        Phân tích theo phần
+      </p>
+      <div class="results-section-list">
+        {% for section, data in results.section_scores.items() %}
+        {% set pct = ((data.correct / data.total) * 100)|round|int if data.total > 0 else 0 %}
+        <div class="results-section-row">
+          <div class="results-section-head">
+            <span class="results-section-name">{{ section }}</span>
+            <span class="results-section-count">{{ data.correct }}/{{ data.total }}&nbsp;&nbsp;{{ pct }}%</span>
+          </div>
+          <div class="results-bar-track">
+            <div class="results-bar-fill {% if pct >= 70 %}is-good{% elif pct >= 50 %}is-warn{% else %}is-bad{% endif %}"
+              style="width: {{ pct }}%"></div>
+          </div>
+        </div>
+        {% endfor %}
       </div>
     </div>
     {% endif %}
 
-    <div class="rounded-2xl border bg-white p-6 shadow-sm">
-      <h3 class="font-semibold mb-4">Answer Review</h3>
-      {% for q in review %}
-      <div class="rounded-xl border p-4 mb-3 {% if q.is_correct %}border-emerald-200 bg-emerald-50/50{% else %}border-red-200 bg-red-50/50{% endif %}">
-        <div class="flex gap-2 mb-2"><span class="text-xs text-gray-400">Q{{ q.index + 1 }}</span>
-        <span class="text-xs text-blue-600">{{ q.section_label or q.section }}</span>
-        <span class="text-xs text-gray-400">{{ q.display_id }}</span>
-        <span class="text-xs {% if q.is_correct %}text-emerald-600{% else %}text-red-600{% endif %}">{% if q.is_correct %}Correct{% else %}Incorrect{% endif %}</span></div>
-        <p class="text-sm font-medium">{{ q.question }}</p>
-        {% if q.user_answer is not none %}
-        <p class="text-sm mt-1">Your answer: <span class="{% if q.is_correct %}text-emerald-600{% else %}text-red-600{% endif %}">{{ q.options[q.user_answer|int] }}</span>
-        {% if not q.is_correct %} → Correct: <span class="text-emerald-600">{{ q.options[q.correct_answer] }}</span>{% endif %}</p>
-        {% endif %}
-        <p class="text-xs text-gray-500 mt-2">{{ q.explanation }}</p>
+    <!-- ── Weakness Analysis ── -->
+    {% if results.weaknesses %}
+    <div class="results-card">
+      <p class="results-card-title">
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+        Điểm yếu cần ôn tập
+      </p>
+      <div class="results-weakness-list">
+        {% for w in results.weaknesses[:5] %}
+        <p class="results-weakness-item"><span class="results-weakness-dot"></span>{{ w }}</p>
+        {% endfor %}
       </div>
-      {% endfor %}
+      <div class="results-weakness-links">
+        <a href="{{ url_for('dashboard.vocabulary') }}" class="results-link-btn">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>
+          Ôn từ vựng
+        </a>
+        <a href="{{ url_for('dashboard.grammar') }}" class="results-link-btn">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="4 7 4 4 20 4 20 7"/><line x1="9" y1="20" x2="15" y2="20"/><line x1="12" y1="4" x2="12" y2="20"/></svg>
+          Ôn ngữ pháp
+        </a>
+      </div>
+    </div>
+    {% endif %}
+
+    <!-- ── Answer Review ── -->
+    <div class="results-card">
+      <p class="results-card-title">
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
+        Chi tiết từng câu
+      </p>
+      <div class="results-review-list">
+        {% for q in review %}
+        <div class="results-review-item {% if q.is_correct %}is-correct{% else %}is-wrong{% endif %}">
+          <div class="results-review-meta">
+            <span class="results-review-qnum">Câu {{ q.index + 1 }}</span>
+            {% if q.section_label or q.section %}
+            <span class="results-review-section">{{ q.section_label or q.section }}</span>
+            {% endif %}
+            <span class="results-review-badge {% if q.is_correct %}is-correct{% else %}is-wrong{% endif %}">
+              {% if q.is_correct %}Đúng{% else %}Sai{% endif %}
+            </span>
+          </div>
+          <p class="results-review-question font-jp">{{ q.question_ja or q.question }}</p>
+          {% if q.user_answer is not none %}
+          <p class="results-review-answer">
+            Bạn chọn:&nbsp;<span class="{% if q.is_correct %}ans-correct{% else %}ans-wrong{% endif %}">{{ q.options[q.user_answer|int] }}</span>
+            {% if not q.is_correct %}
+            &nbsp;→&nbsp;Đáp án:&nbsp;<span class="ans-correct">{{ q.options[q.correct_answer] }}</span>
+            {% endif %}
+          </p>
+          {% else %}
+          <p class="results-review-answer"><span class="ans-wrong">Chưa trả lời</span></p>
+          {% endif %}
+          {% if q.explanation %}
+          <p class="results-review-explanation">{{ q.explanation }}</p>
+          {% endif %}
+        </div>
+        {% endfor %}
+      </div>
     </div>
 
-    <div class="flex flex-wrap gap-3 justify-center pb-8">
-      {% if results.passed %}<button class="rounded-xl border-2 border-brand-500 px-6 py-3 text-sm font-semibold text-brand-600">📥 Download Certificate</button>{% endif %}
-      <a href="{{ url_for('exams.take', exam_id=exam.id) }}" class="rounded-xl border px-6 py-3 text-sm font-semibold">🔄 Retake Exam</a>
-      <a href="{{ url_for('exams.index') }}" class="rounded-xl bg-gradient-to-r from-brand-600 to-indigo-600 px-6 py-3 text-sm font-semibold text-white">Back to Exams →</a>
+    <!-- ── Actions ── -->
+    <div class="results-actions">
+      {% if results.passed %}
+      <button class="results-btn is-gold">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="6"/><path d="M15.477 12.89L17 22l-5-3-5 3 1.523-9.11"/></svg>
+        Tải chứng chỉ
+      </button>
+      {% endif %}
+      <a href="{{ url_for('exams.start', exam_id=exam.id) }}" class="results-btn is-ghost">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="1 4 1 10 7 10"/><path d="M3.51 15a9 9 0 1 0 .49-4.87"/></svg>
+        Làm lại
+      </a>
+      <a href="{{ url_for('exams.index') }}" class="results-btn is-primary">
+        Về danh sách đề
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
+      </a>
     </div>
+
   </div>
 </div>
 {% endblock %}

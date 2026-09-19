@@ -1,56 +1,215 @@
 {% extends "dashboard/layout.html" %}
-{% from "macros.html" import level_badge, level_accordion %}
-{% block title %}Kanji{% endblock %}
+{% block title %}Kanji {{ active_level }}{% endblock %}
+{% block head %}
+<style>
+  .kanji-card {
+    perspective: 1200px;
+    cursor: pointer;
+  }
+  .kanji-card-inner {
+    position: relative;
+    width: 100%;
+    transition: transform 0.45s cubic-bezier(.4,0,.2,1);
+    transform-style: preserve-3d;
+  }
+  .kanji-card.is-flipped .kanji-card-inner {
+    transform: rotateY(180deg);
+  }
+  .kanji-face {
+    backface-visibility: hidden;
+    -webkit-backface-visibility: hidden;
+  }
+  .kanji-face-back {
+    position: absolute;
+    inset: 0;
+    transform: rotateY(180deg);
+  }
+</style>
+{% endblock %}
 {% block dashboard_content %}
-<div class="space-y-6">
-  <div>
-    <h1 class="text-2xl font-bold">Kanji Learning</h1>
-    <p class="text-gray-500">Hán tự theo cấp độ — bấm từng khóa N để xem chi tiết</p>
+{% set group = groups[0] if groups else none %}
+<div class="flex flex-col h-full"
+     x-data="{ listOpen: true, flipped: false }"
+     @keydown.arrow-right.window="window.location.href = nextUrl"
+     @keydown.arrow-left.window="window.location.href = prevUrl">
+
+  <!-- Header -->
+  <div class="flex items-center justify-between mb-5">
+    <div class="flex items-center gap-3">
+      <span class="rounded-full bg-indigo-100 text-indigo-700 px-3 py-1 text-sm font-bold">{{ active_level }}</span>
+      <div>
+        <h1 class="text-xl font-bold text-gray-900 leading-none">Kanji</h1>
+        {% if group %}<p class="text-xs text-gray-400 mt-0.5">{{ group.total }} chữ Hán</p>{% endif %}
+      </div>
+    </div>
+    <button @click="listOpen = !listOpen"
+            class="inline-flex items-center gap-1.5 rounded-lg border border-gray-200 bg-white px-3 py-1.5 text-xs font-medium text-gray-600 hover:bg-gray-50 transition-colors">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <line x1="8" y1="6" x2="21" y2="6"/><line x1="8" y1="12" x2="21" y2="12"/><line x1="8" y1="18" x2="21" y2="18"/>
+        <line x1="3" y1="6" x2="3.01" y2="6"/><line x1="3" y1="12" x2="3.01" y2="12"/><line x1="3" y1="18" x2="3.01" y2="18"/>
+      </svg>
+      <span x-text="listOpen ? 'Ẩn danh sách' : 'Danh sách'"></span>
+    </button>
   </div>
 
-  <div class="space-y-4">
-    {% for group in groups %}
-    {% set is_active = group.level == active_level %}
-    {% call level_accordion(group.level, 'Khóa ' ~ group.level, group.total ~ ' chữ Hán', open=is_active) %}
-      {% if group.total == 0 %}
-      <p class="text-sm text-gray-500 text-center py-6">Chưa có kanji. Chạy <code class="text-xs">python scripts/import_content.py --force</code></p>
-      {% elif is_active and kanji %}
-      <div class="grid gap-6 lg:grid-cols-3">
-        <div class="lg:col-span-2 rounded-2xl border bg-gray-50 p-8 text-center">
-          {{ level_badge(kanji.level) }}
-          <p class="font-jp text-[100px] font-bold leading-none mt-4">{{ kanji.character }}</p>
-          <p class="text-xl text-gray-600 mt-4">{{ kanji.meaning }}</p>
-          <div class="mt-8 mx-auto max-w-xs aspect-square rounded-2xl border-2 border-dashed border-gray-200 flex items-center justify-center bg-white">
-            <div><p class="font-jp text-6xl text-gray-300">{{ kanji.character }}</p><p class="text-xs text-gray-400 mt-2">{{ kanji.strokes }} strokes</p></div>
-          </div>
-        </div>
-        <div class="space-y-4">
-          <div class="rounded-2xl border bg-gray-50 p-6">
-            <h3 class="font-semibold mb-3">Readings</h3>
-            <p class="text-xs text-gray-500 uppercase">Onyomi</p><p class="font-jp text-lg">{{ kanji.onyomi_list|join('、') }}</p>
-            <p class="text-xs text-gray-500 uppercase mt-2">Kunyomi</p><p class="font-jp text-lg">{{ kanji.kunyomi_list|join('、') }}</p>
-          </div>
-          <div class="rounded-2xl border bg-gray-50 p-6">
-            <h3 class="font-semibold mb-3">Examples</h3>
-            {% for ex in kanji.examples_list %}
-            <div class="border-b pb-2 mb-2 last:border-0"><p class="font-jp font-medium">{{ ex.word }}</p><p class="text-xs text-gray-400 font-jp">{{ ex.reading }}</p><p class="text-sm text-gray-600">{{ ex.meaning }}</p></div>
-            {% endfor %}
-          </div>
-        </div>
-      </div>
-      <div class="mt-6">
-        <h4 class="font-semibold mb-3 text-sm">Chọn kanji</h4>
-        <div class="flex flex-wrap gap-2">
-          {% for k in group.entries %}
-          <a href="?level={{ group.level }}&i={{ loop.index0 }}" class="font-jp text-2xl w-12 h-12 rounded-xl border flex items-center justify-center {% if loop.index0 == selected %}border-brand-500 bg-brand-50 text-brand-700{% else %}border-gray-200 hover:border-gray-300{% endif %}">{{ k.character }}</a>
-          {% endfor %}
-        </div>
-      </div>
-      {% else %}
-      <p class="text-sm text-gray-500 text-center py-4"><a href="?level={{ group.level }}" class="text-brand-600 font-medium">Mở học {{ group.total }} kanji {{ group.level }}</a></p>
-      {% endif %}
-    {% endcall %}
-    {% endfor %}
+  {% if not group or group.total == 0 %}
+  <div class="flex-1 flex items-center justify-center text-center py-20">
+    <div>
+      <p class="font-jp text-5xl text-gray-200 mb-3">漢</p>
+      <p class="text-sm text-gray-400">Chưa có kanji cho cấp {{ active_level }}</p>
+    </div>
   </div>
+  {% else %}
+
+  <!-- 2-col layout -->
+  <div class="flex gap-4 items-start min-h-0">
+
+    <!-- ── Left: kanji list ── -->
+    <div x-show="listOpen"
+         x-transition:enter="transition-all duration-200 ease-out"
+         x-transition:enter-start="opacity-0 -translate-x-2"
+         x-transition:enter-end="opacity-100 translate-x-0"
+         x-transition:leave="transition-all duration-150 ease-in"
+         x-transition:leave-start="opacity-100 translate-x-0"
+         x-transition:leave-end="opacity-0 -translate-x-2"
+         class="w-60 flex-shrink-0 rounded-xl border border-gray-200 bg-white overflow-y-auto"
+         style="max-height: calc(100vh - 10rem)">
+      {% for k in group.entries %}
+      <a href="?i={{ loop.index0 }}"
+         class="flex items-center gap-3 px-4 py-2.5 border-b border-gray-100 last:border-0 transition-colors
+                {% if loop.index0 == selected %}bg-indigo-50 border-l-[3px] border-l-indigo-500{% else %}hover:bg-gray-50{% endif %}">
+        <span class="font-jp font-bold text-gray-900 flex-shrink-0"
+              style="font-size: 1.375rem; line-height: 1.2; min-width: 1.75rem; text-align: center">{{ k.character }}</span>
+        <div class="min-w-0">
+          <p class="text-xs text-gray-500 truncate">{{ k.meaning }}</p>
+          {% if k.strokes %}<p class="text-[10px] text-gray-300 mt-0.5">{{ k.strokes }} nét</p>{% endif %}
+        </div>
+        {% if loop.index0 == selected %}
+        <svg class="flex-shrink-0 ml-auto text-indigo-400" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"/></svg>
+        {% endif %}
+      </a>
+      {% endfor %}
+    </div>
+
+    <!-- ── Right: card + nav ── -->
+    <div class="flex-1 min-w-0 flex flex-col gap-3">
+
+      {% if kanji %}
+      {% set prev_i = (selected - 1 + group.total) % group.total %}
+      {% set next_i = (selected + 1) % group.total %}
+
+      <!-- Flip card -->
+      <div class="kanji-card" :class="{ 'is-flipped': flipped }" @click="flipped = !flipped"
+           style="height: calc(100vh - 14rem); min-height: 440px">
+        <div class="kanji-card-inner" style="height: calc(100vh - 14rem); min-height: 440px">
+
+          <!-- Front: character -->
+          <div class="kanji-face w-full rounded-2xl bg-white border border-gray-100 shadow-sm
+                       flex flex-col items-center justify-center text-center select-none"
+               style="height: calc(100vh - 14rem); min-height: 440px">
+
+            {% if kanji.strokes %}
+            <p class="text-xs text-gray-300 uppercase tracking-widest mb-6">{{ kanji.strokes }} nét</p>
+            {% endif %}
+
+            <p class="font-jp font-bold text-gray-900 leading-none"
+               style="font-size: clamp(7rem, 16vw, 13rem)">{{ kanji.character }}</p>
+
+            <p class="text-xs text-gray-300 mt-10 flex items-center gap-1.5">
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 8h10M7 12h4m1 8l-4-4H5a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2h-3l-4 4z"/></svg>
+              Click để xem chi tiết
+            </p>
+          </div>
+
+          <!-- Back: meaning + readings + examples -->
+          <div class="kanji-face kanji-face-back w-full rounded-2xl border border-indigo-100 shadow-sm
+                       overflow-y-auto select-none"
+               style="height: calc(100vh - 14rem); min-height: 440px;
+                      background: linear-gradient(160deg, #f8faff 0%, #eef2ff 100%)">
+
+            <div class="flex flex-col items-center justify-start px-8 py-10 min-h-full">
+
+              <!-- Character + meaning -->
+              <p class="font-jp font-bold text-gray-800 leading-none"
+                 style="font-size: clamp(3.5rem, 8vw, 6rem)">{{ kanji.character }}</p>
+              <div class="w-12 h-0.5 bg-indigo-200 rounded my-4"></div>
+              <p class="font-semibold text-indigo-700 text-center"
+                 style="font-size: clamp(1.25rem, 2.5vw, 1.875rem)">{{ kanji.meaning }}</p>
+
+              <!-- Readings -->
+              <div class="mt-8 w-full max-w-lg grid grid-cols-2 gap-3">
+                {% if kanji.onyomi_list %}
+                <div class="rounded-xl bg-white/70 border border-indigo-100 px-4 py-3">
+                  <p class="text-[10px] font-bold text-indigo-400 uppercase tracking-wider mb-1.5">音読み</p>
+                  <p class="font-jp text-gray-800 font-semibold"
+                     style="font-size: clamp(0.9rem, 1.5vw, 1.125rem)">{{ kanji.onyomi_list|join('　') }}</p>
+                </div>
+                {% endif %}
+                {% if kanji.kunyomi_list %}
+                <div class="rounded-xl bg-white/70 border border-indigo-100 px-4 py-3">
+                  <p class="text-[10px] font-bold text-indigo-400 uppercase tracking-wider mb-1.5">訓読み</p>
+                  <p class="font-jp text-gray-800 font-semibold"
+                     style="font-size: clamp(0.9rem, 1.5vw, 1.125rem)">{{ kanji.kunyomi_list|join('　') }}</p>
+                </div>
+                {% endif %}
+              </div>
+
+              <!-- Examples -->
+              {% if kanji.examples_list %}
+              <div class="mt-5 w-full max-w-lg">
+                <p class="text-[10px] font-bold text-indigo-400 uppercase tracking-wider mb-2.5">Ví dụ</p>
+                <div class="space-y-2">
+                  {% for ex in kanji.examples_list[:4] %}
+                  <div class="rounded-xl bg-white/70 border border-indigo-100 px-4 py-2.5 flex items-baseline gap-3">
+                    <span class="font-jp font-bold text-gray-900 flex-shrink-0"
+                          style="font-size: clamp(0.9375rem, 1.5vw, 1.125rem)">{{ ex.word }}</span>
+                    {% if ex.reading %}
+                    <span class="font-jp text-gray-400 text-sm flex-shrink-0">{{ ex.reading }}</span>
+                    {% endif %}
+                    <span class="text-gray-600 text-sm truncate">{{ ex.meaning }}</span>
+                  </div>
+                  {% endfor %}
+                </div>
+              </div>
+              {% endif %}
+
+              <p class="text-xs text-indigo-300 mt-8">Click để lật lại</p>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- Navigation -->
+      <div class="flex items-center justify-between">
+        <a href="?i={{ prev_i }}"
+           class="inline-flex items-center gap-2 rounded-lg border border-gray-200 bg-white px-4 py-2.5 text-sm font-medium text-gray-700 hover:bg-gray-50 transition-colors">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg>
+          Trước
+        </a>
+        <div class="text-center">
+          <span class="text-sm font-semibold text-gray-700">{{ selected + 1 }}</span>
+          <span class="text-sm text-gray-400"> / {{ group.total }}</span>
+          <p class="text-[11px] text-gray-300 mt-0.5">← → để điều hướng</p>
+        </div>
+        <a href="?i={{ next_i }}"
+           class="inline-flex items-center gap-2 rounded-lg border border-gray-200 bg-white px-4 py-2.5 text-sm font-medium text-gray-700 hover:bg-gray-50 transition-colors">
+          Tiếp
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
+        </a>
+      </div>
+      {% endif %}
+
+    </div>
+  </div>
+  {% endif %}
+
 </div>
+
+<script>
+  const selectedIdx = {{ selected }};
+  const total = {{ group.total if group else 0 }};
+  window.prevUrl = `?i=${((selectedIdx - 1) % total + total) % total}`;
+  window.nextUrl = `?i=${(selectedIdx + 1) % total}`;
+</script>
 {% endblock %}

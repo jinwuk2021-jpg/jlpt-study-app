@@ -61,35 +61,24 @@ def _global_question_index(exam: dict, phase_key: str, local_idx: int) -> int:
 @exams_bp.route("/")
 @login_required
 def index():
-    all_exams = Exam.query.order_by(Exam.level, Exam.id.desc()).all()
-    official_by_level: list[dict] = []
+    user_id = session["user_id"]
+    user = get_user_by_id(user_id)
+    user_level = user.level if user and user.level in JLPT_LEVELS else "N5"
+
+    all_exams = Exam.query.filter_by(level=user_level).order_by(Exam.id.desc()).all()
+    official_list = []
     practice_list = []
-    buckets: dict[str, list] = {lv: [] for lv in LEVEL_ORDER}
 
     for e in all_exams:
         meta = e.sections_dict
         if meta.get("kind") == "official":
-            if e.level in buckets:
-                buckets[e.level].append(e)
+            official_list.append(e)
         else:
             practice_list.append(e)
 
-    for level in LEVEL_ORDER:
-        exams = buckets[level]
-        if not exams:
-            continue
-        exams.sort(key=lambda x: x.sections_dict.get("date", "") or x.slug, reverse=True)
-        official_by_level.append({"level": level, "exams": exams, "total": len(exams)})
-
-    practice_by_level = [
-        g for g in group_items_by_level(practice_list)
-        if g["total"] > 0
-    ]
-
-    user_id = session["user_id"]
-    user = get_user_by_id(user_id)
-    default_lv = user.level if user and user.level in JLPT_LEVELS else "N5"
-    open_level = resolve_active_level(request, default_lv)
+    official_list.sort(key=lambda x: x.sections_dict.get("date", "") or x.slug, reverse=True)
+    official_by_level = [{"level": user_level, "exams": official_list, "total": len(official_list)}] if official_list else []
+    practice_by_level = [{"level": user_level, "entries": practice_list, "total": len(practice_list)}] if practice_list else []
 
     return render_template(
         "exams/index.html",
@@ -97,7 +86,7 @@ def index():
         practice_by_level=practice_by_level,
         exam_history=get_exam_history(user_id),
         level_colors=LEVEL_COLORS,
-        open_level=open_level,
+        open_level=user_level,
     )
 
 
@@ -252,6 +241,9 @@ def save_answer(exam_id):
     if action == "save":
         return redirect(url_for("exams.take", exam_id=exam_id, q=q_idx))
 
+    if action == "submit":
+        return redirect(url_for("exams.results", exam_id=exam_id))
+
     if action == "prev" and local_idx > 0:
         prev_global = _global_question_index(exam, phase_key, local_idx - 1)
         return redirect(url_for("exams.take", exam_id=exam_id, q=prev_global))
@@ -260,11 +252,10 @@ def save_answer(exam_id):
     if action == "next" and local_idx < len(phase_questions) - 1:
         next_global = _global_question_index(exam, phase_key, local_idx + 1)
         return redirect(url_for("exams.take", exam_id=exam_id, q=next_global))
-    if action in ("submit", "next") and local_idx >= len(phase_questions) - 1:
+    if action == "next" and local_idx >= len(phase_questions) - 1:
         phases = _exam_phases(exam)
         if (
-            action == "next"
-            and phase_key == "written"
+            phase_key == "written"
             and any(p["key"] == "listening" for p in phases)
             and _phase_questions(exam, "listening")
         ):
